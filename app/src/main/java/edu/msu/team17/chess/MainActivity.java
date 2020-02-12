@@ -13,8 +13,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-//    public void onStartChess(View view) {
-//        Intent intent = new Intent(this, ChessActivity.class);
-//        startActivity(intent);
-//    }
+    public void onStartChess(View view) {
+        Intent intent = new Intent(this, ChessActivity.class);
+        startActivity(intent);
+    }
 }
