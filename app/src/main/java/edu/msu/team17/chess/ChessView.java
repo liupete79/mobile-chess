@@ -11,6 +11,9 @@ import android.view.View;
  */
 public class ChessView extends View {
 
+    //The actual chess board + game
+    private Chess chess;
+
     public ChessView(Context context) {
         super(context);
         init(null, 0);
@@ -27,7 +30,7 @@ public class ChessView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-
+        chess = new Chess(getContext());
     }
 
 
@@ -35,6 +38,7 @@ public class ChessView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        chess.draw(canvas);
     }
 
 
