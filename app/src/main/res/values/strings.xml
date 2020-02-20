@@ -6,4 +6,5 @@
     <string name="welcome">Welcome to Chess</string>
     <string name="title_activity_chess">Chess</string>
     <string name="hurrah">Hurrah!!!</string>
+    <string name="rules">Testing the rules string</string>
 </resources>
