@@ -15,6 +15,9 @@ import android.os.Bundle;
 import java.util.*;
 
 public class Chess {
+    // Collection of puzzle pieces
+    public ArrayList<ChessPiece> pieces = new ArrayList<ChessPiece>();
+
     //% of display the chess board will take up
     final static float VIEW_SCALE = 0.9f;
 
@@ -32,13 +35,46 @@ public class Chess {
     private int boardMarginX;
     private int boardMarginY;
 
-    public Chess(Context context){
+    /**
+     * How much we scale the puzzle pieces
+     */
+    private float scaleFactor;
+
+    public Chess(Context context) {
         whiteSpace = new Paint(Paint.ANTI_ALIAS_FLAG);
         blackSpace = new Paint(Paint.ANTI_ALIAS_FLAG);
         outline = new Paint(Paint.ANTI_ALIAS_FLAG);
         whiteSpace.setColor(0xffe8e8e8);
         blackSpace.setColor(0xff458c45);
         outline.setColor(0xff000000);
+        // Load the puzzle pieces
+        pieces.add(new ChessPiece(context, R.drawable.chess_rdt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_ndt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_bdt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_qdt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_kdt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_bdt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_ndt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_rdt45));
+        for (int x = 0; x < 8; x++) {
+            pieces.add(new ChessPiece(context, R.drawable.chess_pdt45));
+        }
+
+//        for (int x = 0; x < 32; x++) {
+//            pieces.add(null);
+//        }
+
+        for (int x = 0; x < 8; x++) {
+            pieces.add(new ChessPiece(context, R.drawable.chess_plt45));
+        }
+        pieces.add(new ChessPiece(context, R.drawable.chess_rlt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_nlt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_blt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_qlt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_klt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_blt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_nlt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_rlt45));
     }
 
     public void draw(Canvas canvas){
@@ -66,7 +102,10 @@ public class Chess {
                 squareSize + boardMarginY,
                 whiteSpace);
         */
+        scaleFactor = (float) (((float)squareSize *1.25) / (float)(boardSize));
 
+        int[][] positions = new int[32][];
+        int indx = 0;
         for(int i = 0; i < 8; i++){
             int sTop = (i * squareSize) + boardMarginY;
             int sBot = (i * squareSize) + squareSize + boardMarginY;
@@ -75,14 +114,31 @@ public class Chess {
                 int sRight = (j * squareSize) + squareSize + boardMarginX;
                 if (i % 2 == 0 && j % 2 == 0){
                     canvas.drawRect(sLeft, sTop, sRight, sBot, whiteSpace);
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
                 } else if (i % 2 == 0 && j % 2 == 1){
                     canvas.drawRect(sLeft, sTop, sRight, sBot, blackSpace);
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
                 } else if (i % 2 == 1 && j % 2 == 0){
                     canvas.drawRect(sLeft, sTop, sRight, sBot, blackSpace);
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
                 } else if (i % 2 == 1 && j % 2 == 1){
                     canvas.drawRect(sLeft, sTop, sRight, sBot, whiteSpace);
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
                 }
             }
+        }
+
+        canvas.save();
+        canvas.translate(boardMarginX, boardMarginY);
+        canvas.scale(scaleFactor, scaleFactor);
+        canvas.restore();
+
+        indx = 0;
+        for (ChessPiece piece : pieces) {
+            int locX = positions[indx][0];
+            int locY = positions[indx][1];
+            piece.draw(canvas, boardMarginX, boardMarginY, boardSize, locX, locY, scaleFactor);
+            indx++;
         }
 
         canvas.save();
