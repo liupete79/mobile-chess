@@ -2,6 +2,7 @@ package edu.msu.team17.chess;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -41,5 +42,19 @@ public class ChessView extends View {
         chess.draw(canvas);
     }
 
+    /**
+     * Save the chess to a bundle
+     * @param bundle The bundle we save to
+     */
+    public void saveInstanceState(Bundle bundle) {
+        chess.saveInstanceState(bundle);
+    }
 
+    /**
+     * Load the chess from a bundle
+     * @param bundle The bundle we save to
+     */
+    public void loadInstanceState(Bundle bundle) {
+        chess.loadInstanceState(bundle);
+    }
 }

@@ -23,9 +23,15 @@ public class ChessPiece {
      */
     private float y = 0;
 
+    /**
+     * The chess piece ID
+     */
+    private int id;
+
 
     public ChessPiece(Context context, int id) {
         piece = BitmapFactory.decodeResource(context.getResources(), id);
+        this.id = id;
     }
 
     /**
@@ -51,4 +57,25 @@ public class ChessPiece {
         canvas.drawBitmap(piece, 0, 0, null);
         canvas.restore();
     }
+
+    public int getId() {
+        return id;
+    }
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+
 }
