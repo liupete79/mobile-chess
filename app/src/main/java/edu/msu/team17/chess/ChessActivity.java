@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -60,6 +61,10 @@ public class ChessActivity extends AppCompatActivity {
                 // Create the dialog box and show it
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
+                return true;
+            case R.id.simulate_winner:
+                Intent intent = new Intent(this, EndActivity.class);
+                startActivity(intent);
                 return true;
 
             default:
