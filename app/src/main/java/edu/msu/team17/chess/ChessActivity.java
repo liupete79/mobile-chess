@@ -3,9 +3,11 @@ package edu.msu.team17.chess;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class ChessActivity extends AppCompatActivity {
 
@@ -39,5 +41,29 @@ public class ChessActivity extends AppCompatActivity {
      */
     private ChessView getChessView() {
         return (ChessView)this.findViewById(R.id.chessView);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_rules:
+                // The puzzle is done
+                // Instantiate a dialog box builder
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(getChessView().getContext());
+
+                // Parameterize the builder
+                builder.setTitle(R.string.rules_title);
+                builder.setMessage(R.string.rules);
+                builder.setPositiveButton(android.R.string.ok, null);
+
+                // Create the dialog box and show it
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
