@@ -4,11 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EndActivity"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    tools:context=".EndActivity">
 
     <FrameLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/endText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:text="@string/endText"
+            android:textSize="30sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
 
@@ -16,7 +31,7 @@
             android:id="@+id/end_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center|center_horizontal|center_vertical"
             android:onClick="onStartMain"
             android:text="@string/end_button" />
     </FrameLayout>
