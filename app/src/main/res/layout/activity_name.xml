@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/player1" />
+        android:text="@string/player1"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/textName2"
@@ -21,7 +22,8 @@
         android:layout_below="@id/textName1"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/player2" />
+        android:text="@string/player2"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/buttonName"
