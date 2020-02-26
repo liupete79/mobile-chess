@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EndActivity"></activity>
+        <activity android:name=".NameActivity"></activity>
+        <activity android:name=".EndActivity" />
         <activity android:name=".ChessActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

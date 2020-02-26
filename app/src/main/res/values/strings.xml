@@ -7,8 +7,11 @@
     <string name="title_activity_chess">Chess</string>
     <string name="rules_title">Chess Rules</string>
     <string name="end_button">Play Again!</string>
-    <string name="simulate_winner">Forfeit</string>
+    <string name="simulate_winner">Resign</string>
     <string name="endText">Player 2 wins!</string>
+    <string name="player1">Player1</string>
+    <string name="player2">Player2</string>
+
     <string name="rules">White is always first to move and players take turns alternately moving
         one piece at a time. Movement is required. If a player´s turn is to move, he is not in
         check but has no legal moves, this situation is called “Stalemate” and it ends the game
