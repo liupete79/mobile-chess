@@ -46,7 +46,7 @@ public class ChessPiece {
         canvas.save();
 
         // Convert x,y to pixels and add the margin, then draw
-        canvas.translate(marginX + locX + 5, boardSize/16 + locY );
+        canvas.translate(locX + boardSize/16, boardSize/16 + locY );
 
         canvas.scale(scaleFactor, scaleFactor);
 
