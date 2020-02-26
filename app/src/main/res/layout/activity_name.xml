@@ -30,9 +30,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:onClick="onStartMain"
+        android:onClick="onStartChess"
         android:text="@string/start_chess"
         tools:layout_editor_absoluteX="178dp"
         tools:layout_editor_absoluteY="452dp" />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="onStartMain"
+        android:text="@string/cancelText" />
 
 </RelativeLayout>

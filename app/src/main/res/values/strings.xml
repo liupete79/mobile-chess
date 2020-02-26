@@ -9,6 +9,7 @@
     <string name="end_button">Play Again!</string>
     <string name="simulate_winner">Resign</string>
     <string name="endText">Player 2 wins!</string>
+    <string name="cancelText">Cancel</string>
     <string name="player1">Player1</string>
     <string name="player2">Player2</string>
 

@@ -14,8 +14,12 @@ public class NameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_name);
     }
 
-    public void onStartMain(View view) {
+    public void onStartChess(View view) {
         Intent intent = new Intent(this, ChessActivity.class);
+        startActivity(intent);
+    }
+    public void onStartMain(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }
