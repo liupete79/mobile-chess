@@ -6,12 +6,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 import android.util.Log;
 import android.app.AlertDialog;
 import android.os.Bundle;
 
+import java.sql.Struct;
 import java.util.*;
 
 public class Chess {
@@ -45,6 +47,44 @@ public class Chess {
      * How much we scale the puzzle pieces
      */
     private float scaleFactor;
+
+    private class Square{
+        private int x, y;
+        private Rect square = null;
+        private ChessPiece piece = null;
+
+        public int getX() {
+            return this.x;
+        }
+
+        public int getY() {
+            return this.y;
+        }
+
+        public Rect getSquare(){
+            return this.square;
+        }
+
+        public ChessPiece getPiece(){
+            return this.piece;
+        }
+
+        public void setx(int x) {
+            this.x = x;
+        }
+
+        public void sety(int y) {
+            this.y = y;
+        }
+
+        public void setSquare(Rect square) {
+            this.square = square;
+        }
+
+        public void setPiece(ChessPiece piece) {
+            this.piece = piece;
+        }
+    }
 
     public Chess(Context context) {
         whiteSpace = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -118,17 +158,18 @@ public class Chess {
             for(int j = 0; j < 8; j++){
                 int sLeft = (j * squareSize) + boardMarginX;
                 int sRight = (j * squareSize) + squareSize + boardMarginX;
+                Rect tempRect = new Rect(sLeft, sTop, sRight, sBot);
                 if (i % 2 == 0 && j % 2 == 0){
-                    canvas.drawRect(sLeft, sTop, sRight, sBot, whiteSpace);
+                    canvas.drawRect(tempRect, whiteSpace);
                     if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
                 } else if (i % 2 == 0 && j % 2 == 1){
-                    canvas.drawRect(sLeft, sTop, sRight, sBot, blackSpace);
+                    canvas.drawRect(tempRect, blackSpace);
                     if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
                 } else if (i % 2 == 1 && j % 2 == 0){
-                    canvas.drawRect(sLeft, sTop, sRight, sBot, blackSpace);
+                    canvas.drawRect(tempRect, blackSpace);
                     if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
                 } else if (i % 2 == 1 && j % 2 == 1){
-                    canvas.drawRect(sLeft, sTop, sRight, sBot, whiteSpace);
+                    canvas.drawRect(tempRect, whiteSpace);
                     if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
                 }
             }
