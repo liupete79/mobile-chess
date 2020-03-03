@@ -163,29 +163,38 @@ public class Chess {
         int[][] positions = new int[32][];
         int indx = 0;
         for(int i = 0; i < 8; i++){
+
             int sTop = (i * squareSize) + boardMarginY;
             int sBot = (i * squareSize) + squareSize + boardMarginY;
             for(int j = 0; j < 8; j++){
+
                 Square squareToAdd = new Square();
                 squareToAdd.setCoordX(j);
                 squareToAdd.setCoordY(i);
+
                 int sLeft = (j * squareSize) + boardMarginX;
                 int sRight = (j * squareSize) + squareSize + boardMarginX;
                 Rect tempRect = new Rect(sLeft, sTop, sRight, sBot);
                 squareToAdd.setSquare(tempRect);
+
                 if (i % 2 == 0 && j % 2 == 0){
                     canvas.drawRect(tempRect, whiteSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
+                    squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 } else if (i % 2 == 0 && j % 2 == 1){
                     canvas.drawRect(tempRect, blackSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
+                        squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 } else if (i % 2 == 1 && j % 2 == 0){
                     canvas.drawRect(tempRect, blackSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
+                        squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 } else if (i % 2 == 1 && j % 2 == 1){
                     canvas.drawRect(tempRect, whiteSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
+                        squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 }
+
                 squares.add(squareToAdd);
             }
         }
@@ -194,8 +203,13 @@ public class Chess {
         for (ChessPiece piece : pieces) {
             int locX = positions[indx][0];
             int locY = positions[indx][1];
-            piece.draw(canvas, boardMarginX, boardMarginY, boardSize, locX, locY, scaleFactor);
+            piece.draw(canvas, boardSize, locX, locY, scaleFactor);
             indx++;
+        }
+
+        for (Square square : squares){
+            Log.i("Coordinates (X,Y)", "(" + square.getCoordX() + "," + square.getCoordY() + ")");
+            Log.i("Piece", "" + square.getPiece());
         }
 
         canvas.save();

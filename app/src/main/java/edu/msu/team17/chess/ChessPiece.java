@@ -29,6 +29,12 @@ public class ChessPiece {
      */
     private int id;
 
+    private boolean isWhite;
+
+    private boolean Captured = false;
+
+    private boolean firstMove = true;
+
 
     public ChessPiece(Context context, int id) {
         piece = BitmapFactory.decodeResource(context.getResources(), id);
@@ -38,11 +44,9 @@ public class ChessPiece {
     /**
      * Draw the chess piece
      * @param canvas Canvas we are drawing on
-     * @param marginX Margin x value in pixels
-     * @param marginY Margin y value in pixels
      * @param boardSize Size we draw the chess in pixels
      */
-    public void draw(Canvas canvas, int marginX, int marginY, int boardSize,
+    public void draw(Canvas canvas, int boardSize,
     int locX, int locY, float scaleFactor){
         canvas.save();
 
@@ -83,6 +87,13 @@ public class ChessPiece {
         this.y = y;
     }
 
+    public boolean getWhite(){
+        return isWhite;
+    }
+
+    public void setWhite(boolean white){
+        this.isWhite = white;
+    }
 
     /**
      * Test to see if we have touched a chess piece
