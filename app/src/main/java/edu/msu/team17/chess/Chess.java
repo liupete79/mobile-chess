@@ -158,7 +158,7 @@ public class Chess {
         canvas.drawRect(boardMarginX - 3, boardMarginY - 3, boardMarginX + boardSize + 3,
                 boardMarginY + boardSize + 3, outline);
 
-        float scaleFactor = (float)squareSize/boardSize;
+        scaleFactor = (float)squareSize/boardSize;
 
         int[][] positions = new int[32][];
         int indx = 0;
@@ -200,7 +200,7 @@ public class Chess {
 
         canvas.save();
         canvas.translate(boardMarginX, boardMarginY);
-        canvas.scale(boardSize, boardSize);
+        canvas.scale(scaleFactor, scaleFactor);
         canvas.restore();
     }
 

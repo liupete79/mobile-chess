@@ -99,15 +99,15 @@ public class ChessPiece {
         Log.i("width", String.valueOf(piece.getWidth()));
         Log.i("height", String.valueOf(piece.getHeight()));
         // Make relative to the location and size to the piece size
-        int pX = (int)((testX - x) * chessSize / scaleFactor) +
-                piece.getWidth() / 2;
-        int pY = (int)((testY - y) * chessSize / scaleFactor) +
-                piece.getHeight() / 2;
+        int pX = (int)(((testX - x) * chessSize * scaleFactor) +
+                piece.getWidth() * scaleFactor / 2);
+        int pY = (int)(((testY - y) * chessSize * scaleFactor) +
+                piece.getHeight() * scaleFactor  / 2);
         Log.i("pX", String.valueOf(pX));
         Log.i("pY", String.valueOf(pY));
 
-        if(pX < 0 || pX >= piece.getWidth() ||
-                pY < 0 || pY >= piece.getHeight()) {
+        if(pX < 0 || pX >= piece.getWidth()* scaleFactor ||
+                pY < 0 || pY >= piece.getHeight()* scaleFactor) {
             Log.i("Hit", "Not hit");
             return false;
         }
