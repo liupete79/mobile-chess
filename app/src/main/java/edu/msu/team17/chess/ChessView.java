@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 
@@ -56,5 +57,10 @@ public class ChessView extends View {
      */
     public void loadInstanceState(Bundle bundle) {
         chess.loadInstanceState(bundle);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return chess.onTouchEvent(this, event);
     }
 }
