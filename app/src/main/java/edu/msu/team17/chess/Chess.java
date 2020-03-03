@@ -207,10 +207,11 @@ public class Chess {
             indx++;
         }
 
+        /* Checking contents of squares
         for (Square square : squares){
             Log.i("Coordinates (X,Y)", "(" + square.getCoordX() + "," + square.getCoordY() + ")");
             Log.i("Piece", "" + square.getPiece());
-        }
+        }*/
 
         canvas.save();
         canvas.translate(boardMarginX, boardMarginY);
