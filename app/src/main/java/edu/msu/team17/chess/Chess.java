@@ -49,6 +49,22 @@ public class Chess {
      */
     private float scaleFactor;
 
+    /**
+     * This variable is set to a piece we are dragging. If
+     * we are not dragging, the variable is null.
+     */
+    private ChessPiece dragging = null;
+
+    /**
+     * Most recent relative X touch when dragging
+     */
+    private float lastRelX;
+
+    /**
+     * Most recent relative Y touch when dragging
+     */
+    private float lastRelY;
+
     private class Square{
         private int coordX, coordY;
         private Rect square = null;
@@ -142,13 +158,6 @@ public class Chess {
         canvas.drawRect(boardMarginX - 3, boardMarginY - 3, boardMarginX + boardSize + 3,
                 boardMarginY + boardSize + 3, outline);
 
-        //Testing with 1 square
-        /*canvas.drawRect(boardMarginX,
-                boardMarginY,
-                squareSize + boardMarginX,
-                squareSize + boardMarginY,
-                whiteSpace);
-        */
         scaleFactor = (float) (((float)squareSize *1.25) / (float)(boardSize));
 
         int[][] positions = new int[32][];
@@ -180,11 +189,6 @@ public class Chess {
                 squares.add(squareToAdd);
             }
         }
-
-        canvas.save();
-        canvas.translate(boardMarginX, boardMarginY);
-        canvas.scale(scaleFactor, scaleFactor);
-        canvas.restore();
 
         indx = 0;
         for (ChessPiece piece : pieces) {
@@ -249,5 +253,83 @@ public class Chess {
             piece.setX(locations[i*2]);
             piece.setY(locations[i*2+1]);
         }
+    }
+
+    /**
+     * Handle a touch event from the view.
+     * @param view The view that is the source of the touch
+     * @param event The motion event describing the touch
+     * @return true if the touch is handled.
+     */
+    public boolean onTouchEvent(View view, MotionEvent event) {
+        //
+        // Convert an x,y location to a relative location in the
+        // puzzle.
+        //
+
+        float relX = (event.getX() - boardMarginX) / boardSize;
+        float relY = (event.getY() - boardMarginY) / boardSize;
+
+        switch (event.getActionMasked()) {
+
+            case MotionEvent.ACTION_DOWN:
+                return onTouched(relX, relY);
+
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                return onReleased(view, relX, relY);
+
+            case MotionEvent.ACTION_MOVE:
+                Log.i("onTouchEvent",  "ACTION_MOVE: " + event.getX() + "," + event.getY());
+                // If we are dragging, move the piece and force a redraw
+                if(dragging != null) {
+                    dragging.move(relX - lastRelX, relY - lastRelY);
+                    lastRelX = relX;
+                    lastRelY = relY;
+                    view.invalidate();
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
+
+    /**
+     * Handle a touch message. This is when we get an initial touch
+     * @param x x location for the touch, relative to the puzzle - 0 to 1 over the board
+     * @param y y location for the touch, relative to the puzzle - 0 to 1 over the board
+     * @return true if the touch is handled
+     */
+    private boolean onTouched(float x, float y) {
+
+        // Check each piece to see if it has been hit
+        // We do this in reverse order so we find the pieces in front
+        for(int p=pieces.size()-1; p>=0;  p--) {
+            if(pieces.get(p).hit(x, y, boardSize, scaleFactor)) {
+                // We hit a piece!
+                dragging = pieces.get(p);
+                lastRelX = x;
+                lastRelY = y;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Handle a release of a touch message.
+     * @param x x location for the touch release, relative to the puzzle - 0 to 1 over the puzzle
+     * @param y y location for the touch release, relative to the puzzle - 0 to 1 over the puzzle
+     * @return true if the touch is handled
+     */
+    private boolean onReleased(View view, float x, float y) {
+
+        if(dragging != null) {
+            dragging = null;
+            return true;
+        }
+
+        return false;
     }
 }

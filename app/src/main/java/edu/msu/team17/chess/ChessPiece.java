@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
 
 public class ChessPiece {
     /**
@@ -45,8 +46,11 @@ public class ChessPiece {
     int locX, int locY, float scaleFactor){
         canvas.save();
 
+//        this.x = locX;
+//        this.y = locY;
         // Convert x,y to pixels and add the margin, then draw
         canvas.translate(locX + boardSize/16, boardSize/16 + locY );
+
 
         canvas.scale(scaleFactor, scaleFactor);
 
@@ -54,6 +58,8 @@ public class ChessPiece {
         canvas.translate(-piece.getWidth() / 2f, -piece.getHeight() / 2f);
 
         // Draw the bitmap
+//        Bitmap resized = Bitmap.createScaledBitmap(piece,(int)(piece.getWidth()*scaleFactor), (int)(piece.getHeight()*scaleFactor), true);
+
         canvas.drawBitmap(piece, 0, 0, null);
         canvas.restore();
     }
@@ -78,4 +84,53 @@ public class ChessPiece {
     }
 
 
+    /**
+     * Test to see if we have touched a chess piece
+     * @param testX X location as a normalized coordinate (0 to 1)
+     * @param testY Y location as a normalized coordinate (0 to 1)
+     * @param chessSize the size of the chess in pixels
+     * @param scaleFactor the amount to scale a piece by
+     * @return true if we hit the piece
+     */
+    public boolean hit(float testX, float testY,
+                       int chessSize, float scaleFactor) {
+
+        Log.i("scaleFactor", String.valueOf(scaleFactor));
+        Log.i("ID", String.valueOf(this.id));
+        Log.i("x", String.valueOf(this.x));
+        Log.i("y", String.valueOf(this.y));
+        Log.i("testX", String.valueOf(testX));
+        Log.i("testY", String.valueOf(testY));
+        Log.i("width", String.valueOf(piece.getWidth()* scaleFactor));
+        Log.i("height", String.valueOf(piece.getHeight()* scaleFactor));
+        // Make relative to the location and size to the piece size
+        int pX = (int)(((testX - x) * chessSize * scaleFactor) +
+                piece.getWidth() * scaleFactor / 2);
+        int pY = (int)(((testY - y) * chessSize * scaleFactor) +
+                piece.getHeight() * scaleFactor / 2);
+        Log.i("pX", String.valueOf(pX));
+        Log.i("pY", String.valueOf(pY));
+
+        if(pX < 0 || pX >= piece.getWidth() ||
+                pY < 0 || pY >= piece.getHeight()) {
+            Log.i("Hit", "Not hit");
+            return false;
+        }
+
+        Log.i("Hit", "Hit");
+        // We are within the rectangle of the piece.
+        // Are we touching actual picture?
+        return (piece.getPixel(pX, pY) & 0xff000000) != 0;
+    }
+
+    /**
+     * Move the puzzle piece by dx, dy
+     * @param dx x amount to move
+     * @param dy y amount to move
+     */
+    public void move(float dx, float dy) {
+        x += dx;
+        y += dy;
+    }
 }
+
