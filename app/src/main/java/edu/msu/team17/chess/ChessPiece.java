@@ -58,6 +58,8 @@ public class ChessPiece {
         canvas.translate(-piece.getWidth() / 2f, -piece.getHeight() / 2f);
 
         // Draw the bitmap
+//        Bitmap resized = Bitmap.createScaledBitmap(piece,(int)(piece.getWidth()*scaleFactor), (int)(piece.getHeight()*scaleFactor), true);
+
         canvas.drawBitmap(piece, 0, 0, null);
         canvas.restore();
     }
@@ -93,18 +95,19 @@ public class ChessPiece {
     public boolean hit(float testX, float testY,
                        int chessSize, float scaleFactor) {
 
+        Log.i("scaleFactor", String.valueOf(scaleFactor));
         Log.i("ID", String.valueOf(this.id));
         Log.i("x", String.valueOf(this.x));
         Log.i("y", String.valueOf(this.y));
         Log.i("testX", String.valueOf(testX));
         Log.i("testY", String.valueOf(testY));
-        Log.i("pX", String.valueOf(piece.getWidth()));
-        Log.i("pY", String.valueOf(piece.getHeight()));
+        Log.i("width", String.valueOf(piece.getWidth()* scaleFactor));
+        Log.i("height", String.valueOf(piece.getHeight()* scaleFactor));
         // Make relative to the location and size to the piece size
-        int pX = (int)((testX - x) * 1/32 ) +
-                piece.getWidth() / 2;
-        int pY = (int)((testY - y) * 1/32 ) +
-                piece.getHeight() / 2;
+        int pX = (int)(((testX - x) * chessSize * scaleFactor) +
+                piece.getWidth() * scaleFactor / 2);
+        int pY = (int)(((testY - y) * chessSize * scaleFactor) +
+                piece.getHeight() * scaleFactor / 2);
         Log.i("pX", String.valueOf(pX));
         Log.i("pY", String.valueOf(pY));
 

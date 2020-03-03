@@ -299,7 +299,7 @@ public class Chess {
         // Check each piece to see if it has been hit
         // We do this in reverse order so we find the pieces in front
         for(int p=pieces.size()-1; p>=0;  p--) {
-            if(pieces.get(p).hit(x, y, boardSize, boardSize)) {
+            if(pieces.get(p).hit(x, y, boardSize, scaleFactor)) {
                 // We hit a piece!
                 dragging = pieces.get(p);
                 lastRelX = x;
