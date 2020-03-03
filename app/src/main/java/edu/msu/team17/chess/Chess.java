@@ -19,6 +19,7 @@ import java.util.*;
 public class Chess {
     // Collection of puzzle pieces
     public ArrayList<ChessPiece> pieces = new ArrayList<ChessPiece>();
+    public ArrayList<Square> squares = new ArrayList<>();
 
     //% of display the chess board will take up
     final static float VIEW_SCALE = 0.9f;
@@ -49,16 +50,16 @@ public class Chess {
     private float scaleFactor;
 
     private class Square{
-        private int x, y;
+        private int coordX, coordY;
         private Rect square = null;
         private ChessPiece piece = null;
 
-        public int getX() {
-            return this.x;
+        public int getCoordX() {
+            return this.coordX;
         }
 
-        public int getY() {
-            return this.y;
+        public int getCoordY() {
+            return this.coordY;
         }
 
         public Rect getSquare(){
@@ -69,12 +70,12 @@ public class Chess {
             return this.piece;
         }
 
-        public void setX(int x) {
-            this.x = x;
+        public void setCoordX(int x) {
+            this.coordX = x;
         }
 
-        public void setY(int y) {
-            this.y = y;
+        public void setCoordY(int y) {
+            this.coordY = y;
         }
 
         public void setSquare(Rect square) {
@@ -156,9 +157,13 @@ public class Chess {
             int sTop = (i * squareSize) + boardMarginY;
             int sBot = (i * squareSize) + squareSize + boardMarginY;
             for(int j = 0; j < 8; j++){
+                Square squareToAdd = new Square();
+                squareToAdd.setCoordX(j);
+                squareToAdd.setCoordY(i);
                 int sLeft = (j * squareSize) + boardMarginX;
                 int sRight = (j * squareSize) + squareSize + boardMarginX;
                 Rect tempRect = new Rect(sLeft, sTop, sRight, sBot);
+                squareToAdd.setSquare(tempRect);
                 if (i % 2 == 0 && j % 2 == 0){
                     canvas.drawRect(tempRect, whiteSpace);
                     if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
@@ -172,6 +177,7 @@ public class Chess {
                     canvas.drawRect(tempRect, whiteSpace);
                     if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
                 }
+                squares.add(squareToAdd);
             }
         }
 
