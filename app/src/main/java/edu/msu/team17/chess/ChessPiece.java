@@ -29,6 +29,7 @@ public class ChessPiece {
      */
     private int id;
 
+
     public ChessPiece(Context context, int id, float initialX,  float initialY) {
     piece = BitmapFactory.decodeResource(context.getResources(), id);
         this.id = id;

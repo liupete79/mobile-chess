@@ -17,8 +17,10 @@ import java.sql.Struct;
 import java.util.*;
 
 public class Chess {
-    // Collection of puzzle pieces
+    // Collection of chess pieces
     public ArrayList<ChessPiece> pieces = new ArrayList<ChessPiece>();
+
+    // Collection of squares
     public ArrayList<Square> squares = new ArrayList<>();
 
     //% of display the chess board will take up
@@ -38,15 +40,11 @@ public class Chess {
     private int boardMarginX;
     private int boardMarginY;
 
-    /**
-     * The name of the bundle keys to save the chess
-     */
+    // The name of the bundle keys to save the chess
     private final static String LOCATIONS = "Chess.locations";
     private final static String IDS = "Chess.ids";
 
-    /**
-     * How much we scale the puzzle pieces
-     */
+    // How much we scale the puzzle pieces
     private float scaleFactor;
 
     /**
@@ -55,25 +53,20 @@ public class Chess {
      */
     private ChessPiece dragging = null;
 
-    /**
-     * Most recent relative X touch when dragging
-     */
+    // Most recent relative X touch when dragging
     private float lastRelX;
 
-    /**
-     * Most recent relative Y touch when dragging
-     */
+    // Most recent relative Y touch when dragging
     private float lastRelY;
 
-    /**
-     * Completed chess bitmap
-     */
+    // Completed chess bitmap
     private Bitmap chessComplete;
 
     private ChessView chessView;
 
     private class Square{
         private int coordX, coordY;
+        private float x, y; //Relative x, y locations in the range 0-1 for the center of the piece in the center of the square.
         private Rect square = null;
         private ChessPiece piece = null;
 
@@ -108,6 +101,23 @@ public class Chess {
         public void setPiece(ChessPiece piece) {
             this.piece = piece;
         }
+
+        public float getX() {
+            return x;
+        }
+
+        public void setX(float x) {
+            this.x = x;
+        }
+
+        public float getY() {
+            return y;
+        }
+
+        public void setY(float y) {
+            this.y = y;
+        }
+
     }
 
     public Chess(Context context, ChessView view) {
@@ -118,6 +128,7 @@ public class Chess {
         blackSpace.setColor(0xff458c45);
         outline.setColor(0xff000000);
         chessView = view;
+
         // Load the solved chess image
         chessComplete =
                 BitmapFactory.decodeResource(context.getResources(),
@@ -190,6 +201,8 @@ public class Chess {
                 Square squareToAdd = new Square();
                 squareToAdd.setCoordX(j);
                 squareToAdd.setCoordY(i);
+                squareToAdd.setX(((float)j + (float)squareSize/2 - (float)boardMarginX) / (float)boardSize);
+                squareToAdd.setY(((float)i + (float)squareSize/2 - (float)boardMarginX) / (float)boardSize);
                 int sLeft = (j * squareSize) + boardMarginX;
                 int sRight = (j * squareSize) + squareSize + boardMarginX;
                 Rect tempRect = new Rect(sLeft, sTop, sRight, sBot);
