@@ -283,14 +283,8 @@ public class Chess {
         // Convert an x,y location to a relative location in the
         // puzzle.
         //
-
         float relX = (event.getX() - boardMarginX) / boardSize;
         float relY = (event.getY() - boardMarginY) / boardSize;
-//        dragging = pieces.get(1);
-//        if (dragging.hit(225, 225, boardSize, scaleFactor)) {
-//            dragging.move(75, 75);
-//        }
-//        Log.i("DRAGGING", String.valueOf(dragging.hit(225, 225, boardSize, scaleFactor)));
 
         switch (event.getActionMasked()) {
 
@@ -302,7 +296,6 @@ public class Chess {
                 return onReleased(view, relX, relY);
 
             case MotionEvent.ACTION_MOVE:
-                Log.i("onTouchEvent",  "ACTION_MOVE: " + event.getX() + "," + event.getY());
                 // If we are dragging, move the piece and force a redraw
                 if(dragging != null) {
                     dragging.move(relX - lastRelX, relY - lastRelY);
@@ -329,7 +322,6 @@ public class Chess {
         for(int p=pieces.size()-1; p>=0;  p--) {
             if(pieces.get(p).hit(x, y, boardSize, scaleFactor)) {
                 // We hit a piece!
-                Log.i("onTouched - p", String.valueOf(p));
                 dragging = pieces.get(p);
                 pieces.remove(p);
                 pieces.add(dragging);
