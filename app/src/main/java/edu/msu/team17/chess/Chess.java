@@ -194,6 +194,7 @@ public class Chess {
 
         int[][] positions = new int[32][];
         int indx = 0;
+        int c = 0;
         for(int i = 0; i < 8; i++){
             int sTop = (i * squareSize) + boardMarginY;
             int sBot = (i * squareSize) + squareSize + boardMarginY;
@@ -219,6 +220,12 @@ public class Chess {
                 } else if (i % 2 == 1 && j % 2 == 1){
                     canvas.drawRect(tempRect, whiteSpace);
                     if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
+                }
+
+                if (i < 2 || i > 6) {
+                    ChessPiece p = pieces.get(c);
+                    squareToAdd.setPiece(p);
+                    c++;
                 }
                 squares.add(squareToAdd);
             }
