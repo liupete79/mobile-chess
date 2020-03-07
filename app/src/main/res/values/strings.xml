@@ -45,4 +45,7 @@
         diagonally in front of them) but cannot move to these spaces if they are vacant. The
         pawn is also involved in the two special moves en passant and promotion.\n
     </string>
+    <string name="doneButton">Done</string>
+    <string name="resign">Resign</string>
+    <string name="player_s_turn">Player\'s turn</string>
 </resources>
