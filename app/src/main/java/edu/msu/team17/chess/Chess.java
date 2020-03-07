@@ -65,6 +65,13 @@ public class Chess {
      */
     private float lastRelY;
 
+    /**
+     * Completed chess bitmap
+     */
+    private Bitmap chessComplete;
+
+    private ChessView chessView;
+
     private class Square{
         private int coordX, coordY;
         private Rect square = null;
@@ -103,41 +110,55 @@ public class Chess {
         }
     }
 
-    public Chess(Context context) {
+    public Chess(Context context, ChessView view) {
         whiteSpace = new Paint(Paint.ANTI_ALIAS_FLAG);
         blackSpace = new Paint(Paint.ANTI_ALIAS_FLAG);
         outline = new Paint(Paint.ANTI_ALIAS_FLAG);
         whiteSpace.setColor(0xffe8e8e8);
         blackSpace.setColor(0xff458c45);
         outline.setColor(0xff000000);
+        chessView = view;
+        // Load the solved chess image
+        chessComplete =
+                BitmapFactory.decodeResource(context.getResources(),
+                        R.drawable.chess);
+
         // Load the puzzle pieces
-        pieces.add(new ChessPiece(context, R.drawable.chess_rdt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_ndt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_bdt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_qdt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_kdt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_bdt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_ndt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_rdt45));
-        for (int x = 0; x < 8; x++) {
-            pieces.add(new ChessPiece(context, R.drawable.chess_pdt45));
-        }
+        pieces.add(new ChessPiece(context, R.drawable.chess_rdt45, 0.0622428f, 0.0622428f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_ndt45, 0.18672839f, 0.0622428f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_bdt45, 0.311214f, 0.0622428f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_qdt45, 0.43569958f, 0.0622428f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_kdt45, 0.5601852f, 0.0622428f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_bdt45, 0.6846708f, 0.0622428f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_ndt45, 0.80915636f, 0.0622428f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_rdt45,  0.93364197f, 0.0622428f));
 
-//        for (int x = 0; x < 32; x++) {
-//            pieces.add(null);
-//        }
+        pieces.add(new ChessPiece(context, R.drawable.chess_pdt45, 0.0622428f, 0.18672839f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_pdt45, 0.18672839f, 0.18672839f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_pdt45, 0.311214f, 0.18672839f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_pdt45, 0.43569958f, 0.18672839f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_pdt45, 0.5601852f, 0.18672839f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_pdt45, 0.6846708f, 0.18672839f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_pdt45, 0.80915636f, 0.18672839f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_pdt45, 0.93364197f, 0.18672839f));
 
-        for (int x = 0; x < 8; x++) {
-            pieces.add(new ChessPiece(context, R.drawable.chess_plt45));
-        }
-        pieces.add(new ChessPiece(context, R.drawable.chess_rlt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_nlt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_blt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_qlt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_klt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_blt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_nlt45));
-        pieces.add(new ChessPiece(context, R.drawable.chess_rlt45));
+        pieces.add(new ChessPiece(context, R.drawable.chess_plt45, 0.0622428f, 0.80915636f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_plt45, 0.18672839f, 0.80915636f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_plt45, 0.311214f, 0.80915636f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_plt45, 0.43569958f, 0.80915636f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_plt45, 0.5601852f, 0.80915636f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_plt45, 0.6846708f, 0.80915636f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_plt45, 0.80915636f, 0.80915636f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_plt45, 0.93364197f, 0.80915636f));
+
+        pieces.add(new ChessPiece(context, R.drawable.chess_rlt45, 0.0622428f, 0.93364197f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_nlt45, 0.18672839f, 0.93364197f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_blt45, 0.311214f, 0.93364197f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_qlt45, 0.43569958f, 0.93364197f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_klt45, 0.5601852f, 0.93364197f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_blt45,  0.6846708f, 0.93364197f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_nlt45, 0.80915636f, 0.93364197f));
+        pieces.add(new ChessPiece(context, R.drawable.chess_rlt45, 0.93364197f, 0.93364197f));
     }
 
     public void draw(Canvas canvas){
@@ -158,7 +179,7 @@ public class Chess {
         canvas.drawRect(boardMarginX - 3, boardMarginY - 3, boardMarginX + boardSize + 3,
                 boardMarginY + boardSize + 3, outline);
 
-        scaleFactor = (float)squareSize/boardSize;
+        scaleFactor = (float)boardSize/(float)(6*chessComplete.getWidth());
 
         int[][] positions = new int[32][];
         int indx = 0;
@@ -190,12 +211,8 @@ public class Chess {
             }
         }
 
-        indx = 0;
         for (ChessPiece piece : pieces) {
-            int locX = positions[indx][0];
-            int locY = positions[indx][1];
-            piece.draw(canvas, boardMarginX, boardMarginY, boardSize, locX, locY, scaleFactor);
-            indx++;
+            piece.draw(canvas, boardSize, boardMarginX, boardMarginY, scaleFactor);
         }
 
         canvas.save();
@@ -269,6 +286,11 @@ public class Chess {
 
         float relX = (event.getX() - boardMarginX) / boardSize;
         float relY = (event.getY() - boardMarginY) / boardSize;
+//        dragging = pieces.get(1);
+//        if (dragging.hit(225, 225, boardSize, scaleFactor)) {
+//            dragging.move(75, 75);
+//        }
+//        Log.i("DRAGGING", String.valueOf(dragging.hit(225, 225, boardSize, scaleFactor)));
 
         switch (event.getActionMasked()) {
 
@@ -307,7 +329,10 @@ public class Chess {
         for(int p=pieces.size()-1; p>=0;  p--) {
             if(pieces.get(p).hit(x, y, boardSize, scaleFactor)) {
                 // We hit a piece!
+                Log.i("onTouched - p", String.valueOf(p));
                 dragging = pieces.get(p);
+                pieces.remove(p);
+                pieces.add(dragging);
                 lastRelX = x;
                 lastRelY = y;
                 return true;

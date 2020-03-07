@@ -29,25 +29,25 @@ public class ChessPiece {
      */
     private int id;
 
-
-    public ChessPiece(Context context, int id) {
-        piece = BitmapFactory.decodeResource(context.getResources(), id);
+    public ChessPiece(Context context, int id, float initialX,  float initialY) {
+    piece = BitmapFactory.decodeResource(context.getResources(), id);
         this.id = id;
+        this.x = initialX;
+        this.y = initialY;
     }
 
     /**
      * Draw the chess piece
      * @param canvas Canvas we are drawing on
-     * @param marginX Margin x value in pixels
-     * @param marginY Margin y value in pixels
      * @param boardSize Size we draw the chess in pixels
      */
-    public void draw(Canvas canvas, int marginX, int marginY, int boardSize,
-    int locX, int locY, float scaleFactor){
+    public void draw(Canvas canvas, int boardSize,
+    int marginX, int marginY, float scaleFactor){
+
         canvas.save();
 
         // Convert x,y to pixels and add the margin, then draw
-        canvas.translate(locX + boardSize/16, boardSize/16 + locY );
+        canvas.translate(marginX + x * boardSize, marginY + y * boardSize);
 
         canvas.scale(scaleFactor, scaleFactor);
 
@@ -78,6 +78,14 @@ public class ChessPiece {
         this.y = y;
     }
 
+    public float getWidth() {
+        return piece.getWidth();
+    }
+
+    public float getHeight() {
+        return piece.getHeight();
+    }
+
 
     /**
      * Test to see if we have touched a chess piece
@@ -90,29 +98,17 @@ public class ChessPiece {
     public boolean hit(float testX, float testY,
                        int chessSize, float scaleFactor) {
 
-        Log.i("scaleFactor", String.valueOf(scaleFactor));
-        Log.i("ID", String.valueOf(this.id));
-        Log.i("x", String.valueOf(this.x));
-        Log.i("y", String.valueOf(this.y));
-        Log.i("testX", String.valueOf(testX));
-        Log.i("testY", String.valueOf(testY));
-        Log.i("width", String.valueOf(piece.getWidth()));
-        Log.i("height", String.valueOf(piece.getHeight()));
         // Make relative to the location and size to the piece size
-        int pX = (int)(((testX - x) * chessSize * scaleFactor) +
-                piece.getWidth() * scaleFactor / 2);
-        int pY = (int)(((testY - y) * chessSize * scaleFactor) +
-                piece.getHeight() * scaleFactor  / 2);
-        Log.i("pX", String.valueOf(pX));
-        Log.i("pY", String.valueOf(pY));
+        int pX = (int)((testX - x) * chessSize / scaleFactor) +
+                piece.getWidth() / 2;
+        int pY = (int)((testY - y) * chessSize / scaleFactor) +
+                piece.getHeight() / 2;        Log.i("pX", String.valueOf(pX));
 
-        if(pX < 0 || pX >= piece.getWidth()* scaleFactor ||
-                pY < 0 || pY >= piece.getHeight()* scaleFactor) {
-            Log.i("Hit", "Not hit");
+        if(pX < 0 || pX >= piece.getWidth() ||
+                pY < 0 || pY >= piece.getHeight()) {
             return false;
         }
 
-        Log.i("Hit", "Hit");
         // We are within the rectangle of the piece.
         // Are we touching actual picture?
         return (piece.getPixel(pX, pY) & 0xff000000) != 0;
@@ -126,6 +122,7 @@ public class ChessPiece {
     public void move(float dx, float dy) {
         x += dx;
         y += dy;
+
     }
 }
 

@@ -32,7 +32,7 @@ public class ChessView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        chess = new Chess(getContext());
+        chess = new Chess(getContext(), this);
     }
 
 
