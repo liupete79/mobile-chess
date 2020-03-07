@@ -210,23 +210,22 @@ public class Chess {
                 squareToAdd.setSquare(tempRect);
                 if (i % 2 == 0 && j % 2 == 0){
                     canvas.drawRect(tempRect, whiteSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
+                    squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 } else if (i % 2 == 0 && j % 2 == 1){
                     canvas.drawRect(tempRect, blackSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
+                        squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 } else if (i % 2 == 1 && j % 2 == 0){
                     canvas.drawRect(tempRect, blackSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
+                        squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 } else if (i % 2 == 1 && j % 2 == 1){
                     canvas.drawRect(tempRect, whiteSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop}; indx++;}
+                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
+                        squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 }
 
-                if (i < 2 || i > 6) {
-                    ChessPiece p = pieces.get(c);
-                    squareToAdd.setPiece(p);
-                    c++;
-                }
                 squares.add(squareToAdd);
             }
         }
@@ -239,6 +238,7 @@ public class Chess {
         canvas.translate(boardMarginX, boardMarginY);
         canvas.scale(scaleFactor, scaleFactor);
         canvas.restore();
+        
     }
 
     /**
