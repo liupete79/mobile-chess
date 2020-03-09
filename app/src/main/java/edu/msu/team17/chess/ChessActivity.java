@@ -36,8 +36,8 @@ public class ChessActivity extends AppCompatActivity {
                 p1 = extras.getString("player1");
                 p2 = extras.getString("player2");
             }
-            TextView tv = findViewById(R.id.currentPlayer);
-            tv.setText(p1 + "'s Turn!");
+            TextView currentPlayer = findViewById(R.id.currentPlayer);
+            currentPlayer.setText(p1 + "'s Turn!");
         }
     }
 
