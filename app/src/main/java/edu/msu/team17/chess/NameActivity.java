@@ -12,13 +12,11 @@ public class NameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("F", "1");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name);
     }
 
     public void onStartChess(View view) {
-        Log.i("F", "2");
         EditText p1 = findViewById(R.id.textName1);
         EditText p2 = findViewById(R.id.textName2);
         String player1 = p1.getText().toString();
@@ -29,7 +27,6 @@ public class NameActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void onStartMain(View view) {
-        Log.i("F", "3");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
