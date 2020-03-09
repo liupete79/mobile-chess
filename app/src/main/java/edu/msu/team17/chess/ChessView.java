@@ -16,6 +16,9 @@ public class ChessView extends View {
     //The actual chess board + game
     private Chess chess;
 
+    // Current player
+    public String player;
+
     public ChessView(Context context) {
         super(context);
         init(null, 0);

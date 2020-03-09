@@ -11,19 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/player1"
-        android:importantForAutofill="no" />
+        android:hint="@string/player1"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/textName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textName1"
+        android:autofillHints=""
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/player2"
-        android:autofillHints="" />
+        android:hint="@string/player2"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/buttonName"

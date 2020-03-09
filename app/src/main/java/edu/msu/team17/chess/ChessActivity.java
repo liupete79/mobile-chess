@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,11 +18,24 @@ public class ChessActivity extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_chess);
 
+        String p1;
+        String p2;
         if(bundle != null) {
             // We have saved state
             getChessView().loadInstanceState(bundle);
         }
+        else
+        {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                p1= null;
+                p2= null;
+            } else {
+                p1  = extras.getString("player1");
+                p2  = extras.getString("player2");
+        }}
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
