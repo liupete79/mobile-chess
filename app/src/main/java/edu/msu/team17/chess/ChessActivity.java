@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class ChessActivity extends AppCompatActivity {
+
+    private String currPlayer;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -24,16 +27,18 @@ public class ChessActivity extends AppCompatActivity {
             // We have saved state
             getChessView().loadInstanceState(bundle);
         }
-        else
-        {
+        else {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                p1= null;
-                p2= null;
+            if (extras == null) {
+                p1 = "1";
+                p2 = "2";
             } else {
-                p1  = extras.getString("player1");
-                p2  = extras.getString("player2");
-        }}
+                p1 = extras.getString("player1");
+                p2 = extras.getString("player2");
+            }
+            TextView tv = findViewById(R.id.currentPlayer);
+            tv.setText(p1 + "'s Turn!");
+        }
     }
 
     @Override
