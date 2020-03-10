@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.Log;
 
-public class ChessPiece {
+public abstract class ChessPiece {
     /**
      * The image for the actual piece.
      */
@@ -29,12 +29,19 @@ public class ChessPiece {
      */
     private int id;
 
+    private float prevX;
 
-    public ChessPiece(Context context, int id, float initialX,  float initialY) {
+    private float prevY;
+
+    private int player;
+
+
+    public ChessPiece(Context context, int id, float initialX,  float initialY, int player) {
     piece = BitmapFactory.decodeResource(context.getResources(), id);
         this.id = id;
         this.x = initialX;
         this.y = initialY;
+        this.player = player;
     }
 
     /**
@@ -125,5 +132,7 @@ public class ChessPiece {
         y += dy;
 
     }
+
+    public abstract void is_valid_move();
 }
 
