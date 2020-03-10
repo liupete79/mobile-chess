@@ -376,35 +376,39 @@ public class Chess {
     private boolean onReleased(View view, float x, float y) {
 
         if(dragging != null) {
-            int snapIndex = 0;
-            ArrayList<Integer> possibleSnap = new ArrayList<>();
-            float testX = 100;
-            float testY = 100;
-            int i;
-            for(i=0; i<squares.size(); i++){
-                if(abs(x-squares.get(i).getX())<=testX){
-                    testX=abs(x-squares.get(i).getX());
-                    possibleSnap.add(i);
-                }
-            }
-
-            for(int j=0; j<possibleSnap.size();j++) {
-                if (abs(y - squares.get(possibleSnap.get(j)).getY()) <= testY)
-                {
-                    testY=abs(y - squares.get(possibleSnap.get(j)).getY());
-                    snapIndex = possibleSnap.get(j);
-
-                }
-            }
-
-            dragging.setX(squares.get(snapIndex).getX());
-            dragging.setY(squares.get(snapIndex).getY());
-            squares.get(snapIndex).setPiece(dragging);
-            view.invalidate();
+            snap(view, x, y);
             dragging = null;
             return true;
         }
 
         return false;
+    }
+
+    private void snap(View view, float x, float y){
+        int snapIndex = 0;
+        ArrayList<Integer> possibleSnap = new ArrayList<>();
+        float testX = 100;
+        float testY = 100;
+        int i;
+        for(i=0; i<squares.size(); i++){
+            if(abs(x-squares.get(i).getX())<=testX){
+                testX=abs(x-squares.get(i).getX());
+                possibleSnap.add(i);
+            }
+        }
+
+        for(int j=0; j<possibleSnap.size();j++) {
+            if (abs(y - squares.get(possibleSnap.get(j)).getY()) <= testY)
+            {
+                testY=abs(y - squares.get(possibleSnap.get(j)).getY());
+                snapIndex = possibleSnap.get(j);
+
+            }
+        }
+
+        dragging.setX(squares.get(snapIndex).getX());
+        dragging.setY(squares.get(snapIndex).getY());
+        squares.get(snapIndex).setPiece(dragging);
+        view.invalidate();
     }
 }

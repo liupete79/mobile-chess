@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class ChessActivity extends AppCompatActivity {
@@ -89,5 +90,9 @@ public class ChessActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void onEndChess(View view) {
+        Intent intent = new Intent(this, EndActivity.class);
+        startActivity(intent);
     }
 }
