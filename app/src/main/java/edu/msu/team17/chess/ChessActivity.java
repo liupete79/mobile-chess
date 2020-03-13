@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 public class ChessActivity extends AppCompatActivity {
 
+    private String player1;
+    private String player2;
     private String currPlayer;
 
     @Override
@@ -30,15 +32,19 @@ public class ChessActivity extends AppCompatActivity {
         }
         else {
             Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                p1 = "1";
-                p2 = "2";
-            } else {
-                p1 = extras.getString("player1");
-                p2 = extras.getString("player2");
+            if (extras != null) {
+                player1 = extras.getString("player1");
+                player2 = extras.getString("player2");
+                if (player1.length() == 0) {
+                    player1 = "Player 1";
+                }
+                if (player2.length() == 0) {
+                    player2 = "Player 2";
+                }
+                currPlayer = player1;
+                TextView currentPlayer = findViewById(R.id.currentPlayer);
+                currentPlayer.setText(player1 + "'s Turn!");
             }
-            TextView currentPlayer = findViewById(R.id.currentPlayer);
-            currentPlayer.setText(p1 + "'s Turn!");
         }
     }
 
@@ -94,5 +100,16 @@ public class ChessActivity extends AppCompatActivity {
     public void onEndChess(View view) {
         Intent intent = new Intent(this, EndActivity.class);
         startActivity(intent);
+    }
+
+    public void onTurnDone(View view) {
+        if (currPlayer == player1) {
+            currPlayer = player2;
+        }
+        else {
+            currPlayer = player1;
+        }
+        TextView currentPlayer = findViewById(R.id.currentPlayer);
+        currentPlayer.setText(currPlayer + "'s Turn!");
     }
 }
