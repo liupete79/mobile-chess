@@ -35,13 +35,18 @@ public abstract class ChessPiece {
 
     private int player;
 
+    private int square_id = -1;
 
-    public ChessPiece(Context context, int id, float initialX,  float initialY, int player) {
+    private boolean firstMove = true;
+
+
+    public ChessPiece(Context context, int id, float initialX,  float initialY, int player, int square_id) {
     piece = BitmapFactory.decodeResource(context.getResources(), id);
         this.id = id;
         this.x = initialX;
         this.y = initialY;
         this.player = player;
+        this.square_id = square_id;
     }
 
     /**
@@ -86,6 +91,16 @@ public abstract class ChessPiece {
         this.y = y;
     }
 
+    public int getPlayer() {return this.player;}
+
+    public boolean isFirstMove() { return firstMove; }
+
+    public void setFirstMove(boolean firstMove) { this.firstMove = firstMove; }
+
+    public int getSquare_id(){return this.square_id;}
+
+    public void setSquare_id(int square_id){this.square_id = square_id;}
+
     public float getWidth() {
         return piece.getWidth();
     }
@@ -110,7 +125,7 @@ public abstract class ChessPiece {
         int pX = (int)((testX - x) * chessSize / scaleFactor) +
                 piece.getWidth() / 2;
         int pY = (int)((testY - y) * chessSize / scaleFactor) +
-                piece.getHeight() / 2;        Log.i("pX", String.valueOf(pX));
+                piece.getHeight() / 2;        //Log.i("pX", String.valueOf(pX));
 
         if(pX < 0 || pX >= piece.getWidth() ||
                 pY < 0 || pY >= piece.getHeight()) {
