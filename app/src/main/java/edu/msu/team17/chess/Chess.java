@@ -816,9 +816,88 @@ public class Chess {
 
         } else if (piece.getClass() == ChessPieceKing.class){
 
+            int x_check = moveSquare.getCoordX() - prevSquare.getCoordX();
+            int y_check = moveSquare.getCoordY() - prevSquare.getCoordY();
+
+            if(abs(x_check) <= 1 && abs(y_check) <= 1){
+                if(x_check == 0 && y_check == -1){
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                } else if(x_check == 1 && y_check == -1){
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                } else if(x_check == 1 && y_check == 0){
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                } else if(x_check == 1 && y_check == 1){
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                } else if(x_check == 0 && y_check == 1){
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                } else if(x_check == -1 && y_check == 1){
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                } else if(x_check == -1 && y_check == 0){
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                } else if(x_check == -1 && y_check == -1){
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                }
+
+            }
+
         }
 
-        //Change later, for now just leave it as is.
         return false;
     }
 
