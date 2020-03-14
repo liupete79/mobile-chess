@@ -514,6 +514,26 @@ public class Chess {
 
         } else if (piece.getClass() == ChessPieceKnight.class){
 
+            if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 1 && abs(moveSquare.getCoordY() - prevSquare.getCoordY()) == 2){
+                if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                    Captured(moveSquare.getPiece());
+                    piece.setSquare_id(snapIndex);
+                    return true;
+                } else if (moveSquare.getPiece() == null) {
+                    piece.setSquare_id(snapIndex);
+                    return true;
+                }
+            } else if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 2 && abs(moveSquare.getCoordY() - prevSquare.getCoordY()) == 1){
+                if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                    Captured(moveSquare.getPiece());
+                    piece.setSquare_id(snapIndex);
+                    return true;
+                } else if (moveSquare.getPiece() == null) {
+                    piece.setSquare_id(snapIndex);
+                    return true;
+                }
+            }
+
         } else if (piece.getClass() == ChessPieceBishop.class){
 
         } else if (piece.getClass() == ChessPieceRook.class){
@@ -531,7 +551,6 @@ public class Chess {
     private void Captured(ChessPiece piece){
         squares.get(piece.getSquare_id()).setPiece(null);
         piece.setSquare_id(-1);
-        //pieces.remove(piece);
     }
 
 }
