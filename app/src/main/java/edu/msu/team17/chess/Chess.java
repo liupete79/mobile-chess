@@ -378,8 +378,9 @@ public class Chess {
     private boolean onReleased(View view, float x, float y) {
 
         if(dragging != null) {
+            Square toUpdate = squares.get(dragging.getSquare_id());
             if(isValidMove(x, y, dragging, squares.get(dragging.getSquare_id()))) {
-                squares.get(dragging.getSquare_id()).setPiece(null);
+                toUpdate.setPiece(null);
                 snap(view, x, y);
             } else {
                 dragging.setX(squares.get(dragging.getSquare_id()).x);
@@ -462,7 +463,7 @@ public class Chess {
             if(piece.getPlayer() == 2) {
                 if (moveSquare.getCoordY() - prevSquare.getCoordY() == -2 && piece.isFirstMove()){
                     Log.i("Square", "(" + squares.get(snapIndex - 8).getCoordX() + "," + squares.get(snapIndex - 8).getCoordY() + ")");
-                    if (squares.get(snapIndex - 8).getPiece() == null) {
+                    if (squares.get(snapIndex - 8).getPiece() == null && moveSquare.getPiece() == null) {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
                         return true;
@@ -474,6 +475,7 @@ public class Chess {
                         return true;
                     } else if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 1 && moveSquare.getPiece() != null) {
                         if (moveSquare.getPiece().getPlayer() == 1) {
+                            Captured(moveSquare.getPiece());
                             piece.setSquare_id(snapIndex);
                             piece.setFirstMove(false);
                             return true;
@@ -485,7 +487,7 @@ public class Chess {
             //Black Player
             if(piece.getPlayer() == 1) {
                 if (moveSquare.getCoordY() - prevSquare.getCoordY() == 2 && piece.isFirstMove()){
-                    if (squares.get(snapIndex + 8).getPiece() == null) {
+                    if (squares.get(snapIndex + 8).getPiece() == null && moveSquare.getPiece() == null) {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
                         return true;
@@ -495,8 +497,9 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
                         return true;
-                    } else if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 1 && prevSquare.getPiece() != null ) {
-                        if (prevSquare.getPiece().getPlayer() == 2) {
+                    } else if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 1 && moveSquare.getPiece() != null ) {
+                        if (moveSquare.getPiece().getPlayer() == 2) {
+                            Captured(moveSquare.getPiece());
                             piece.setSquare_id(snapIndex);
                             piece.setFirstMove(false);
                             return true;
@@ -522,4 +525,11 @@ public class Chess {
         //Change later, for now just leave it as is.
         return false;
     }
+
+    private void Captured(ChessPiece piece){
+        squares.get(piece.getSquare_id()).setPiece(null);
+        piece.setSquare_id(-1);
+        //pieces.remove(piece);
+    }
+
 }
