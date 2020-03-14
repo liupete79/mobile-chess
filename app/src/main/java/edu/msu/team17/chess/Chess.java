@@ -608,6 +608,75 @@ public class Chess {
 
         } else if (piece.getClass() == ChessPieceRook.class){
 
+            int x_check = moveSquare.getCoordX() - prevSquare.getCoordX();
+            int y_check = moveSquare.getCoordY() - prevSquare.getCoordY();
+
+            if (moveSquare.getCoordX() == prevSquare.getCoordX()){
+                if (moveSquare.getCoordY() > prevSquare.getCoordY()){
+                    for(int i = 1; i < abs(y_check); i ++){
+                        int sq_index = piece.getSquare_id() + (8 * i);
+                        if (squares.get(sq_index).getPiece() != null){
+                            return false;
+                        }
+                    }
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
+                    for(int i = 1; i < abs(y_check); i ++){
+                        int sq_index = piece.getSquare_id() + (-8 * i);
+                        if (squares.get(sq_index).getPiece() != null){
+                            return false;
+                        }
+                    }
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                }
+            } else if (moveSquare.getCoordY() == prevSquare.getCoordY()) {
+                if (moveSquare.getCoordX() > prevSquare.getCoordX()){
+                    for(int i = 1; i < abs(x_check); i ++){
+                        int sq_index = piece.getSquare_id() + (i);
+                        if (squares.get(sq_index).getPiece() != null){
+                            return false;
+                        }
+                    }
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
+                    for(int i = 1; i < abs(x_check); i ++){
+                        int sq_index = piece.getSquare_id() + (-i);
+                        if (squares.get(sq_index).getPiece() != null){
+                            return false;
+                        }
+                    }
+                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        Captured(moveSquare.getPiece());
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    } else if (moveSquare.getPiece() == null){
+                        piece.setSquare_id(snapIndex);
+                        return true;
+                    }
+                }
+            }
+
         } else if (piece.getClass() == ChessPieceQueen.class){
 
         } else if (piece.getClass() == ChessPieceKing.class){
