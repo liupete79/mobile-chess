@@ -453,7 +453,7 @@ public class Chess {
         if (piece.getClass() == ChessPiecePawn.class){
 
             /*
-            Rules for pawn:
+            Rules for Pawns:
             Can move two space forwards if it is their first move.
             Otherwise, can only move one space forward if there is no piece in front
             And can move one space diagonally "forward" if an opponent's piece is there.
@@ -462,18 +462,22 @@ public class Chess {
 
             //White Player
             if(piece.getPlayer() == 2) {
-                if (moveSquare.getCoordY() - prevSquare.getCoordY() == -2 && piece.isFirstMove()){
+                //Checks for if we can move two spaces, only if it's the piece's first move.
+                if (moveSquare.getCoordY() - prevSquare.getCoordY() == -2 && piece.isFirstMove() && moveSquare.getCoordX() == prevSquare.getCoordX()){
                     Log.i("Square", "(" + squares.get(snapIndex - 8).getCoordX() + "," + squares.get(snapIndex - 8).getCoordY() + ")");
-                    if (squares.get(snapIndex - 8).getPiece() == null && moveSquare.getPiece() == null) {
+                    if (squares.get(snapIndex).getPiece() == null && moveSquare.getPiece() == null) {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
                         return true;
                     }
+                //Otherwise, checks to see if the pawn moves one space up
                 } else if (moveSquare.getCoordY() - prevSquare.getCoordY() == -1) {
+                    //If it does and the x coordinate is the same, check if space is empty and move
                     if (moveSquare.getCoordX() == prevSquare.getCoordX() && moveSquare.getPiece() == null) {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
                         return true;
+                    //If the x coordinate changed by 1, check if there is an enemy piece there and capture.
                     } else if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 1 && moveSquare.getPiece() != null) {
                         if (moveSquare.getPiece().getPlayer() == 1) {
                             Captured(moveSquare.getPiece());
@@ -485,10 +489,10 @@ public class Chess {
                 }
             }
 
-            //Black Player
+            //Black Player, same if statements, just in the other direction.
             if(piece.getPlayer() == 1) {
                 if (moveSquare.getCoordY() - prevSquare.getCoordY() == 2 && piece.isFirstMove()){
-                    if (squares.get(snapIndex + 8).getPiece() == null && moveSquare.getPiece() == null) {
+                    if (squares.get(snapIndex).getPiece() == null && moveSquare.getPiece() == null && moveSquare.getCoordX() == prevSquare.getCoordX()) {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
                         return true;
@@ -509,11 +513,20 @@ public class Chess {
                 }
             }
 
+            //Return false as the pawn can't move anywhere otherwise.
             return false;
 
         } else if (piece.getClass() == ChessPieceKnight.class){
 
+            /*
+            Rules for Knights:
+            Knights move 2 spaces in the x/y, then move 1 space in the y/x coordinate.
+            Can hop over other pieces
+            Captures enemy pieces in intended destination
+             */
+            //Checks for moving 1 space in the x direction, then 2 spaces in the y direction
             if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 1 && abs(moveSquare.getCoordY() - prevSquare.getCoordY()) == 2){
+                //Checks for piece capture
                 if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                     Captured(moveSquare.getPiece());
                     piece.setSquare_id(snapIndex);
@@ -522,7 +535,9 @@ public class Chess {
                     piece.setSquare_id(snapIndex);
                     return true;
                 }
+            //Checks for moving 1 space in the y direction, then 2 spaces in the x direction
             } else if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 2 && abs(moveSquare.getCoordY() - prevSquare.getCoordY()) == 1){
+                //Checks for piece capture
                 if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                     Captured(moveSquare.getPiece());
                     piece.setSquare_id(snapIndex);
@@ -535,18 +550,31 @@ public class Chess {
 
         } else if (piece.getClass() == ChessPieceBishop.class){
 
+            /*
+            Rules for Bishops:
+            Can move in any diagonal direction
+            Can get blocked by pieces on the way
+            Captures enemy pieces in intended destination
+             */
+
+            //Gets the difference between x and y coordinates
             int x_check = moveSquare.getCoordX() - prevSquare.getCoordX();
             int y_check = moveSquare.getCoordY() - prevSquare.getCoordY();
 
+            //If the difference is the same, that means we are moving diagonally
             if (abs(x_check) ==  abs(y_check)){
+                //Moving to the right side of board (+X)
                 if (moveSquare.getCoordX() > prevSquare.getCoordX()){
+                    //Moving down the board (+Y)
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
+                        //Checks to make sure there is no piece in the way
                         for(int i = 1; i < abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (9 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
                             }
                         }
+                        //Checks for Piece Capture
                         if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             Captured(moveSquare.getPiece());
                             piece.setSquare_id(snapIndex);
@@ -556,12 +584,14 @@ public class Chess {
                             return true;
                         }
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
+                        //Moving up the board (-Y)
                         for(int i = 1; i < abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (-7 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
                             }
                         }
+                        //Checks for Piece Capture
                         if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             Captured(moveSquare.getPiece());
                             piece.setSquare_id(snapIndex);
@@ -571,7 +601,9 @@ public class Chess {
                             return true;
                         }
                     }
+                //Moving to the left side of the board (-X)
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
+                    //Moving down the board (+Y)
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
                         for(int i = 1; i < abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (7 * i);
@@ -579,6 +611,7 @@ public class Chess {
                                 return false;
                             }
                         }
+                        //Checks for Piece Capture
                         if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             Captured(moveSquare.getPiece());
                             piece.setSquare_id(snapIndex);
@@ -587,6 +620,7 @@ public class Chess {
                             piece.setSquare_id(snapIndex);
                             return true;
                         }
+                    //Moving up the board (-Y)
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
                         for(int i = 1; i < abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (-9 * i);
@@ -594,6 +628,7 @@ public class Chess {
                                 return false;
                             }
                         }
+                        //Checks for piece Capture
                         if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             Captured(moveSquare.getPiece());
                             piece.setSquare_id(snapIndex);
@@ -608,17 +643,29 @@ public class Chess {
 
         } else if (piece.getClass() == ChessPieceRook.class){
 
+            /*
+            Rules for Rooks:
+            Can move in any horizontal or vertical direction
+            Can get blocked by pieces on the way
+            Captures enemy pieces in intended destination
+             */
+
+            //Difference between X & Y coordinates
             int x_check = moveSquare.getCoordX() - prevSquare.getCoordX();
             int y_check = moveSquare.getCoordY() - prevSquare.getCoordY();
 
+            //If the X coord is the same, moving vertically
             if (moveSquare.getCoordX() == prevSquare.getCoordX()){
+                //Moving down the board (+Y)
                 if (moveSquare.getCoordY() > prevSquare.getCoordY()){
+                    //Checks for pieces on the way
                     for(int i = 1; i < abs(y_check); i ++){
                         int sq_index = piece.getSquare_id() + (8 * i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
                         }
                     }
+                    //Checks for Piece Capture
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
                         piece.setSquare_id(snapIndex);
@@ -627,6 +674,7 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         return true;
                     }
+                //Moving up the board (-Y)
                 } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
                     for(int i = 1; i < abs(y_check); i ++){
                         int sq_index = piece.getSquare_id() + (-8 * i);
@@ -634,6 +682,7 @@ public class Chess {
                             return false;
                         }
                     }
+                    //Checks for piece capture
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
                         piece.setSquare_id(snapIndex);
@@ -643,7 +692,9 @@ public class Chess {
                         return true;
                     }
                 }
+            //If the Y coord is the same, moving horizontally
             } else if (moveSquare.getCoordY() == prevSquare.getCoordY()) {
+                //Moving to the right (+X)
                 if (moveSquare.getCoordX() > prevSquare.getCoordX()){
                     for(int i = 1; i < abs(x_check); i ++){
                         int sq_index = piece.getSquare_id() + (i);
@@ -651,6 +702,7 @@ public class Chess {
                             return false;
                         }
                     }
+                    //Checks for Piece Capture
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
                         piece.setSquare_id(snapIndex);
@@ -659,6 +711,7 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         return true;
                     }
+                //Moving to the left (-X)
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
                     for(int i = 1; i < abs(x_check); i ++){
                         int sq_index = piece.getSquare_id() + (-i);
@@ -666,6 +719,7 @@ public class Chess {
                             return false;
                         }
                     }
+                    //Checks for piece capture
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
                         piece.setSquare_id(snapIndex);
@@ -679,9 +733,19 @@ public class Chess {
 
         } else if (piece.getClass() == ChessPieceQueen.class){
 
+            /*
+            Rules for Queens:
+            Can move in any cardinal direction
+            Can get blocked by any piece on the way
+            Captures enemy pieces in intended destination
+            Slay the opposition of the King
+             */
+
+            //Gets the difference between x and y coordinates
             int x_check = moveSquare.getCoordX() - prevSquare.getCoordX();
             int y_check = moveSquare.getCoordY() - prevSquare.getCoordY();
 
+            //This is just the Rook + Bishop massive nested if statements combined
             if (abs(x_check) ==  abs(y_check)){
                 if (moveSquare.getCoordX() > prevSquare.getCoordX()){
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
@@ -816,11 +880,23 @@ public class Chess {
 
         } else if (piece.getClass() == ChessPieceKing.class){
 
+            /*
+            Rules for Kings:
+            Can move only 1 space in any cardinal direction
+            Captures enemy pieces in intended destination
+            Checks are not being checked for. (Eh? Eh?)
+            Rule the chess board.
+             */
+
+            //Gets the difference between x and y coordinates
             int x_check = moveSquare.getCoordX() - prevSquare.getCoordX();
             int y_check = moveSquare.getCoordY() - prevSquare.getCoordY();
 
+            //Checks to make sure king is only moving 1 space in any cardinal direction
             if(abs(x_check) <= 1 && abs(y_check) <= 1){
+                //Moving North
                 if(x_check == 0 && y_check == -1){
+                    //Checks for piece capture
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
                         piece.setSquare_id(snapIndex);
@@ -829,6 +905,7 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         return true;
                     }
+                //Moving NorthEast
                 } else if(x_check == 1 && y_check == -1){
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
@@ -838,6 +915,7 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         return true;
                     }
+                //Moving East
                 } else if(x_check == 1 && y_check == 0){
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
@@ -847,6 +925,7 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         return true;
                     }
+                //Moving SouthEast
                 } else if(x_check == 1 && y_check == 1){
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
@@ -856,6 +935,7 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         return true;
                     }
+                //Moving South
                 } else if(x_check == 0 && y_check == 1){
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
@@ -865,6 +945,7 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         return true;
                     }
+                //Moving SouthWest
                 } else if(x_check == -1 && y_check == 1){
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
@@ -874,6 +955,7 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         return true;
                     }
+                //Moving West
                 } else if(x_check == -1 && y_check == 0){
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
@@ -883,6 +965,7 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         return true;
                     }
+                //Moving NorthWest
                 } else if(x_check == -1 && y_check == -1){
                     if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         Captured(moveSquare.getPiece());
@@ -898,9 +981,11 @@ public class Chess {
 
         }
 
+        //Return False just in case.
         return false;
     }
 
+    //Capture to get the captured pieces off the board
     private void Captured(ChessPiece piece){
         squares.get(piece.getSquare_id()).setPiece(null);
         piece.setSquare_id(-1);
