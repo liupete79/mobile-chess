@@ -798,40 +798,42 @@ public class Chess {
             int y_check = moveSquare.getCoordY() - prevSquare.getCoordY();
 
             //Checks to make sure king is only moving 1 space in any cardinal direction
-            if(abs(x_check) <= 1 && abs(y_check) <= 1 && moveSquare.getPiece() == null){
-                //Moving North
-                if(x_check == 0 && y_check == -1){
-                    //Checks for piece capture
-                    completeMovement(piece, moveSquare);
-                    return true;
-                //Moving NorthEast
-                } else if(x_check == 1 && y_check == -1){
-                    completeMovement(piece, moveSquare);
-                    return true;
-                //Moving East
-                } else if(x_check == 1 && y_check == 0){
-                    completeMovement(piece, moveSquare);
-                    return true;
-                //Moving SouthEast
-                } else if(x_check == 1 && y_check == 1){
-                    completeMovement(piece, moveSquare);
-                    return true;
-                //Moving South
-                } else if(x_check == 0 && y_check == 1){
-                    completeMovement(piece, moveSquare);
-                    return true;
-                //Moving SouthWest
-                } else if(x_check == -1 && y_check == 1){
-                    completeMovement(piece, moveSquare);
-                    return true;
-                //Moving West
-                } else if(x_check == -1 && y_check == 0){
-                    completeMovement(piece, moveSquare);
-                    return true;
-                //Moving NorthWest
-                } else if(x_check == -1 && y_check == -1){
-                    completeMovement(piece, moveSquare);
-                    return true;
+            if(abs(x_check) <= 1 && abs(y_check) <= 1) {
+                if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()) {
+                    //Moving North
+                    if (x_check == 0 && y_check == -1) {
+                        //Checks for piece capture
+                        completeMovement(piece, moveSquare);
+                        return true;
+                        //Moving NorthEast
+                    } else if (x_check == 1 && y_check == -1) {
+                        completeMovement(piece, moveSquare);
+                        return true;
+                        //Moving East
+                    } else if (x_check == 1 && y_check == 0) {
+                        completeMovement(piece, moveSquare);
+                        return true;
+                        //Moving SouthEast
+                    } else if (x_check == 1 && y_check == 1) {
+                        completeMovement(piece, moveSquare);
+                        return true;
+                        //Moving South
+                    } else if (x_check == 0 && y_check == 1) {
+                        completeMovement(piece, moveSquare);
+                        return true;
+                        //Moving SouthWest
+                    } else if (x_check == -1 && y_check == 1) {
+                        completeMovement(piece, moveSquare);
+                        return true;
+                        //Moving West
+                    } else if (x_check == -1 && y_check == 0) {
+                        completeMovement(piece, moveSquare);
+                        return true;
+                        //Moving NorthWest
+                    } else if (x_check == -1 && y_check == -1) {
+                        completeMovement(piece, moveSquare);
+                        return true;
+                    }
                 }
             }
             return false;
