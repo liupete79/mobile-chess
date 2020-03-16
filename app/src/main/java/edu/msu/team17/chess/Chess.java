@@ -404,24 +404,24 @@ public class Chess {
         float testX = 100;
         float testY = 100;
         int i;
-        for(i=0; i<squares.size(); i++){
+        for(i=0; i<squares.size(); i++){///get an array list of possible snap locations using x variable
             if(abs(x-squares.get(i).getX())<=testX){
                 testX=abs(x-squares.get(i).getX());
                 possibleSnap.add(i);
             }
         }
 
-        for(int j=0; j<possibleSnap.size();j++) {
+        for(int j=0; j<possibleSnap.size();j++) {///use y values to see which square is closest
             if (abs(y - squares.get(possibleSnap.get(j)).getY()) <= testY)
             {
                 testY=abs(y - squares.get(possibleSnap.get(j)).getY());
-                snapIndex = possibleSnap.get(j);
+                snapIndex = possibleSnap.get(j);///get an index of the square with the closest coordinates
 
             }
         }
 
         dragging.setX(squares.get(snapIndex).getX());
-        dragging.setY(squares.get(snapIndex).getY());
+        dragging.setY(squares.get(snapIndex).getY());///snap piece to the square
         squares.get(snapIndex).setPiece(dragging);
         view.invalidate();
     }
