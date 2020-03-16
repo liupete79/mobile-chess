@@ -42,14 +42,13 @@ public abstract class ChessPiece {
     private boolean firstMove = true;
 
 
-    public ChessPiece(Context context, int id, float initialX,  float initialY, int player, int square_id, boolean white) {
+    public ChessPiece(Context context, int id, float initialX,  float initialY, int player, int square_id) {
     piece = BitmapFactory.decodeResource(context.getResources(), id);
         this.id = id;
         this.x = initialX;
         this.y = initialY;
         this.player = player;
         this.square_id = square_id;
-        this.isWhite = white;
     }
 
     /**
