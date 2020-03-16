@@ -548,6 +548,8 @@ public class Chess {
                 }
             }
 
+            return false;
+
         } else if (piece.getClass() == ChessPieceBishop.class){
 
             /*
@@ -568,7 +570,7 @@ public class Chess {
                     //Moving down the board (+Y)
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
                         //Checks to make sure there is no piece in the way
-                        for(int i = 1; i < abs(x_check); i ++){
+                        for(int i = 1; i != abs(x_check) + 1; i ++){
                             int sq_index = piece.getSquare_id() + (9 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
@@ -578,7 +580,7 @@ public class Chess {
                         return true;
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
                         //Moving up the board (-Y)
-                        for(int i = 1; i < abs(x_check); i ++){
+                        for(int i = 1; i != abs(x_check) + 1; i ++){
                             int sq_index = piece.getSquare_id() + (-7 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
@@ -591,7 +593,7 @@ public class Chess {
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
                     //Moving down the board (+Y)
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
-                        for(int i = 1; i < abs(x_check); i ++){
+                        for(int i = 1; i != abs(x_check) + 1; i ++){
                             int sq_index = piece.getSquare_id() + (7 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
@@ -601,7 +603,7 @@ public class Chess {
                         return true;
                     //Moving up the board (-Y)
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
-                        for(int i = 1; i < abs(x_check); i ++){
+                        for(int i = 1; i != abs(x_check) + 1; i ++){
                             int sq_index = piece.getSquare_id() + (-9 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
@@ -612,6 +614,8 @@ public class Chess {
                     }
                 }
             }
+
+            return false;
 
         } else if (piece.getClass() == ChessPieceRook.class){
 
@@ -631,7 +635,7 @@ public class Chess {
                 //Moving down the board (+Y)
                 if (moveSquare.getCoordY() > prevSquare.getCoordY()){
                     //Checks for pieces on the way
-                    for(int i = 1; i < abs(y_check); i ++){
+                    for(int i = 1; i != abs(y_check) + 1; i ++){
                         int sq_index = piece.getSquare_id() + (8 * i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
@@ -641,7 +645,7 @@ public class Chess {
                     return true;
                 //Moving up the board (-Y)
                 } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
-                    for(int i = 1; i < abs(y_check); i ++){
+                    for(int i = 1; i != abs(y_check) + 1; i ++){
                         int sq_index = piece.getSquare_id() + (-8 * i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
@@ -654,7 +658,7 @@ public class Chess {
             } else if (moveSquare.getCoordY() == prevSquare.getCoordY()) {
                 //Moving to the right (+X)
                 if (moveSquare.getCoordX() > prevSquare.getCoordX()){
-                    for(int i = 1; i < abs(x_check); i ++){
+                    for(int i = 1; i != abs(x_check) + 1; i ++){
                         int sq_index = piece.getSquare_id() + (i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
@@ -665,7 +669,7 @@ public class Chess {
                     return true;
                 //Moving to the left (-X)
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
-                    for(int i = 1; i < abs(x_check); i ++){
+                    for(int i = 1; i != abs(x_check) + 1; i ++){
                         int sq_index = piece.getSquare_id() + (-i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
@@ -676,6 +680,8 @@ public class Chess {
                     return true;
                 }
             }
+
+            return false;
 
         } else if (piece.getClass() == ChessPieceQueen.class){
 
@@ -695,7 +701,7 @@ public class Chess {
             if (abs(x_check) ==  abs(y_check)){
                 if (moveSquare.getCoordX() > prevSquare.getCoordX()){
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
-                        for(int i = 1; i < abs(x_check); i ++){
+                        for(int i = 1; i != abs(x_check) + 1; i ++){
                             int sq_index = piece.getSquare_id() + (9 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
@@ -704,7 +710,7 @@ public class Chess {
                         completeMovement(piece, moveSquare);
                         return true;
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
-                        for(int i = 1; i < abs(x_check); i ++){
+                        for(int i = 1; i != abs(x_check) + 1; i ++){
                             int sq_index = piece.getSquare_id() + (-7 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
@@ -715,7 +721,7 @@ public class Chess {
                     }
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
-                        for(int i = 1; i < abs(x_check); i ++){
+                        for(int i = 1; i != abs(x_check) + 1; i ++){
                             int sq_index = piece.getSquare_id() + (7 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
@@ -724,7 +730,7 @@ public class Chess {
                         completeMovement(piece, moveSquare);
                         return true;
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
-                        for(int i = 1; i < abs(x_check); i ++){
+                        for(int i = 1; i != abs(x_check) + 1; i ++){
                             int sq_index = piece.getSquare_id() + (-9 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
@@ -736,7 +742,7 @@ public class Chess {
                 }
             } else if (moveSquare.getCoordX() == prevSquare.getCoordX()){
                 if (moveSquare.getCoordY() > prevSquare.getCoordY()){
-                    for(int i = 1; i < abs(y_check); i ++){
+                    for(int i = 1; i != abs(y_check) + 1; i ++){
                         int sq_index = piece.getSquare_id() + (8 * i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
@@ -744,7 +750,7 @@ public class Chess {
                     }
                     completeMovement(piece, moveSquare);
                 } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
-                    for(int i = 1; i < abs(y_check); i ++){
+                    for(int i = 1; i != abs(y_check) + 1; i ++){
                         int sq_index = piece.getSquare_id() + (-8 * i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
@@ -755,7 +761,7 @@ public class Chess {
                 }
             } else if (moveSquare.getCoordY() == prevSquare.getCoordY()) {
                 if (moveSquare.getCoordX() > prevSquare.getCoordX()){
-                    for(int i = 1; i < abs(x_check); i ++){
+                    for(int i = 1; i != abs(x_check) + 1; i ++){
                         int sq_index = piece.getSquare_id() + (i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
@@ -764,7 +770,7 @@ public class Chess {
                     completeMovement(piece, moveSquare);
                     return true;
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
-                    for(int i = 1; i < abs(x_check); i ++){
+                    for(int i = 1; i != abs(x_check) + 1; i ++){
                         int sq_index = piece.getSquare_id() + (-i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
@@ -774,6 +780,8 @@ public class Chess {
                     return true;
                 }
             }
+
+            return false;
 
         } else if (piece.getClass() == ChessPieceKing.class){
 
@@ -790,7 +798,7 @@ public class Chess {
             int y_check = moveSquare.getCoordY() - prevSquare.getCoordY();
 
             //Checks to make sure king is only moving 1 space in any cardinal direction
-            if(abs(x_check) <= 1 && abs(y_check) <= 1){
+            if(abs(x_check) <= 1 && abs(y_check) <= 1 && moveSquare.getPiece() == null){
                 //Moving North
                 if(x_check == 0 && y_check == -1){
                     //Checks for piece capture
@@ -825,8 +833,8 @@ public class Chess {
                     completeMovement(piece, moveSquare);
                     return true;
                 }
-
             }
+            return false;
 
         }
 
