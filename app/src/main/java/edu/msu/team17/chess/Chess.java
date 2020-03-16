@@ -140,41 +140,41 @@ public class Chess {
                         R.drawable.chess);
 
         // Load the puzzle pieces
-        pieces.add(new ChessPieceRook(context, R.drawable.chess_rdt45, 0.0622428f, 0.0622428f, 1, 0));
-        pieces.add(new ChessPieceKnight(context, R.drawable.chess_ndt45, 0.18672839f, 0.0622428f, 1, 1));
-        pieces.add(new ChessPieceBishop(context, R.drawable.chess_bdt45, 0.311214f, 0.0622428f, 1, 2));
-        pieces.add(new ChessPieceQueen(context, R.drawable.chess_qdt45, 0.43569958f, 0.0622428f, 1, 3));
-        pieces.add(new ChessPieceKing(context, R.drawable.chess_kdt45, 0.5601852f, 0.0622428f, 1, 4));
-        pieces.add(new ChessPieceBishop(context, R.drawable.chess_bdt45, 0.6846708f, 0.0622428f, 1, 5));
-        pieces.add(new ChessPieceKnight(context, R.drawable.chess_ndt45, 0.80915636f, 0.0622428f, 1, 6));
-        pieces.add(new ChessPieceRook(context, R.drawable.chess_rdt45,  0.93364197f, 0.0622428f, 1, 7));
+        pieces.add(new ChessPieceRook(context, R.drawable.chess_rdt45, 0.0622428f, 0.0622428f, 1, 0, false));
+        pieces.add(new ChessPieceKnight(context, R.drawable.chess_ndt45, 0.18672839f, 0.0622428f, 1, 1, false));
+        pieces.add(new ChessPieceBishop(context, R.drawable.chess_bdt45, 0.311214f, 0.0622428f, 1, 2, false));
+        pieces.add(new ChessPieceQueen(context, R.drawable.chess_qdt45, 0.43569958f, 0.0622428f, 1, 3, false));
+        pieces.add(new ChessPieceKing(context, R.drawable.chess_kdt45, 0.5601852f, 0.0622428f, 1, 4, false));
+        pieces.add(new ChessPieceBishop(context, R.drawable.chess_bdt45, 0.6846708f, 0.0622428f, 1, 5, false));
+        pieces.add(new ChessPieceKnight(context, R.drawable.chess_ndt45, 0.80915636f, 0.0622428f, 1, 6, false));
+        pieces.add(new ChessPieceRook(context, R.drawable.chess_rdt45,  0.93364197f, 0.0622428f, 1, 7, false));
 
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.0622428f, 0.18672839f, 1, 8));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.18672839f, 0.18672839f, 1, 9));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.311214f, 0.18672839f, 1, 10));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.43569958f, 0.18672839f, 1, 11));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.5601852f, 0.18672839f, 1, 12));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.6846708f, 0.18672839f, 1, 13));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.80915636f, 0.18672839f, 1, 14));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.93364197f, 0.18672839f, 1,15));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.0622428f, 0.18672839f, 1, 8, false));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.18672839f, 0.18672839f, 1, 9, false));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.311214f, 0.18672839f, 1, 10, false));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.43569958f, 0.18672839f, 1, 11, false));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.5601852f, 0.18672839f, 1, 12, false));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.6846708f, 0.18672839f, 1, 13, false));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.80915636f, 0.18672839f, 1, 14, false));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_pdt45, 0.93364197f, 0.18672839f, 1,15, false));
 
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.0622428f, 0.80915636f, 2, 48));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.18672839f, 0.80915636f, 2, 49));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.311214f, 0.80915636f, 2, 50));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.43569958f, 0.80915636f, 2, 51));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.5601852f, 0.80915636f, 2, 52));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.6846708f, 0.80915636f, 2, 53));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.80915636f, 0.80915636f, 2, 54));
-        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.93364197f, 0.80915636f, 2, 55));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.0622428f, 0.80915636f, 2, 48, true));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.18672839f, 0.80915636f, 2, 49, true));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.311214f, 0.80915636f, 2, 50, true));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.43569958f, 0.80915636f, 2, 51, true));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.5601852f, 0.80915636f, 2, 52, true));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.6846708f, 0.80915636f, 2, 53, true));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.80915636f, 0.80915636f, 2, 54, true));
+        pieces.add(new ChessPiecePawn(context, R.drawable.chess_plt45, 0.93364197f, 0.80915636f, 2, 55, true));
 
-        pieces.add(new ChessPieceRook(context, R.drawable.chess_rlt45, 0.0622428f, 0.93364197f, 2, 56));
-        pieces.add(new ChessPieceKnight(context, R.drawable.chess_nlt45, 0.18672839f, 0.93364197f, 2, 57));
-        pieces.add(new ChessPieceBishop(context, R.drawable.chess_blt45, 0.311214f, 0.93364197f, 2, 58));
-        pieces.add(new ChessPieceQueen(context, R.drawable.chess_qlt45, 0.43569958f, 0.93364197f, 2, 59));
-        pieces.add(new ChessPieceKing(context, R.drawable.chess_klt45, 0.5601852f, 0.93364197f, 2, 60));
-        pieces.add(new ChessPieceBishop(context, R.drawable.chess_blt45,  0.6846708f, 0.93364197f, 2, 61));
-        pieces.add(new ChessPieceKnight(context, R.drawable.chess_nlt45, 0.80915636f, 0.93364197f, 2, 62));
-        pieces.add(new ChessPieceRook(context, R.drawable.chess_rlt45, 0.93364197f, 0.93364197f, 2, 63));
+        pieces.add(new ChessPieceRook(context, R.drawable.chess_rlt45, 0.0622428f, 0.93364197f, 2, 56, true));
+        pieces.add(new ChessPieceKnight(context, R.drawable.chess_nlt45, 0.18672839f, 0.93364197f, 2, 57, true));
+        pieces.add(new ChessPieceBishop(context, R.drawable.chess_blt45, 0.311214f, 0.93364197f, 2, 58, true));
+        pieces.add(new ChessPieceQueen(context, R.drawable.chess_qlt45, 0.43569958f, 0.93364197f, 2, 59, true));
+        pieces.add(new ChessPieceKing(context, R.drawable.chess_klt45, 0.5601852f, 0.93364197f, 2, 60, true));
+        pieces.add(new ChessPieceBishop(context, R.drawable.chess_blt45,  0.6846708f, 0.93364197f, 2, 61, true));
+        pieces.add(new ChessPieceKnight(context, R.drawable.chess_nlt45, 0.80915636f, 0.93364197f, 2, 62, true));
+        pieces.add(new ChessPieceRook(context, R.drawable.chess_rlt45, 0.93364197f, 0.93364197f, 2, 63, true));
     }
 
     public void draw(Canvas canvas){
@@ -404,24 +404,24 @@ public class Chess {
         float testX = 100;
         float testY = 100;
         int i;
-        for(i=0; i<squares.size(); i++){
+        for(i=0; i<squares.size(); i++){///get an array list of possible snap locations using x variable
             if(abs(x-squares.get(i).getX())<=testX){
                 testX=abs(x-squares.get(i).getX());
                 possibleSnap.add(i);
             }
         }
 
-        for(int j=0; j<possibleSnap.size();j++) {
+        for(int j=0; j<possibleSnap.size();j++) {///use y values to see which square is closest
             if (abs(y - squares.get(possibleSnap.get(j)).getY()) <= testY)
             {
                 testY=abs(y - squares.get(possibleSnap.get(j)).getY());
-                snapIndex = possibleSnap.get(j);
+                snapIndex = possibleSnap.get(j);///get an index of the square with the closest coordinates
 
             }
         }
 
         dragging.setX(squares.get(snapIndex).getX());
-        dragging.setY(squares.get(snapIndex).getY());
+        dragging.setY(squares.get(snapIndex).getY());///snap piece to the square
         squares.get(snapIndex).setPiece(dragging);
         view.invalidate();
     }
@@ -478,6 +478,7 @@ public class Chess {
                     if (moveSquare.getCoordX() == prevSquare.getCoordX() && moveSquare.getPiece() == null) {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
+                        promotePawn(piece);
                         return true;
                     //If the x coordinate changed by 1, check if there is an enemy piece there and capture.
                     } else if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 1 && moveSquare.getPiece() != null) {
@@ -485,6 +486,7 @@ public class Chess {
                             Captured(moveSquare.getPiece());
                             piece.setSquare_id(snapIndex);
                             piece.setFirstMove(false);
+                            promotePawn(piece);
                             return true;
                         }
                     }
@@ -859,6 +861,10 @@ public class Chess {
     private void Captured(ChessPiece piece){
         squares.get(piece.getSquare_id()).setPiece(null);
         piece.setSquare_id(-1);
+    }
+
+    private void promotePawn(ChessPiece pieceToPromote) {
+        Log.i("Square", "Promoted");
     }
 
 }

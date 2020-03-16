@@ -29,6 +29,8 @@ public abstract class ChessPiece {
      */
     private int id;
 
+    private boolean isWhite; ///true if on the white team
+
     private float prevX;
 
     private float prevY;
@@ -40,13 +42,14 @@ public abstract class ChessPiece {
     private boolean firstMove = true;
 
 
-    public ChessPiece(Context context, int id, float initialX,  float initialY, int player, int square_id) {
+    public ChessPiece(Context context, int id, float initialX,  float initialY, int player, int square_id, boolean white) {
     piece = BitmapFactory.decodeResource(context.getResources(), id);
         this.id = id;
         this.x = initialX;
         this.y = initialY;
         this.player = player;
         this.square_id = square_id;
+        this.isWhite = white;
     }
 
     /**
