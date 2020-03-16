@@ -574,47 +574,55 @@ public class Chess {
                     //Moving down the board (+Y)
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
                         //Checks to make sure there is no piece in the way
-                        for(int i = 1; i != abs(x_check) + 1; i ++){
+                        for(int i = 1; i != abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (9 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
                             }
                         }
-                        completeMovement(piece, moveSquare);
-                        return true;
+                        if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                            completeMovement(piece, moveSquare);
+                            return true;
+                        }
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
                         //Moving up the board (-Y)
-                        for(int i = 1; i != abs(x_check) + 1; i ++){
+                        for(int i = 1; i != abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (-7 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
                             }
                         }
-                        completeMovement(piece, moveSquare);
-                        return true;
+                        if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                            completeMovement(piece, moveSquare);
+                            return true;
+                        }
                     }
                 //Moving to the left side of the board (-X)
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
                     //Moving down the board (+Y)
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
-                        for(int i = 1; i != abs(x_check) + 1; i ++){
+                        for(int i = 1; i != abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (7 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
                             }
                         }
-                        completeMovement(piece, moveSquare);
-                        return true;
+                        if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                            completeMovement(piece, moveSquare);
+                            return true;
+                        }
                     //Moving up the board (-Y)
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
-                        for(int i = 1; i != abs(x_check) + 1; i ++){
+                        for(int i = 1; i != abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (-9 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
                             }
                         }
-                        completeMovement(piece, moveSquare);
-                        return true;
+                        if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                            completeMovement(piece, moveSquare);
+                            return true;
+                        }
                     }
                 }
             }
@@ -639,49 +647,55 @@ public class Chess {
                 //Moving down the board (+Y)
                 if (moveSquare.getCoordY() > prevSquare.getCoordY()){
                     //Checks for pieces on the way
-                    for(int i = 1; i != abs(y_check) + 1; i ++){
+                    for(int i = 1; i != abs(y_check); i ++){
                         int sq_index = piece.getSquare_id() + (8 * i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
                         }
                     }
-                    completeMovement(piece, moveSquare);
-                    return true;
+                    if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        completeMovement(piece, moveSquare);
+                        return true;
+                    }
                 //Moving up the board (-Y)
                 } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
-                    for(int i = 1; i != abs(y_check) + 1; i ++){
+                    for(int i = 1; i != abs(y_check); i ++){
                         int sq_index = piece.getSquare_id() + (-8 * i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
                         }
                     }
-                    completeMovement(piece, moveSquare);
-                    return true;
+                    if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        completeMovement(piece, moveSquare);
+                        return true;
+                    }
                 }
             //If the Y coord is the same, moving horizontally
             } else if (moveSquare.getCoordY() == prevSquare.getCoordY()) {
                 //Moving to the right (+X)
                 if (moveSquare.getCoordX() > prevSquare.getCoordX()){
-                    for(int i = 1; i != abs(x_check) + 1; i ++){
+                    for(int i = 1; i != abs(x_check); i ++){
                         int sq_index = piece.getSquare_id() + (i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
                         }
                     }
-                    //Checks for Piece Capture
-                    completeMovement(piece, moveSquare);
-                    return true;
+                    if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        completeMovement(piece, moveSquare);
+                        return true;
+                    }
                 //Moving to the left (-X)
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
-                    for(int i = 1; i != abs(x_check) + 1; i ++){
+                    for(int i = 1; i != abs(x_check); i ++){
                         int sq_index = piece.getSquare_id() + (-i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
                         }
                     }
-                    //Checks for piece capture
-                    completeMovement(piece, moveSquare);
-                    return true;
+                    if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        completeMovement(piece, moveSquare);
+                        return true;
+                    }
                 }
             }
 
@@ -705,83 +719,100 @@ public class Chess {
             if (abs(x_check) ==  abs(y_check)){
                 if (moveSquare.getCoordX() > prevSquare.getCoordX()){
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
-                        for(int i = 1; i != abs(x_check) + 1; i ++){
+                        for(int i = 1; i != abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (9 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
                             }
                         }
-                        completeMovement(piece, moveSquare);
-                        return true;
+                        if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                            completeMovement(piece, moveSquare);
+                            return true;
+                        }
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
-                        for(int i = 1; i != abs(x_check) + 1; i ++){
+                        for(int i = 1; i != abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (-7 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
                             }
                         }
-                        completeMovement(piece, moveSquare);
-                        return true;
+                        if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                            completeMovement(piece, moveSquare);
+                            return true;
+                        }
                     }
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
-                        for(int i = 1; i != abs(x_check) + 1; i ++){
+                        for(int i = 1; i != abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (7 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
                             }
                         }
-                        completeMovement(piece, moveSquare);
-                        return true;
+                        if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                            completeMovement(piece, moveSquare);
+                            return true;
+                        }
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
-                        for(int i = 1; i != abs(x_check) + 1; i ++){
+                        for(int i = 1; i != abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (-9 * i);
                             if (squares.get(sq_index).getPiece() != null){
                                 return false;
                             }
                         }
-                        completeMovement(piece, moveSquare);
-                        return true;
+                        if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                            completeMovement(piece, moveSquare);
+                            return true;
+                        }
                     }
                 }
             } else if (moveSquare.getCoordX() == prevSquare.getCoordX()){
                 if (moveSquare.getCoordY() > prevSquare.getCoordY()){
-                    for(int i = 1; i != abs(y_check) + 1; i ++){
+                    for(int i = 1; i != abs(y_check); i ++){
                         int sq_index = piece.getSquare_id() + (8 * i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
                         }
                     }
-                    completeMovement(piece, moveSquare);
+                    if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        completeMovement(piece, moveSquare);
+                        return true;
+                    }
                 } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
-                    for(int i = 1; i != abs(y_check) + 1; i ++){
+                    for(int i = 1; i != abs(y_check); i ++){
                         int sq_index = piece.getSquare_id() + (-8 * i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
                         }
                     }
-                    completeMovement(piece, moveSquare);
-                    return true;
+                    if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        completeMovement(piece, moveSquare);
+                        return true;
+                    }
                 }
             } else if (moveSquare.getCoordY() == prevSquare.getCoordY()) {
                 if (moveSquare.getCoordX() > prevSquare.getCoordX()){
-                    for(int i = 1; i != abs(x_check) + 1; i ++){
+                    for(int i = 1; i != abs(x_check); i ++){
                         int sq_index = piece.getSquare_id() + (i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
                         }
                     }
-                    completeMovement(piece, moveSquare);
-                    return true;
+                    if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        completeMovement(piece, moveSquare);
+                        return true;
+                    }
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
-                    for(int i = 1; i != abs(x_check) + 1; i ++){
+                    for(int i = 1; i != abs(x_check); i ++){
                         int sq_index = piece.getSquare_id() + (-i);
                         if (squares.get(sq_index).getPiece() != null){
                             return false;
                         }
                     }
-                    completeMovement(piece, moveSquare);
-                    return true;
+                    if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
+                        completeMovement(piece, moveSquare);
+                        return true;
+                    }
                 }
             }
 
