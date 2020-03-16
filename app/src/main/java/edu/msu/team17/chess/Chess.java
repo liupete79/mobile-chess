@@ -467,7 +467,7 @@ public class Chess {
                 //Checks for if we can move two spaces, only if it's the piece's first move.
                 if (moveSquare.getCoordY() - prevSquare.getCoordY() == -2 && piece.isFirstMove() && moveSquare.getCoordX() == prevSquare.getCoordX()){
                     Log.i("Square", "(" + squares.get(snapIndex - 8).getCoordX() + "," + squares.get(snapIndex - 8).getCoordY() + ")");
-                    if (squares.get(snapIndex).getPiece() == null && moveSquare.getPiece() == null) {
+                    if (squares.get(snapIndex).getPiece() == null && moveSquare.getPiece() == null && squares.get(piece.getSquare_id() - 8).getPiece() == null) {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
                         return true;
@@ -500,7 +500,7 @@ public class Chess {
                         return true;
                     }
                 } else if (moveSquare.getCoordY() - prevSquare.getCoordY() == 1) {
-                    if (moveSquare.getCoordX() == prevSquare.getCoordX() && moveSquare.getPiece() == null) {
+                    if (moveSquare.getCoordX() == prevSquare.getCoordX() && moveSquare.getPiece() == null && squares.get(piece.getSquare_id() + 8).getPiece() == null) {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
                         return true;
