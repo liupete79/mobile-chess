@@ -12,6 +12,7 @@ import android.view.View;
 import android.util.Log;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.sql.Struct;
 import java.util.*;
@@ -387,6 +388,7 @@ public class Chess {
             } else {
                 dragging.setX(squares.get(dragging.getSquare_id()).x);
                 dragging.setY(squares.get(dragging.getSquare_id()).y);
+                Toast.makeText(view.getContext(), "Invalid Move!", Toast.LENGTH_SHORT).show();
                 view.invalidate();
             }
             dragging = null;
