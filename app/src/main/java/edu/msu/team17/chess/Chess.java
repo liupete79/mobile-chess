@@ -574,15 +574,8 @@ public class Chess {
                                 return false;
                             }
                         }
-                        //Checks for Piece Capture
-                        if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                            Captured(moveSquare.getPiece());
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        } else if (moveSquare.getPiece() == null){
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        }
+                        completeMovement(piece, moveSquare);
+                        return true;
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
                         //Moving up the board (-Y)
                         for(int i = 1; i < abs(x_check); i ++){
@@ -591,15 +584,8 @@ public class Chess {
                                 return false;
                             }
                         }
-                        //Checks for Piece Capture
-                        if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                            Captured(moveSquare.getPiece());
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        } else if (moveSquare.getPiece() == null){
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        }
+                        completeMovement(piece, moveSquare);
+                        return true;
                     }
                 //Moving to the left side of the board (-X)
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
@@ -611,15 +597,8 @@ public class Chess {
                                 return false;
                             }
                         }
-                        //Checks for Piece Capture
-                        if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                            Captured(moveSquare.getPiece());
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        } else if (moveSquare.getPiece() == null){
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        }
+                        completeMovement(piece, moveSquare);
+                        return true;
                     //Moving up the board (-Y)
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
                         for(int i = 1; i < abs(x_check); i ++){
@@ -628,15 +607,8 @@ public class Chess {
                                 return false;
                             }
                         }
-                        //Checks for piece Capture
-                        if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                            Captured(moveSquare.getPiece());
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        } else if (moveSquare.getPiece() == null){
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        }
+                        completeMovement(piece, moveSquare);
+                        return true;
                     }
                 }
             }
@@ -665,15 +637,8 @@ public class Chess {
                             return false;
                         }
                     }
-                    //Checks for Piece Capture
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 //Moving up the board (-Y)
                 } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
                     for(int i = 1; i < abs(y_check); i ++){
@@ -682,15 +647,8 @@ public class Chess {
                             return false;
                         }
                     }
-                    //Checks for piece capture
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 }
             //If the Y coord is the same, moving horizontally
             } else if (moveSquare.getCoordY() == prevSquare.getCoordY()) {
@@ -703,14 +661,8 @@ public class Chess {
                         }
                     }
                     //Checks for Piece Capture
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 //Moving to the left (-X)
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
                     for(int i = 1; i < abs(x_check); i ++){
@@ -720,14 +672,8 @@ public class Chess {
                         }
                     }
                     //Checks for piece capture
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 }
             }
 
@@ -755,14 +701,8 @@ public class Chess {
                                 return false;
                             }
                         }
-                        if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                            Captured(moveSquare.getPiece());
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        } else if (moveSquare.getPiece() == null){
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        }
+                        completeMovement(piece, moveSquare);
+                        return true;
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
                         for(int i = 1; i < abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (-7 * i);
@@ -770,14 +710,8 @@ public class Chess {
                                 return false;
                             }
                         }
-                        if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                            Captured(moveSquare.getPiece());
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        } else if (moveSquare.getPiece() == null){
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        }
+                        completeMovement(piece, moveSquare);
+                        return true;
                     }
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
                     if (moveSquare.getCoordY() > prevSquare.getCoordY()){
@@ -787,14 +721,8 @@ public class Chess {
                                 return false;
                             }
                         }
-                        if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                            Captured(moveSquare.getPiece());
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        } else if (moveSquare.getPiece() == null){
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        }
+                        completeMovement(piece, moveSquare);
+                        return true;
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
                         for(int i = 1; i < abs(x_check); i ++){
                             int sq_index = piece.getSquare_id() + (-9 * i);
@@ -802,14 +730,8 @@ public class Chess {
                                 return false;
                             }
                         }
-                        if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                            Captured(moveSquare.getPiece());
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        } else if (moveSquare.getPiece() == null){
-                            piece.setSquare_id(snapIndex);
-                            return true;
-                        }
+                        completeMovement(piece, moveSquare);
+                        return true;
                     }
                 }
             } else if (moveSquare.getCoordX() == prevSquare.getCoordX()){
@@ -820,14 +742,7 @@ public class Chess {
                             return false;
                         }
                     }
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
                 } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
                     for(int i = 1; i < abs(y_check); i ++){
                         int sq_index = piece.getSquare_id() + (-8 * i);
@@ -835,14 +750,8 @@ public class Chess {
                             return false;
                         }
                     }
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 }
             } else if (moveSquare.getCoordY() == prevSquare.getCoordY()) {
                 if (moveSquare.getCoordX() > prevSquare.getCoordX()){
@@ -852,14 +761,8 @@ public class Chess {
                             return false;
                         }
                     }
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
                     for(int i = 1; i < abs(x_check); i ++){
                         int sq_index = piece.getSquare_id() + (-i);
@@ -867,14 +770,8 @@ public class Chess {
                             return false;
                         }
                     }
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 }
             }
 
@@ -897,84 +794,36 @@ public class Chess {
                 //Moving North
                 if(x_check == 0 && y_check == -1){
                     //Checks for piece capture
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 //Moving NorthEast
                 } else if(x_check == 1 && y_check == -1){
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 //Moving East
                 } else if(x_check == 1 && y_check == 0){
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 //Moving SouthEast
                 } else if(x_check == 1 && y_check == 1){
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 //Moving South
                 } else if(x_check == 0 && y_check == 1){
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 //Moving SouthWest
                 } else if(x_check == -1 && y_check == 1){
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 //Moving West
                 } else if(x_check == -1 && y_check == 0){
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 //Moving NorthWest
                 } else if(x_check == -1 && y_check == -1){
-                    if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
-                        Captured(moveSquare.getPiece());
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    } else if (moveSquare.getPiece() == null){
-                        piece.setSquare_id(snapIndex);
-                        return true;
-                    }
+                    completeMovement(piece, moveSquare);
+                    return true;
                 }
 
             }
@@ -983,6 +832,15 @@ public class Chess {
 
         //Return False just in case.
         return false;
+    }
+
+    private void completeMovement (ChessPiece pieceToMove, Square destinationSquare){
+        if (destinationSquare.getPiece() != null && destinationSquare.getPiece().getPlayer() != pieceToMove.getPlayer()){
+            Captured(destinationSquare.getPiece());
+            pieceToMove.setSquare_id(squares.indexOf(destinationSquare));
+        } else if (destinationSquare.getPiece() == null){
+            pieceToMove.setSquare_id(squares.indexOf(destinationSquare));
+        }
     }
 
     //Capture to get the captured pieces off the board
