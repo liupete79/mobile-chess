@@ -505,12 +505,14 @@ public class Chess {
                     if (moveSquare.getCoordX() == prevSquare.getCoordX() && moveSquare.getPiece() == null && squares.get(piece.getSquare_id() + 8).getPiece() == null) {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
+                        promotePawn(piece);
                         return true;
                     } else if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 1 && moveSquare.getPiece() != null ) {
                         if (moveSquare.getPiece().getPlayer() == 2) {
                             Captured(moveSquare.getPiece());
                             piece.setSquare_id(snapIndex);
                             piece.setFirstMove(false);
+                            promotePawn(piece);
                             return true;
                         }
                     }
@@ -895,7 +897,19 @@ public class Chess {
     }
 
     private void promotePawn(ChessPiece pieceToPromote) {
-        Log.i("Square", "Promoted");
+        if(pieceToPromote.getPlayer()==1) {
+            Log.i("Square", "Detected");
+            if(squares.get(pieceToPromote.getSquare_id()).coordY == 7) {
+                Log.i("Square", "Promoted");
+            }
+        }
+        if(pieceToPromote.getPlayer()==2) {
+            Log.i("Square", "Detected");
+            if(squares.get(pieceToPromote.getSquare_id()).coordY == 0) {
+                Log.i("Square", "Promoted");
+            }
+        }
+
     }
 
 }
