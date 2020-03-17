@@ -1,21 +1,19 @@
 package edu.msu.team17.chess;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.util.Log;
-import android.app.AlertDialog;
-import android.os.Bundle;
 import android.widget.Toast;
 
-import java.sql.Struct;
-import java.util.*;
+import java.util.ArrayList;
 
 import static java.lang.Math.abs;
 
@@ -896,20 +894,43 @@ public class Chess {
         piece.setSquare_id(-1);
     }
 
-    private void promotePawn(ChessPiece pieceToPromote) {
+    private boolean promotePawn(ChessPiece pieceToPromote) {
         if(pieceToPromote.getPlayer()==1) {
-            Log.i("Square", "Detected");
             if(squares.get(pieceToPromote.getSquare_id()).coordY == 7) {
-                Log.i("Square", "Promoted");
+                // Pawn reached the end
+                // Instantiate a dialog box builder
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(chessView.getContext());
+
+                // Parameterize the builder
+                builder.setTitle(R.string.promotion_title);
+                builder.setMessage(R.string.temp);
+
+                // Create the dialog box and show it
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                return true;
             }
         }
         if(pieceToPromote.getPlayer()==2) {
-            Log.i("Square", "Detected");
             if(squares.get(pieceToPromote.getSquare_id()).coordY == 0) {
-                Log.i("Square", "Promoted");
+                // Pawn reached the end
+                // Instantiate a dialog box builder
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(chessView.getContext());
+
+                // Parameterize the builder
+                builder.setTitle(R.string.promotion_title);
+                builder.setMessage(R.string.temp);
+
+                // Create the dialog box and show it
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                return true;
             }
         }
 
+        return false;
     }
 
 }

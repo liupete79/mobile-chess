@@ -112,4 +112,5 @@ public class ChessActivity extends AppCompatActivity {
         TextView currentPlayer = findViewById(R.id.currentPlayer);
         currentPlayer.setText(currPlayer + "'s Turn!");
     }
+
 }
