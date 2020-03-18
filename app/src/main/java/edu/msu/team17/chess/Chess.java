@@ -47,6 +47,7 @@ public class Chess {
     // The name of the bundle keys to save the chess
     private final static String LOCATIONS = "Chess.locations";
     private final static String IDS = "Chess.ids";
+    private final static String SQUAREIDS = "Chess.squareIds";
 
     // How much we scale the puzzle pieces
     private float scaleFactor;
@@ -273,14 +274,16 @@ public class Chess {
     public void saveInstanceState(Bundle bundle) {
         float [] locations = new float[pieces.size() * 2];
         int [] ids = new int[pieces.size()];
+        int [] squareIds = new int[pieces.size()];
 
         for(int i=0;  i<pieces.size(); i++) {
             ChessPiece piece = pieces.get(i);
             locations[i*2] = piece.getX();
             locations[i*2+1] = piece.getY();
             ids[i] = piece.getId();
+            squareIds[i] = piece.getSquare_id();
         }
-
+        bundle.putIntArray(SQUAREIDS, squareIds);
         bundle.putFloatArray(LOCATIONS, locations);
         bundle.putIntArray(IDS,  ids);
     }
@@ -292,6 +295,7 @@ public class Chess {
     public void loadInstanceState(Bundle bundle) {
         float [] locations = bundle.getFloatArray(LOCATIONS);
         int [] ids = bundle.getIntArray(IDS);
+        int [] squareIds = bundle.getIntArray(SQUAREIDS);
 
         for(int i=0; i<ids.length-1; i++) {
 
@@ -314,6 +318,7 @@ public class Chess {
             ChessPiece piece = pieces.get(i);
             piece.setX(locations[i*2]);
             piece.setY(locations[i*2+1]);
+            piece.setSquare_id(squareIds[i]);
         }
     }
 
