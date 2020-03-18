@@ -180,7 +180,6 @@ public class Chess {
         pieces.add(new ChessPieceBishop(context, R.drawable.chess_blt45,  0.6846708f, 0.93364197f, 2, 61));
         pieces.add(new ChessPieceKnight(context, R.drawable.chess_nlt45, 0.80915636f, 0.93364197f, 2, 62));
         pieces.add(new ChessPieceRook(context, R.drawable.chess_rlt45, 0.93364197f, 0.93364197f, 2, 63));
-
     }
 
     public void draw(Canvas canvas){
