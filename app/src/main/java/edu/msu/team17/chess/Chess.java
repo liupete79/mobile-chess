@@ -396,7 +396,6 @@ public class Chess {
                     if (piece instanceof ChessPieceKing) {
                         if (piece.getSquare_id() == -1) {
                             Intent intent = new Intent(view.getContext(), EndActivity.class);
-                            intent.putExtra("winner", "TODO");
                             view.getContext().startActivity(intent);
                             break;
                         }

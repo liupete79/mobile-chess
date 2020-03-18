@@ -48,8 +48,6 @@ public class ChessActivity extends AppCompatActivity {
 
             }
         }
-        Intent intent = new Intent(this, EndActivity.class);
-        intent.putExtra("currPlayer", "howdy");
     }
 
     @Override
@@ -111,6 +109,8 @@ public class ChessActivity extends AppCompatActivity {
         }
         TextView currentPlayer = findViewById(R.id.currentPlayer);
         currentPlayer.setText(currPlayer + "'s Turn!");
+        Intent intent = new Intent(this, EndActivity.class);
+        intent.putExtra("winner", currPlayer);
     }
 
     public void onResign(View view) {
