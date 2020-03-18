@@ -902,8 +902,26 @@ public class Chess {
                 builder.setTitle(R.string.promotion_title)
                         .setItems(R.array.promotion, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // The 'which' argument contains the index position
-                                // of the selected item
+                                if(which==0) {///Queen Selected
+                                    pieces.add(new ChessPieceQueen(chessView.getContext(), R.drawable.chess_qdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    pieceToPromote.setSquare_id(-1);
+                                    chessView.invalidate();
+                                }
+                                if(which==1) {///Bishop Selected
+                                    pieces.add(new ChessPieceBishop(chessView.getContext(), R.drawable.chess_bdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    pieceToPromote.setSquare_id(-1);
+                                    chessView.invalidate();
+                                }
+                                if(which==2) {///Rook selected
+                                    pieces.add(new ChessPieceRook(chessView.getContext(), R.drawable.chess_rdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    pieceToPromote.setSquare_id(-1);
+                                    chessView.invalidate();
+                                }
+                                if(which==3) {///Knight selected
+                                    pieces.add(new ChessPieceKnight(chessView.getContext(), R.drawable.chess_ndt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    pieceToPromote.setSquare_id(-1);
+                                    chessView.invalidate();
+                                }
                             }
                         });
                 AlertDialog box = builder.create();
@@ -916,9 +934,26 @@ public class Chess {
                 builder.setTitle(R.string.promotion_title)
                         .setItems(R.array.promotion, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                               /// pieces.add(new ChessPieceRook(chessView.getContext(), R.drawable.chess_rdt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
-                               /// pieceToPromote.setSquare_id(-1);
-                               /// chessView.invalidate();
+                                if(which==0) {///Queen Selected
+                                    pieces.add(new ChessPieceQueen(chessView.getContext(), R.drawable.chess_qlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    pieceToPromote.setSquare_id(-1);
+                                    chessView.invalidate();
+                                }
+                                if(which==1) {///Bishop Selected
+                                    pieces.add(new ChessPieceBishop(chessView.getContext(), R.drawable.chess_blt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    pieceToPromote.setSquare_id(-1);
+                                    chessView.invalidate();
+                                }
+                                if(which==2) {///Rook selected
+                                    pieces.add(new ChessPieceRook(chessView.getContext(), R.drawable.chess_rlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    pieceToPromote.setSquare_id(-1);
+                                    chessView.invalidate();
+                                }
+                                if(which==3) {///Knight selected
+                                    pieces.add(new ChessPieceKnight(chessView.getContext(), R.drawable.chess_nlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    pieceToPromote.setSquare_id(-1);
+                                    chessView.invalidate();
+                                }
                             }
                         });
                 AlertDialog box = builder.create();
