@@ -19,7 +19,6 @@ public class EndActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             winner = extras.getString("winner");
-            Log.i("Wiener", winner);
             TextView currentPlayer = findViewById(R.id.endText);
             currentPlayer.setText(winner + " wins!");
         }
