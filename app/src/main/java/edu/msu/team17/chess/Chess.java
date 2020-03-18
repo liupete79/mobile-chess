@@ -64,6 +64,7 @@ public class Chess {
     // Completed chess bitmap
     private Bitmap chessComplete;
 
+    // Chess view
     private ChessView chessView;
 
     private boolean hasMoved = false;

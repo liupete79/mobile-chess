@@ -97,10 +97,6 @@ public class ChessActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    public void onEndChess(View view) {
-        Intent intent = new Intent(this, EndActivity.class);
-        startActivity(intent);
-    }
 
     public void onTurnDone(View view) {
         if (currPlayer == player1) {
@@ -113,4 +109,16 @@ public class ChessActivity extends AppCompatActivity {
         currentPlayer.setText(currPlayer + "'s Turn!");
     }
 
+    public void onResign(View view) {
+        String winner;
+        if (currPlayer == player1) {
+            winner = player2;
+        }
+        else {
+            winner = player1;
+        }
+        Intent intent = new Intent(this, EndActivity.class);
+        intent.putExtra("winner", winner);
+        startActivity(intent);
+    }
 }

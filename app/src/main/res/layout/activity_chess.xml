@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:duplicateParentState="true"
-        android:onClick="onEndChess"
+        android:onClick="onResign"
         android:text="@string/resign" />
 
     <TextView
