@@ -3,6 +3,7 @@ package edu.msu.team17.chess;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static androidx.core.content.ContextCompat.startActivity;
 import static java.lang.Math.abs;
 
 public class Chess {
@@ -67,7 +69,9 @@ public class Chess {
     // Chess view
     private ChessView chessView;
 
-    private boolean hasMoved = false;
+    private String currPlayer;
+
+    private boolean kingCaptured = false;
 
     private class Square{
         private int coordX, coordY;
@@ -175,6 +179,7 @@ public class Chess {
         pieces.add(new ChessPieceBishop(context, R.drawable.chess_blt45,  0.6846708f, 0.93364197f, 2, 61));
         pieces.add(new ChessPieceKnight(context, R.drawable.chess_nlt45, 0.80915636f, 0.93364197f, 2, 62));
         pieces.add(new ChessPieceRook(context, R.drawable.chess_rlt45, 0.93364197f, 0.93364197f, 2, 63));
+
     }
 
     public void draw(Canvas canvas){
@@ -246,6 +251,8 @@ public class Chess {
             squares.get(i).setY(vert/16f);
             horiz+=2f;
         }
+
+
         for (ChessPiece piece : pieces) {
             if (piece.getSquare_id() != -1) {
                 piece.draw(canvas, boardSize, boardMarginX, boardMarginY, scaleFactor);
@@ -385,6 +392,16 @@ public class Chess {
             if(isValidMove(x, y, dragging, squares.get(dragging.getSquare_id()))) {
                 toUpdate.setPiece(null);
                 snap(view, x, y);
+                for (ChessPiece piece : pieces) {
+                    if (piece instanceof ChessPieceKing) {
+                        if (piece.getSquare_id() == -1) {
+                            Intent intent = new Intent(view.getContext(), EndActivity.class);
+                            intent.putExtra("winner", "TODO");
+                            view.getContext().startActivity(intent);
+                            break;
+                        }
+                    }
+                }
             } else {
                 dragging.setX(squares.get(dragging.getSquare_id()).x);
                 dragging.setY(squares.get(dragging.getSquare_id()).y);

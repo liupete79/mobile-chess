@@ -3,6 +3,7 @@ package edu.msu.team17.chess;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,8 +45,11 @@ public class ChessActivity extends AppCompatActivity {
                 currPlayer = player1;
                 TextView currentPlayer = findViewById(R.id.currentPlayer);
                 currentPlayer.setText(player1 + "'s Turn!");
+
             }
         }
+        Intent intent = new Intent(this, EndActivity.class);
+        intent.putExtra("currPlayer", "howdy");
     }
 
     @Override
