@@ -48,6 +48,7 @@ public class Chess {
     private final static String LOCATIONS = "Chess.locations";
     private final static String IDS = "Chess.ids";
     private final static String SQUAREIDS = "Chess.squareIds";
+    private final static String FIRSTMOVES = "Chess.firstMoves";
 
     // How much we scale the puzzle pieces
     private float scaleFactor;
@@ -274,6 +275,7 @@ public class Chess {
         float [] locations = new float[pieces.size() * 2];
         int [] ids = new int[pieces.size()];
         int [] squareIds = new int[pieces.size()];
+        boolean [] firstMoves = new boolean[pieces.size()];
 
         for(int i=0;  i<pieces.size(); i++) {
             ChessPiece piece = pieces.get(i);
@@ -281,7 +283,9 @@ public class Chess {
             locations[i*2+1] = piece.getY();
             ids[i] = piece.getId();
             squareIds[i] = piece.getSquare_id();
+            firstMoves[i] = piece.isFirstMove();
         }
+        bundle.putBooleanArray(FIRSTMOVES, firstMoves);
         bundle.putIntArray(SQUAREIDS, squareIds);
         bundle.putFloatArray(LOCATIONS, locations);
         bundle.putIntArray(IDS,  ids);
@@ -295,6 +299,7 @@ public class Chess {
         float [] locations = bundle.getFloatArray(LOCATIONS);
         int [] ids = bundle.getIntArray(IDS);
         int [] squareIds = bundle.getIntArray(SQUAREIDS);
+        boolean [] firstMoves = bundle.getBooleanArray(FIRSTMOVES);
 
         for(int i=0; i<ids.length-1; i++) {
 
@@ -318,6 +323,7 @@ public class Chess {
             piece.setX(locations[i*2]);
             piece.setY(locations[i*2+1]);
             piece.setSquare_id(squareIds[i]);
+            piece.setFirstMove(firstMoves[i]);
         }
     }
 
