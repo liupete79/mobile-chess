@@ -109,6 +109,13 @@ public class ChessActivity extends AppCompatActivity {
         }
         TextView currentPlayer = findViewById(R.id.currentPlayer);
         currentPlayer.setText(currPlayer + "'s Turn!");
+        TextView currColor = findViewById(R.id.currColor);
+        if (currPlayer == player1) {
+            currColor.setText("(Black)");
+        }
+        else {
+            currColor.setText("(White)");
+        }
         Intent intent = new Intent(this, EndActivity.class);
         intent.putExtra("winner", currPlayer);
     }
