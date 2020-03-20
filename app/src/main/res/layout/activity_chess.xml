@@ -43,13 +43,4 @@
         android:text="@string/player_s_turn"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/currColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/currentPlayer"
-        android:layout_centerHorizontal="true"
-        android:text="@string/currColor"
-        android:textSize="16sp" />
-
 </RelativeLayout>

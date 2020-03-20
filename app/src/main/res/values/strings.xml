@@ -50,5 +50,4 @@
     <string name="doneButton">Done</string>
     <string name="resign">Resign</string>
     <string name="player_s_turn">Player 1\'s turn!</string>
-    <string name="currColor">(Black)</string>
 </resources>
