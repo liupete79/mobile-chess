@@ -966,6 +966,7 @@ public class Chess {
                             }
                         });
                 AlertDialog box = builder.create();
+                box.setCancelable(false);
                 box.show();
             }
         }
@@ -998,6 +999,7 @@ public class Chess {
                             }
                         });
                 AlertDialog box = builder.create();
+                box.setCancelable(false);
                 box.show();
             }
         }
