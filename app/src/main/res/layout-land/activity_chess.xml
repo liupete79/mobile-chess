@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ChessActivity">
 
+    <TextView
+        android:id="@+id/currColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/currentPlayer"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:width="200dp"
+        android:gravity="center"
+        android:text="@string/currColor"
+        android:textSize="16sp"
+        android:layout_alignParentEnd="true" />
+
     <view
         android:id="@+id/chessView"
         class="edu.msu.team17.chess.ChessView"
@@ -16,7 +29,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="false"
         android:layout_centerHorizontal="false"
-        android:layout_toLeftOf="@id/currentPlayer" />
+        android:layout_toLeftOf="@id/currentPlayer"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/currentPlayer" />
 
     <Button
         android:id="@+id/doneButton"
@@ -38,7 +53,9 @@
         android:layout_alignParentBottom="true"
         android:duplicateParentState="false"
         android:onClick="onResign"
-        android:text="@string/resign" />
+        android:text="@string/resign"
+        android:layout_alignStart="@id/currentPlayer"
+        android:layout_alignParentEnd="false" />
 
     <TextView
         android:id="@+id/currentPlayer"
@@ -50,6 +67,7 @@
         android:gravity="center_horizontal"
         android:paddingTop="10dp"
         android:text="@string/player_s_turn"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

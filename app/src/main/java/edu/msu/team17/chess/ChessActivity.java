@@ -19,6 +19,9 @@ public class ChessActivity extends AppCompatActivity {
     private String player1;
     private String player2;
     private String currPlayer;
+    private final static String PLAYER1 = "ChessActivity.player1";
+    private final static String PLAYER2 = "ChessActivity.player2";
+    private final static String CURRENTPLAYER = "ChessActivity.currPlayer";
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -30,6 +33,9 @@ public class ChessActivity extends AppCompatActivity {
         if(bundle != null) {
             // We have saved state
             getChessView().loadInstanceState(bundle);
+            player1 = bundle.getString(PLAYER1);
+            player2 = bundle.getString(PLAYER2);
+            currPlayer = bundle.getString(CURRENTPLAYER);
         }
         else {
             Bundle extras = getIntent().getExtras();
@@ -59,6 +65,9 @@ public class ChessActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle bundle) {
+        bundle.putString(PLAYER1, player1);
+        bundle.putString(PLAYER2, player2);
+        bundle.putString(CURRENTPLAYER, currPlayer);
         super.onSaveInstanceState(bundle);
 
         getChessView().saveInstanceState(bundle);
@@ -108,7 +117,14 @@ public class ChessActivity extends AppCompatActivity {
             currPlayer = player1;
         }
         TextView currentPlayer = findViewById(R.id.currentPlayer);
-        currentPlayer.setText(currPlayer + "'s Turn!");
+        currentPlayer.setText(currPlayer + "'s Turn!");        TextView currColor = findViewById(R.id.currColor);
+        if (currPlayer == player1) {
+            currColor.setText("(Black)");
+        }
+        else {
+            currColor.setText("(White)");
+        }
+
         Intent intent = new Intent(this, EndActivity.class);
         intent.putExtra("winner", currPlayer);
     }
