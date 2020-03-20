@@ -35,14 +35,14 @@ public abstract class ChessPiece {
 
     private float prevY;
 
-    private String player;
+    private int player;
 
     private int square_id = -1;
 
     private boolean firstMove = true;
 
 
-    public ChessPiece(Context context, int id, float initialX,  float initialY, String player, int square_id) {
+    public ChessPiece(Context context, int id, float initialX,  float initialY, int player, int square_id) {
     piece = BitmapFactory.decodeResource(context.getResources(), id);
         this.id = id;
         this.x = initialX;
@@ -93,7 +93,7 @@ public abstract class ChessPiece {
         this.y = y;
     }
 
-    public String getPlayer() {return this.player;}
+    public int getPlayer() {return this.player;}
 
     public boolean isFirstMove() { return firstMove; }
 
