@@ -16,8 +16,9 @@ public class ChessView extends View {
     //The actual chess board + game
     private Chess chess;
 
-    // Current player
-    public String player;
+    private String player1;
+    private String player2;
+    private String currPlayer;
 
     public ChessView(Context context) {
         super(context);
@@ -65,5 +66,29 @@ public class ChessView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return chess.onTouchEvent(this, event);
+    }
+
+    public String getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(String player1) {
+        this.player1 = player1;
+    }
+
+    public String getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(String player2) {
+        this.player2 = player2;
+    }
+
+    public String getCurrPlayer() {
+        return currPlayer;
+    }
+
+    public void setCurrPlayer(String currPlayer) {
+        this.currPlayer = currPlayer;
     }
 }

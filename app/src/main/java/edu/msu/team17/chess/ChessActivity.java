@@ -36,6 +36,9 @@ public class ChessActivity extends AppCompatActivity {
             player1 = bundle.getString(PLAYER1);
             player2 = bundle.getString(PLAYER2);
             currPlayer = bundle.getString(CURRENTPLAYER);
+            getChessView().setCurrPlayer(currPlayer);
+            getChessView().setPlayer1(player1);
+            getChessView().setPlayer2(player2);
         }
         else {
             Bundle extras = getIntent().getExtras();
@@ -49,6 +52,9 @@ public class ChessActivity extends AppCompatActivity {
                     player2 = "Player 2";
                 }
                 currPlayer = player1;
+                getChessView().setCurrPlayer(currPlayer);
+                getChessView().setPlayer1(player1);
+                getChessView().setPlayer2(player2);
                 TextView currentPlayer = findViewById(R.id.currentPlayer);
                 currentPlayer.setText(player1 + "'s Turn!");
 
@@ -124,7 +130,7 @@ public class ChessActivity extends AppCompatActivity {
         else {
             currColor.setText("(White)");
         }
-
+        getChessView().setCurrPlayer(currPlayer);
         Intent intent = new Intent(this, EndActivity.class);
         intent.putExtra("winner", currPlayer);
     }
