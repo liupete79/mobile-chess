@@ -4,7 +4,6 @@
     <string name="app_name">Chess</string>
     <string name="start_chess">Play Chess</string>
     <string name="welcome">Welcome to Chess</string>
-    <string name="title_activity_chess">Chess</string>
     <string name="rules_title">Chess Rules</string>
     <string name="end_button">Play Again!</string>
     <string name="simulate_winner">Resign</string>
@@ -13,11 +12,14 @@
     <string name="player1">Player1</string>
     <string name="player2">Player2</string>
     <string name="promotion_title">Select a Piece to Promote</string>
-    <string name="temp">Temporary Test</string>
     <string name="invalid">Invalid Move!</string>
     <string name="already_moved">You have already moved, press Done!</string>
     <string name="please_move">You must make a move before pressing Done!</string>
     <string name="wrong_team">Wrong team!</string>
+    <string name="turn_title">\'s Turn!</string>
+    <string name="black">(Black)</string>
+    <string name="white">(White)</string>
+    <string name="winner">/ wins!</string>
 
 
     <string name="rules">Black is always first to move and players take turns alternately moving
