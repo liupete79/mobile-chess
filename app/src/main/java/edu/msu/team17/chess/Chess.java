@@ -74,6 +74,10 @@ public class Chess {
 
     private String currPlayer;
 
+    private String player1;
+
+    private String player2;
+
     private boolean kingCaptured = false;
 
     public boolean hasMoveOccured() {
@@ -83,6 +87,30 @@ public class Chess {
             }
         }
         return false;
+    }
+
+    public String getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(String player2) {
+        this.player2 = player2;
+    }
+
+    public String getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(String player1) {
+        this.player1 = player1;
+    }
+
+    public String getCurrPlayer() {
+        return currPlayer;
+    }
+
+    public void setCurrPlayer(String currPlayer) {
+        this.currPlayer = currPlayer;
     }
 
     private class Square{
@@ -374,6 +402,18 @@ public class Chess {
                 }
                 // If we are dragging, move the piece and force a redraw
                 if(dragging != null) {
+                    if(player1 == currPlayer){
+                        if(dragging.getPlayer()==2){
+                            Toast.makeText(view.getContext(), R.string.already_moved, Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                    }
+                    if(player2 == currPlayer){
+                        if(dragging.getPlayer()==1){
+                            Toast.makeText(view.getContext(), R.string.already_moved, Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                    }
                     dragging.move(relX - lastRelX, relY - lastRelY);
                     lastRelX = relX;
                     lastRelY = relY;
@@ -417,7 +457,6 @@ public class Chess {
      * @return true if the touch is handled
      */
     private boolean onReleased(View view, float x, float y) {
-
         if(dragging != null) {
             Square toUpdate = squares.get(dragging.getSquare_id());
             for (int i = 0; i < pieces.size(); i++) {
@@ -441,8 +480,24 @@ public class Chess {
             } else {
                 dragging.setX(squares.get(dragging.getSquare_id()).x);
                 dragging.setY(squares.get(dragging.getSquare_id()).y);
-                Toast.makeText(view.getContext(), R.string.invalid, Toast.LENGTH_SHORT).show();
-                view.invalidate();
+                if(player1 == currPlayer){
+                    if(dragging.getPlayer()==2){
+                        Toast.makeText(view.getContext(), R.string.wrong_team, Toast.LENGTH_SHORT).show();
+                        view.invalidate();
+                        return false;
+                    }
+                }
+                if(player2 == currPlayer){
+                    if(dragging.getPlayer()==1){
+                        Toast.makeText(view.getContext(), R.string.wrong_team, Toast.LENGTH_SHORT).show();
+                        view.invalidate();
+                        return false;
+                    }
+                }
+                else {
+                    Toast.makeText(view.getContext(), R.string.invalid, Toast.LENGTH_SHORT).show();
+                    view.invalidate();
+                }
             }
             dragging = null;
             return true;
@@ -483,6 +538,18 @@ public class Chess {
         for (int i = 0; i < pieces.size(); i++) {
 
             if(pieces.get(i).getHasMoved()==true){
+                return false;
+            }
+        }
+        if(player1 == currPlayer){
+            if(dragging.getPlayer()==2){
+                Toast.makeText(chessView.getContext(), R.string.wrong_team, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        if(player2 == currPlayer){
+            if(dragging.getPlayer()==1){
+                Toast.makeText(chessView.getContext(), R.string.wrong_team, Toast.LENGTH_SHORT).show();
                 return false;
             }
         }

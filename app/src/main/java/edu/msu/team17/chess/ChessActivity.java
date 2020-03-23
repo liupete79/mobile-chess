@@ -55,6 +55,7 @@ public class ChessActivity extends AppCompatActivity {
 
             }
         }
+        getChessView().setAllPlayers(currPlayer, player1, player2);
     }
 
     @Override
@@ -130,6 +131,7 @@ public class ChessActivity extends AppCompatActivity {
             currColor.setText("(White)");
         }
         getChessView().onDone();
+        getChessView().setAllPlayers(currPlayer, player1, player2);
         Intent intent = new Intent(this, EndActivity.class);
         intent.putExtra("winner", currPlayer);
     }

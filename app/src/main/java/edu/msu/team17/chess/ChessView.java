@@ -65,6 +65,12 @@ public class ChessView extends View {
     public void onDone() { chess.onDone(); }
     public boolean getHasMoved() {return chess.hasMoveOccured();}
 
+    public void setAllPlayers(String currplayer, String player1, String player2){
+        chess.setCurrPlayer(currplayer);
+        chess.setPlayer1(player1);
+        chess.setPlayer2(player2);
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return chess.onTouchEvent(this, event);

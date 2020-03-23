@@ -17,6 +17,7 @@
     <string name="invalid">Invalid Move!</string>
     <string name="already_moved">You have already moved, press Done!</string>
     <string name="please_move">You must make a move before pressing Done!</string>
+    <string name="wrong_team">Wrong team!</string>
 
 
     <string name="rules">Black is always first to move and players take turns alternately moving
