@@ -29,8 +29,6 @@ public abstract class ChessPiece {
      */
     private int id;
 
-    private boolean isWhite; ///true if on the white team
-
     private float prevX;
 
     private float prevY;
