@@ -411,6 +411,12 @@ public class Chess {
 
         if(dragging != null) {
             Square toUpdate = squares.get(dragging.getSquare_id());
+            for (int i = 0; i < pieces.size(); i++) {
+                if(pieces.get(i).getHasMoved()==true){
+                    Toast.makeText(view.getContext(), R.string.already_moved, Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
             if(isValidMove(x, y, dragging, squares.get(dragging.getSquare_id()))) {
                 toUpdate.setPiece(null);
                 snap(view, x, y);
