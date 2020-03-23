@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ChessActivity extends AppCompatActivity {
 
@@ -110,6 +111,10 @@ public class ChessActivity extends AppCompatActivity {
     }
 
     public void onTurnDone(View view) {
+        if(getChessView().getHasMoved()== false){
+            Toast.makeText(view.getContext(), R.string.please_move, Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (currPlayer == player1) {
             currPlayer = player2;
         }

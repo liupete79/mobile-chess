@@ -76,6 +76,15 @@ public class Chess {
 
     private boolean kingCaptured = false;
 
+    public boolean hasMoveOccured() {
+        for (int i = 0; i < pieces.size(); i++) {
+            if(pieces.get(i).getHasMoved()== true){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private class Square{
         private int coordX, coordY;
         private float x, y; //Relative x, y locations in the range 0-1 for the center of the piece in the center of the square.

@@ -62,7 +62,8 @@ public class ChessView extends View {
         chess.loadInstanceState(bundle);
     }
 
-    public void onDone() { chess.onDone();}
+    public void onDone() { chess.onDone(); }
+    public boolean getHasMoved() {return chess.hasMoveOccured();}
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

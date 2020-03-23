@@ -16,6 +16,8 @@
     <string name="temp">Temporary Test</string>
     <string name="invalid">Invalid Move!</string>
     <string name="already_moved">You have already moved, press Done!</string>
+    <string name="please_move">You must make a move before pressing Done!</string>
+
 
     <string name="rules">Black is always first to move and players take turns alternately moving
         one piece at a time. Movement is required. If a player´s turn is to move, he is not in
