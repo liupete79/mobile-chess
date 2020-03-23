@@ -28,9 +28,12 @@
 
     <Button
         android:id="@+id/buttonName"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:maxLength="50"
         android:onClick="onStartChess"
         android:text="@string/start_chess"
         tools:layout_editor_absoluteX="178dp"
@@ -38,12 +41,13 @@
 
     <Button
         android:id="@+id/buttonCancel"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
+        android:maxLength="50"
         android:onClick="onStartMain"
-        android:text="@string/cancelText"
-        android:layout_alignParentEnd="true" />
+        android:text="@string/cancelText" />
 
 </RelativeLayout>
