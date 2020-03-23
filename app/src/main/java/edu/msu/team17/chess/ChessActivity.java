@@ -72,8 +72,7 @@ public class ChessActivity extends AppCompatActivity {
         bundle.putString(CURRENTPLAYER, currPlayer);
         super.onSaveInstanceState(bundle);
 
-        ChessView view = (ChessView)this.findViewById(R.id.chessView);
-        view.saveInstanceState(bundle);
+        getChessView().saveInstanceState(bundle);
     }
 
     /**
