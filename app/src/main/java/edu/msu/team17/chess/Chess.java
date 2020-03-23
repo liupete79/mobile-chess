@@ -923,6 +923,7 @@ public class Chess {
     }
 
     private boolean promotePawn(final ChessPiece pieceToPromote) {
+        squares.get(pieceToPromote.getSquare_id()).setPiece(null);
         if(pieceToPromote.getPlayer()==1) {
             if(squares.get(pieceToPromote.getSquare_id()).coordY == 7) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(chessView.getContext());
@@ -930,8 +931,10 @@ public class Chess {
                         .setItems(R.array.promotion, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 if(which==0) {///Queen Selected
-                                    pieces.add(new ChessPieceQueen(chessView.getContext(), R.drawable.chess_qdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
-                                    pieceToPromote.setSquare_id(-1);
+                                    ChessPieceQueen q = (new ChessPieceQueen(chessView.getContext(), R.drawable.chess_qdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    pieces.add(q);
+                                    squares.get(pieceToPromote.getSquare_id()).setPiece(q);
+                                    pieces.remove(31);
                                     chessView.invalidate();
                                 }
                                 if(which==1) {///Bishop Selected
@@ -962,8 +965,10 @@ public class Chess {
                         .setItems(R.array.promotion, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 if(which==0) {///Queen Selected
-                                    pieces.add(new ChessPieceQueen(chessView.getContext(), R.drawable.chess_qlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
-                                    pieceToPromote.setSquare_id(-1);
+                                    ChessPieceQueen q = (new ChessPieceQueen(chessView.getContext(), R.drawable.chess_qlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    pieces.add(q);
+                                    squares.get(pieceToPromote.getSquare_id()).setPiece(q);
+                                    pieces.remove(31);
                                     chessView.invalidate();
                                 }
                                 if(which==1) {///Bishop Selected
