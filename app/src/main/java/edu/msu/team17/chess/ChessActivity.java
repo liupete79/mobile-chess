@@ -124,7 +124,7 @@ public class ChessActivity extends AppCompatActivity {
         else {
             currColor.setText("(White)");
         }
-
+        getChessView().onDone();
         Intent intent = new Intent(this, EndActivity.class);
         intent.putExtra("winner", currPlayer);
     }

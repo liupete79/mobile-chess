@@ -14,6 +14,7 @@
     <string name="player2">Player2</string>
     <string name="promotion_title">Select a Piece to Promote</string>
     <string name="temp">Temporary Test</string>
+    <string name="invalid">Invalid Move!</string>
 
     <string name="rules">White is always first to move and players take turns alternately moving
         one piece at a time. Movement is required. If a player´s turn is to move, he is not in
