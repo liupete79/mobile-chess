@@ -1072,18 +1072,24 @@ public class Chess {
                                     chessView.invalidate();
                                 }
                                 if(which==1) {///Bishop Selected
-                                    pieces.add(new ChessPieceBishop(chessView.getContext(), R.drawable.chess_bdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
-                                    pieceToPromote.setSquare_id(-1);
+                                    ChessPieceBishop b = (new ChessPieceBishop(chessView.getContext(), R.drawable.chess_bdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    pieces.add(b);
+                                    squares.get(pieceToPromote.getSquare_id()).setPiece(b);
+                                    pieces.remove(31);
                                     chessView.invalidate();
                                 }
                                 if(which==2) {///Rook selected
-                                    pieces.add(new ChessPieceRook(chessView.getContext(), R.drawable.chess_rdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
-                                    pieceToPromote.setSquare_id(-1);
+                                    ChessPieceRook r = (new ChessPieceRook(chessView.getContext(), R.drawable.chess_rdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    pieces.add(r);
+                                    squares.get(pieceToPromote.getSquare_id()).setPiece(r);
+                                    pieces.remove(31);
                                     chessView.invalidate();
                                 }
                                 if(which==3) {///Knight selected
-                                    pieces.add(new ChessPieceKnight(chessView.getContext(), R.drawable.chess_ndt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
-                                    pieceToPromote.setSquare_id(-1);
+                                    ChessPieceKnight k = (new ChessPieceKnight(chessView.getContext(), R.drawable.chess_ndt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    pieces.add(k);
+                                    squares.get(pieceToPromote.getSquare_id()).setPiece(k);
+                                    pieces.remove(31);
                                     chessView.invalidate();
                                 }
                             }
@@ -1106,18 +1112,24 @@ public class Chess {
                                     chessView.invalidate();
                                 }
                                 if(which==1) {///Bishop Selected
-                                    pieces.add(new ChessPieceBishop(chessView.getContext(), R.drawable.chess_blt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
-                                    pieceToPromote.setSquare_id(-1);
+                                    ChessPieceBishop b = (new ChessPieceBishop(chessView.getContext(), R.drawable.chess_blt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    pieces.add(b);
+                                    squares.get(pieceToPromote.getSquare_id()).setPiece(b);
+                                    pieces.remove(31);
                                     chessView.invalidate();
                                 }
                                 if(which==2) {///Rook selected
-                                    pieces.add(new ChessPieceRook(chessView.getContext(), R.drawable.chess_rlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
-                                    pieceToPromote.setSquare_id(-1);
+                                    ChessPieceRook r = (new ChessPieceRook(chessView.getContext(), R.drawable.chess_rlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    pieces.add(r);
+                                    squares.get(pieceToPromote.getSquare_id()).setPiece(r);
+                                    pieces.remove(31);
                                     chessView.invalidate();
                                 }
                                 if(which==3) {///Knight selected
-                                    pieces.add(new ChessPieceKnight(chessView.getContext(), R.drawable.chess_nlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
-                                    pieceToPromote.setSquare_id(-1);
+                                    ChessPieceKnight k = (new ChessPieceKnight(chessView.getContext(), R.drawable.chess_nlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    pieces.add(k);
+                                    squares.get(pieceToPromote.getSquare_id()).setPiece(k);
+                                    pieces.remove(31);
                                     chessView.invalidate();
                                 }
                             }
