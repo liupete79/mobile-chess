@@ -1066,6 +1066,7 @@ public class Chess {
                             public void onClick(DialogInterface dialog, int which) {
                                 if(which==0) {///Queen Selected
                                     ChessPieceQueen q = (new ChessPieceQueen(chessView.getContext(), R.drawable.chess_qdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    q.setHasMoved(true);
                                     pieces.add(q);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(q);
                                     pieces.remove(31);
@@ -1073,6 +1074,7 @@ public class Chess {
                                 }
                                 if(which==1) {///Bishop Selected
                                     ChessPieceBishop b = (new ChessPieceBishop(chessView.getContext(), R.drawable.chess_bdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    b.setHasMoved(true);
                                     pieces.add(b);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(b);
                                     pieces.remove(31);
@@ -1080,6 +1082,7 @@ public class Chess {
                                 }
                                 if(which==2) {///Rook selected
                                     ChessPieceRook r = (new ChessPieceRook(chessView.getContext(), R.drawable.chess_rdt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    r.setHasMoved(true);
                                     pieces.add(r);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(r);
                                     pieces.remove(31);
@@ -1087,6 +1090,7 @@ public class Chess {
                                 }
                                 if(which==3) {///Knight selected
                                     ChessPieceKnight k = (new ChessPieceKnight(chessView.getContext(), R.drawable.chess_ndt45, pieceToPromote.getX(), pieceToPromote.getY(), 1, pieceToPromote.getSquare_id()));
+                                    k.setHasMoved(true);
                                     pieces.add(k);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(k);
                                     pieces.remove(31);
@@ -1106,6 +1110,7 @@ public class Chess {
                             public void onClick(DialogInterface dialog, int which) {
                                 if(which==0) {///Queen Selected
                                     ChessPieceQueen q = (new ChessPieceQueen(chessView.getContext(), R.drawable.chess_qlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    q.setHasMoved(true);
                                     pieces.add(q);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(q);
                                     pieces.remove(31);
@@ -1113,6 +1118,7 @@ public class Chess {
                                 }
                                 if(which==1) {///Bishop Selected
                                     ChessPieceBishop b = (new ChessPieceBishop(chessView.getContext(), R.drawable.chess_blt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    b.setHasMoved(true);
                                     pieces.add(b);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(b);
                                     pieces.remove(31);
@@ -1120,6 +1126,7 @@ public class Chess {
                                 }
                                 if(which==2) {///Rook selected
                                     ChessPieceRook r = (new ChessPieceRook(chessView.getContext(), R.drawable.chess_rlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    r.setHasMoved(true);
                                     pieces.add(r);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(r);
                                     pieces.remove(31);
@@ -1127,6 +1134,7 @@ public class Chess {
                                 }
                                 if(which==3) {///Knight selected
                                     ChessPieceKnight k = (new ChessPieceKnight(chessView.getContext(), R.drawable.chess_nlt45, pieceToPromote.getX(), pieceToPromote.getY(), 2, pieceToPromote.getSquare_id()));
+                                    k.setHasMoved(true);
                                     pieces.add(k);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(k);
                                     pieces.remove(31);
