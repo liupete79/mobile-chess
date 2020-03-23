@@ -41,6 +41,8 @@ public abstract class ChessPiece {
 
     private boolean firstMove = true;
 
+    private boolean hasMoved = false;
+
 
     public ChessPiece(Context context, int id, float initialX,  float initialY, int player, int square_id) {
     piece = BitmapFactory.decodeResource(context.getResources(), id);
@@ -151,5 +153,13 @@ public abstract class ChessPiece {
     }
 
     public abstract void is_valid_move();
+
+    public boolean getHasMoved() {
+        return hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
 }
 

@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ChessActivity extends AppCompatActivity {
 
@@ -54,6 +55,7 @@ public class ChessActivity extends AppCompatActivity {
 
             }
         }
+        getChessView().setAllPlayers(currPlayer, player1, player2);
     }
 
     @Override
@@ -110,6 +112,10 @@ public class ChessActivity extends AppCompatActivity {
     }
 
     public void onTurnDone(View view) {
+        if(getChessView().getHasMoved()== false){
+            Toast.makeText(view.getContext(), R.string.please_move, Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (currPlayer == player1) {
             currPlayer = player2;
         }
@@ -124,7 +130,8 @@ public class ChessActivity extends AppCompatActivity {
         else {
             currColor.setText("(White)");
         }
-
+        getChessView().onDone();
+        getChessView().setAllPlayers(currPlayer, player1, player2);
         Intent intent = new Intent(this, EndActivity.class);
         intent.putExtra("winner", currPlayer);
     }

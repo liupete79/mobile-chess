@@ -49,6 +49,7 @@ public class Chess {
     private final static String IDS = "Chess.ids";
     private final static String SQUAREIDS = "Chess.squareIds";
     private final static String FIRSTMOVES = "Chess.firstMoves";
+    private final static String HASMOVED = "Chess.hasMoved";
 
     // How much we scale the puzzle pieces
     private float scaleFactor;
@@ -73,7 +74,44 @@ public class Chess {
 
     private String currPlayer;
 
+    private String player1;
+
+    private String player2;
+
     private boolean kingCaptured = false;
+
+    public boolean hasMoveOccured() {
+        for (int i = 0; i < pieces.size(); i++) {
+            if(pieces.get(i).getHasMoved()== true){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(String player2) {
+        this.player2 = player2;
+    }
+
+    public String getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(String player1) {
+        this.player1 = player1;
+    }
+
+    public String getCurrPlayer() {
+        return currPlayer;
+    }
+
+    public void setCurrPlayer(String currPlayer) {
+        this.currPlayer = currPlayer;
+    }
 
     private class Square{
         private int coordX, coordY;
@@ -276,6 +314,7 @@ public class Chess {
         int [] ids = new int[pieces.size()];
         int [] squareIds = new int[pieces.size()];
         boolean [] firstMoves = new boolean[pieces.size()];
+        boolean [] hasMoved = new boolean[pieces.size()];
 
         for(int i=0;  i<pieces.size(); i++) {
             ChessPiece piece = pieces.get(i);
@@ -284,7 +323,9 @@ public class Chess {
             ids[i] = piece.getId();
             squareIds[i] = piece.getSquare_id();
             firstMoves[i] = piece.isFirstMove();
+            hasMoved[i] = piece.getHasMoved();
         }
+        bundle.putBooleanArray(HASMOVED, hasMoved);
         bundle.putBooleanArray(FIRSTMOVES, firstMoves);
         bundle.putIntArray(SQUAREIDS, squareIds);
         bundle.putFloatArray(LOCATIONS, locations);
@@ -300,6 +341,7 @@ public class Chess {
         int [] ids = bundle.getIntArray(IDS);
         int [] squareIds = bundle.getIntArray(SQUAREIDS);
         boolean [] firstMoves = bundle.getBooleanArray(FIRSTMOVES);
+        boolean [] hasMoved = bundle.getBooleanArray(HASMOVED);
 
         for(int i=0; i<ids.length-1; i++) {
 
@@ -320,6 +362,7 @@ public class Chess {
 
         for(int i=0;  i<pieces.size(); i++) {
             ChessPiece piece = pieces.get(i);
+            piece.setHasMoved(hasMoved[i]);
             piece.setX(locations[i*2]);
             piece.setY(locations[i*2+1]);
             piece.setSquare_id(squareIds[i]);
@@ -351,8 +394,26 @@ public class Chess {
                 return onReleased(view, relX, relY);
 
             case MotionEvent.ACTION_MOVE:
+                int i = 0;
+                for (i = 0; i < pieces.size(); i++) {
+                    if(pieces.get(i).getHasMoved()== true){
+                        return false;
+                    }
+                }
                 // If we are dragging, move the piece and force a redraw
                 if(dragging != null) {
+                    if(player1 == currPlayer){
+                        if(dragging.getPlayer()==2){
+                            Toast.makeText(view.getContext(), R.string.already_moved, Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                    }
+                    if(player2 == currPlayer){
+                        if(dragging.getPlayer()==1){
+                            Toast.makeText(view.getContext(), R.string.already_moved, Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                    }
                     dragging.move(relX - lastRelX, relY - lastRelY);
                     lastRelX = relX;
                     lastRelY = relY;
@@ -396,9 +457,14 @@ public class Chess {
      * @return true if the touch is handled
      */
     private boolean onReleased(View view, float x, float y) {
-
         if(dragging != null) {
             Square toUpdate = squares.get(dragging.getSquare_id());
+            for (int i = 0; i < pieces.size(); i++) {
+                if(pieces.get(i).getHasMoved()==true){
+                    Toast.makeText(view.getContext(), R.string.already_moved, Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
             if(isValidMove(x, y, dragging, squares.get(dragging.getSquare_id()))) {
                 toUpdate.setPiece(null);
                 snap(view, x, y);
@@ -414,8 +480,24 @@ public class Chess {
             } else {
                 dragging.setX(squares.get(dragging.getSquare_id()).x);
                 dragging.setY(squares.get(dragging.getSquare_id()).y);
-                Toast.makeText(view.getContext(), "Invalid Move!", Toast.LENGTH_SHORT).show();
-                view.invalidate();
+                if(player1 == currPlayer){
+                    if(dragging.getPlayer()==2){
+                        Toast.makeText(view.getContext(), R.string.wrong_team, Toast.LENGTH_SHORT).show();
+                        view.invalidate();
+                        return false;
+                    }
+                }
+                if(player2 == currPlayer){
+                    if(dragging.getPlayer()==1){
+                        Toast.makeText(view.getContext(), R.string.wrong_team, Toast.LENGTH_SHORT).show();
+                        view.invalidate();
+                        return false;
+                    }
+                }
+                else {
+                    Toast.makeText(view.getContext(), R.string.invalid, Toast.LENGTH_SHORT).show();
+                    view.invalidate();
+                }
             }
             dragging = null;
             return true;
@@ -453,6 +535,24 @@ public class Chess {
     }
 
     private boolean isValidMove(float x, float y, ChessPiece piece, Square prevSquare){
+        for (int i = 0; i < pieces.size(); i++) {
+
+            if(pieces.get(i).getHasMoved()==true){
+                return false;
+            }
+        }
+        if(player1 == currPlayer){
+            if(dragging.getPlayer()==2){
+                Toast.makeText(chessView.getContext(), R.string.wrong_team, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        if(player2 == currPlayer){
+            if(dragging.getPlayer()==1){
+                Toast.makeText(chessView.getContext(), R.string.wrong_team, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
         int snapIndex = 0;
         ArrayList<Integer> possibleSnap = new ArrayList<>();
         float testX = 100;
@@ -496,6 +596,7 @@ public class Chess {
                     if (squares.get(snapIndex).getPiece() == null && moveSquare.getPiece() == null && squares.get(piece.getSquare_id() - 8).getPiece() == null) {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
+                        piece.setHasMoved(true);
                         return true;
                     }
                 //Otherwise, checks to see if the pawn moves one space up
@@ -505,6 +606,7 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
                         promotePawn(piece);
+                        piece.setHasMoved(true);
                         return true;
                     //If the x coordinate changed by 1, check if there is an enemy piece there and capture.
                     } else if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 1 && moveSquare.getPiece() != null) {
@@ -513,6 +615,7 @@ public class Chess {
                             piece.setSquare_id(snapIndex);
                             piece.setFirstMove(false);
                             promotePawn(piece);
+                            piece.setHasMoved(true);
                             return true;
                         }
                     }
@@ -525,6 +628,7 @@ public class Chess {
                     if (squares.get(snapIndex).getPiece() == null && moveSquare.getPiece() == null && moveSquare.getCoordX() == prevSquare.getCoordX()) {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
+                        piece.setHasMoved(true);
                         return true;
                     }
                 } else if (moveSquare.getCoordY() - prevSquare.getCoordY() == 1) {
@@ -532,6 +636,7 @@ public class Chess {
                         piece.setSquare_id(snapIndex);
                         piece.setFirstMove(false);
                         promotePawn(piece);
+                        piece.setHasMoved(true);
                         return true;
                     } else if (abs(moveSquare.getCoordX() - prevSquare.getCoordX()) == 1 && moveSquare.getPiece() != null ) {
                         if (moveSquare.getPiece().getPlayer() == 2) {
@@ -539,6 +644,7 @@ public class Chess {
                             piece.setSquare_id(snapIndex);
                             piece.setFirstMove(false);
                             promotePawn(piece);
+                            piece.setHasMoved(true);
                             return true;
                         }
                     }
@@ -562,9 +668,11 @@ public class Chess {
                 if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                     Captured(moveSquare.getPiece());
                     piece.setSquare_id(snapIndex);
+                    piece.setHasMoved(true);
                     return true;
                 } else if (moveSquare.getPiece() == null) {
                     piece.setSquare_id(snapIndex);
+                    piece.setHasMoved(true);
                     return true;
                 }
             //Checks for moving 1 space in the y direction, then 2 spaces in the x direction
@@ -573,9 +681,11 @@ public class Chess {
                 if (moveSquare.getPiece() != null && moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                     Captured(moveSquare.getPiece());
                     piece.setSquare_id(snapIndex);
+                    piece.setHasMoved(true);
                     return true;
                 } else if (moveSquare.getPiece() == null) {
                     piece.setSquare_id(snapIndex);
+                    piece.setHasMoved(true);
                     return true;
                 }
             }
@@ -610,6 +720,7 @@ public class Chess {
                         }
                         if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             completeMovement(piece, moveSquare);
+                            piece.setHasMoved(true);
                             return true;
                         }
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
@@ -622,6 +733,7 @@ public class Chess {
                         }
                         if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             completeMovement(piece, moveSquare);
+                            piece.setHasMoved(true);
                             return true;
                         }
                     }
@@ -637,6 +749,7 @@ public class Chess {
                         }
                         if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             completeMovement(piece, moveSquare);
+                            piece.setHasMoved(true);
                             return true;
                         }
                     //Moving up the board (-Y)
@@ -649,6 +762,7 @@ public class Chess {
                         }
                         if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             completeMovement(piece, moveSquare);
+                            piece.setHasMoved(true);
                             return true;
                         }
                     }
@@ -683,6 +797,7 @@ public class Chess {
                     }
                     if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                     }
                 //Moving up the board (-Y)
@@ -695,6 +810,7 @@ public class Chess {
                     }
                     if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                     }
                 }
@@ -710,6 +826,7 @@ public class Chess {
                     }
                     if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                     }
                 //Moving to the left (-X)
@@ -722,6 +839,7 @@ public class Chess {
                     }
                     if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                     }
                 }
@@ -755,6 +873,7 @@ public class Chess {
                         }
                         if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             completeMovement(piece, moveSquare);
+                            piece.setHasMoved(true);
                             return true;
                         }
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
@@ -766,6 +885,7 @@ public class Chess {
                         }
                         if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             completeMovement(piece, moveSquare);
+                            piece.setHasMoved(true);
                             return true;
                         }
                     }
@@ -779,6 +899,7 @@ public class Chess {
                         }
                         if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             completeMovement(piece, moveSquare);
+                            piece.setHasMoved(true);
                             return true;
                         }
                     } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
@@ -790,6 +911,7 @@ public class Chess {
                         }
                         if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                             completeMovement(piece, moveSquare);
+                            piece.setHasMoved(true);
                             return true;
                         }
                     }
@@ -804,6 +926,7 @@ public class Chess {
                     }
                     if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                     }
                 } else if (moveSquare.getCoordY() < prevSquare.getCoordY()) {
@@ -815,6 +938,7 @@ public class Chess {
                     }
                     if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                     }
                 }
@@ -828,6 +952,7 @@ public class Chess {
                     }
                     if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                     }
                 } else if (moveSquare.getCoordX() < prevSquare.getCoordX()) {
@@ -839,6 +964,7 @@ public class Chess {
                     }
                     if (moveSquare.getPiece() == null || moveSquare.getPiece().getPlayer() != piece.getPlayer()){
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                     }
                 }
@@ -867,34 +993,42 @@ public class Chess {
                     if (x_check == 0 && y_check == -1) {
                         //Checks for piece capture
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                         //Moving NorthEast
                     } else if (x_check == 1 && y_check == -1) {
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                         //Moving East
                     } else if (x_check == 1 && y_check == 0) {
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                         //Moving SouthEast
                     } else if (x_check == 1 && y_check == 1) {
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                         //Moving South
                     } else if (x_check == 0 && y_check == 1) {
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                         //Moving SouthWest
                     } else if (x_check == -1 && y_check == 1) {
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                         //Moving West
                     } else if (x_check == -1 && y_check == 0) {
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                         //Moving NorthWest
                     } else if (x_check == -1 && y_check == -1) {
                         completeMovement(piece, moveSquare);
+                        piece.setHasMoved(true);
                         return true;
                     }
                 }
@@ -994,6 +1128,13 @@ public class Chess {
         }
 
         return false;
+    }
+
+    public void onDone () {
+        for (int i = 0; i < pieces.size(); i++) {
+
+            pieces.get(i).setHasMoved(false);
+        }
     }
 
 }
