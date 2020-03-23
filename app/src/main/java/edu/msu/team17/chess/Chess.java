@@ -1069,6 +1069,7 @@ public class Chess {
                                     pieces.add(q);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(q);
                                     pieces.remove(31);
+                                    pieces.get(31).setHasMoved(true);
                                     chessView.invalidate();
                                 }
                                 if(which==1) {///Bishop Selected
@@ -1076,6 +1077,7 @@ public class Chess {
                                     pieces.add(b);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(b);
                                     pieces.remove(31);
+                                    pieces.get(31).setHasMoved(true);
                                     chessView.invalidate();
                                 }
                                 if(which==2) {///Rook selected
@@ -1083,6 +1085,7 @@ public class Chess {
                                     pieces.add(r);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(r);
                                     pieces.remove(31);
+                                    pieces.get(31).setHasMoved(true);
                                     chessView.invalidate();
                                 }
                                 if(which==3) {///Knight selected
@@ -1090,6 +1093,7 @@ public class Chess {
                                     pieces.add(k);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(k);
                                     pieces.remove(31);
+                                    pieces.get(31).setHasMoved(true);
                                     chessView.invalidate();
                                 }
                             }
@@ -1109,6 +1113,7 @@ public class Chess {
                                     pieces.add(q);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(q);
                                     pieces.remove(31);
+                                    pieces.get(31).setHasMoved(true);
                                     chessView.invalidate();
                                 }
                                 if(which==1) {///Bishop Selected
@@ -1116,6 +1121,7 @@ public class Chess {
                                     pieces.add(b);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(b);
                                     pieces.remove(31);
+                                    pieces.get(31).setHasMoved(true);
                                     chessView.invalidate();
                                 }
                                 if(which==2) {///Rook selected
@@ -1123,6 +1129,7 @@ public class Chess {
                                     pieces.add(r);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(r);
                                     pieces.remove(31);
+                                    pieces.get(31).setHasMoved(true);
                                     chessView.invalidate();
                                 }
                                 if(which==3) {///Knight selected
@@ -1130,6 +1137,7 @@ public class Chess {
                                     pieces.add(k);
                                     squares.get(pieceToPromote.getSquare_id()).setPiece(k);
                                     pieces.remove(31);
+                                    pieces.get(31).setHasMoved(true);
                                     chessView.invalidate();
                                 }
                             }
