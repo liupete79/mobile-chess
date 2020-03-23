@@ -51,7 +51,8 @@ public class ChessActivity extends AppCompatActivity {
                 }
                 currPlayer = player1;
                 TextView currentPlayer = findViewById(R.id.currentPlayer);
-                currentPlayer.setText(player1 + getString(R.string.turn_title));
+                String finalText = player1 + getString(R.string.turn_title);
+                currentPlayer.setText(finalText);
 
             }
         }
@@ -123,7 +124,9 @@ public class ChessActivity extends AppCompatActivity {
             currPlayer = player1;
         }
         TextView currentPlayer = findViewById(R.id.currentPlayer);
-        currentPlayer.setText(currPlayer + getString(R.string.turn_title));        TextView currColor = findViewById(R.id.currColor);
+        String finalText = currPlayer + getString(R.string.turn_title);
+        currentPlayer.setText(finalText);
+        TextView currColor = findViewById(R.id.currColor);
         if (currPlayer == player1) {
             currColor.setText(getString(R.string.black));
         }

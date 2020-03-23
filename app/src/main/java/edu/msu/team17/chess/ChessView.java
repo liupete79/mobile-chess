@@ -73,6 +73,11 @@ public class ChessView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return chess.onTouchEvent(this, event);
+        performClick();
+        return chess.onTouchEvent(this, event); }
+    @Override
+    public boolean performClick() {
+        super.performClick();
+        return true;
     }
 }

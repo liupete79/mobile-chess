@@ -20,7 +20,8 @@ public class EndActivity extends AppCompatActivity {
         if (extras != null) {
             winner = extras.getString("winner");
             TextView currentPlayer = findViewById(R.id.endText);
-            currentPlayer.setText(winner + getString(R.string.winner));
+            String finalWinner = winner + getString(R.string.winner);
+            currentPlayer.setText(finalWinner);
         }
     }
     public void onStartMain(View view) {
