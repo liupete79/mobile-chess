@@ -290,7 +290,14 @@ public class Chess {
             squares.get(i).setY(vert/16f);
             horiz+=2f;
         }
-
+        for(Square square : squares){
+            square.setPiece(null);
+        }
+        for(ChessPiece piece :pieces){
+            if(piece.getSquare_id() != -1) {
+                squares.get(piece.getSquare_id()).setPiece(piece);
+            }
+        }
 
         for (ChessPiece piece : pieces) {
             if (piece.getSquare_id() != -1) {
