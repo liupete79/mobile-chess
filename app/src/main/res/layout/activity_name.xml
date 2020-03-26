@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NameActivity">
+    tools:context=".MatchmakingActivity">
 
     <EditText
         android:id="@+id/textName1"
@@ -25,6 +25,14 @@
         android:hint="@string/player2"
         android:inputType="textPersonName"
         tools:targetApi="o" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/matching"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/buttonName"

@@ -5,20 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class CreateAccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_create);
     }
-
-    public void onStartChess(View view) {
-        Intent intent = new Intent(this, MatchmakingActivity.class);
+    public void onCreate(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-    public void onCreateAccount(View view) {
-        Intent intent = new Intent(this, CreateAccountActivity.class);
+
+    public void onCancel(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

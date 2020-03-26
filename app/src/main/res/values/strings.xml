@@ -20,6 +20,14 @@
     <string name="black">(Black)</string>
     <string name="white">(White)</string>
     <string name="winner">\u0020wins!</string>
+    <string name="play">Play Now!</string>
+    <string name="createAccount">Create Account</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="passwordConf">Confirm Password</string>
+    <string name="newUser">New User?</string>
+    <string name="matching">Finding Opponent...</string>
+    <string name="newAcct">New Account</string>
 
 
     <string name="rules">Black is always first to move and players take turns alternately moving
