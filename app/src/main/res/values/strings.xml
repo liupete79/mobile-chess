@@ -26,6 +26,7 @@
     <string name="password">Password</string>
     <string name="passwordConf">Confirm Password</string>
     <string name="newUser">New User?</string>
+    <string name="newUserLand">New User?\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020</string>
     <string name="matching">Finding Opponent...</string>
     <string name="newAcct">New Account</string>
 
