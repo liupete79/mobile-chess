@@ -34,15 +34,13 @@ import java.net.URLEncoder;
 @SuppressWarnings("deprecation")
 public class Cloud {
     private static final String MAGIC = "MAGIC";
-    private static final String USER = "user"; //might delete later
-    private static final String PASSWORD = "password"; //might delete later
+    private static final String USER = "yunromi"; //might delete later
+    private static final String PASSWORD = "cse476pw"; //might delete later
 
     //PHP stuff
 
-    private static final String CATALOG_URL = "https://facweb.cse.msu.edu/dennisp/cse476x/hatter-cat.php";
-    private static final String SAVE_URL = "https://facweb.cse.msu.edu/dennisp/cse476x/hatter-save.php";
-    private static final String DELETE_URL = "https://facweb.cse.msu.edu/dennisp/cse476x/hatter-delete.php";
-    private static final String LOAD_URL = "https://facweb.cse.msu.edu/dennisp/cse476x/hatter-load.php";
+    private static final String NEW_USER_URL = "http://webdev.cse.msu.edu/~yunromi/cse476/project2/new-user.php";
+    private static final String LOGIN_URL = "http://webdev.cse.msu.edu/~yunromi/cse476/project2/login.php";
     private static final String UTF8 = "UTF-8";
 
     /**
@@ -71,29 +69,29 @@ public class Cloud {
      * @param id id for the hatting
      * @return reference to an input stream or null if this fails
      */
-    public InputStream openFromCloud(final String id) {
-        // Create a get query
-        String query = LOAD_URL + "?user=" + USER + "&magic=" + MAGIC + "&pw=" + PASSWORD + "&id=" + id;
-
-        try {
-            URL url = new URL(query);
-
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            int responseCode = conn.getResponseCode();
-            if(responseCode != HttpURLConnection.HTTP_OK) {
-                return null;
-            }
-
-            InputStream stream = conn.getInputStream();
-            return stream;
-
-        } catch (MalformedURLException e) {
-            // Should never happen
-            return null;
-        } catch (IOException ex) {
-            return null;
-        }
-    }
+//    public InputStream openFromCloud(final String id) {
+//        // Create a get query
+//        String query = LOAD_URL + "?user=" + USER + "&magic=" + MAGIC + "&pw=" + PASSWORD + "&id=" + id;
+//
+//        try {
+//            URL url = new URL(query);
+//
+//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//            int responseCode = conn.getResponseCode();
+//            if(responseCode != HttpURLConnection.HTTP_OK) {
+//                return null;
+//            }
+//
+//            InputStream stream = conn.getInputStream();
+//            return stream;
+//
+//        } catch (MalformedURLException e) {
+//            // Should never happen
+//            return null;
+//        } catch (IOException ex) {
+//            return null;
+//        }
+//    }
 
     /**
      * Save a game state to the cloud.
@@ -108,4 +106,107 @@ public class Cloud {
         return true;
     }
 
+    public boolean newUser(String user, String password) {
+        // Create a get query
+        String query = NEW_USER_URL + "?user=" + USER + "&magic=" + MAGIC + "&pw=" + PASSWORD + "&user=" + user + "&password=" + password;
+        InputStream stream = null;
+        try {
+            URL url = new URL(query);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return false;
+            }
+
+            stream = conn.getInputStream();
+
+            /**
+             * Create an XML parser for the result
+             */
+            try {
+                XmlPullParser xmlR = Xml.newPullParser();
+                xmlR.setInput(stream, UTF8);
+
+                xmlR.nextTag();      // Advance to first tag
+                xmlR.require(XmlPullParser.START_TAG, null, "chess");
+
+                String status = xmlR.getAttributeValue(null, "status");
+                if(status.equals("no")) {
+                    return false;
+                }
+                    // We are done
+                } catch(XmlPullParserException ex) {
+                    return false;
+                } catch(IOException ex) {
+                    return false;
+                }
+
+            } catch (MalformedURLException e) {
+                return false;
+            } catch (IOException ex) {
+                return false;
+            } finally {
+                if(stream != null) {
+                    try {
+                        stream.close();
+                    } catch(IOException ex) {
+                        // Fail silently
+                    }
+                }
+            }
+            return true;
+        }
+
+    public boolean login(String user, String password) {
+        // Create a get query
+        String query = LOGIN_URL + "?user=" + USER + "&magic=" + MAGIC + "&pw=" + PASSWORD + "&user=" + user + "&password=" + password;
+        InputStream stream = null;
+        try {
+            URL url = new URL(query);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return false;
+            }
+
+            stream = conn.getInputStream();
+
+            /**
+             * Create an XML parser for the result
+             */
+            try {
+                XmlPullParser xmlR = Xml.newPullParser();
+                xmlR.setInput(stream, UTF8);
+
+                xmlR.nextTag();      // Advance to first tag
+                xmlR.require(XmlPullParser.START_TAG, null, "chess");
+
+                String status = xmlR.getAttributeValue(null, "status");
+                if(status.equals("no")) {
+                    return false;
+                }
+                // We are done
+            } catch(XmlPullParserException ex) {
+                return false;
+            } catch(IOException ex) {
+                return false;
+            }
+
+        } catch (MalformedURLException e) {
+            return false;
+        } catch (IOException ex) {
+            return false;
+        } finally {
+            if(stream != null) {
+                try {
+                    stream.close();
+                } catch(IOException ex) {
+                    // Fail silently
+                }
+            }
+        }
+        return true;
+    }
 }
