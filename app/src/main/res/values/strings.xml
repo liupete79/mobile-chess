@@ -31,6 +31,8 @@
     <string name="newAcct">New Account</string>
     <string name="passwordsNotMatch">Passwords did not match. Try again!</string>
     <string name="acctCreated">Account Created</string>
+    <string name="logFailed">Username or Password is incorrect</string>
+
 
 
     <string name="rules">Black is always first to move and players take turns alternately moving
