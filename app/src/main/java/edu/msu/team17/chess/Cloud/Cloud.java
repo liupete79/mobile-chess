@@ -108,8 +108,11 @@ public class Cloud {
 
     public boolean newUser(String user, String password) {
         // Create a get query
-        String query = NEW_USER_URL + "?user=" + USER + "&magic=" + MAGIC + "&pw=" + PASSWORD + "&user=" + user + "&password=" + password;
+        String query = NEW_USER_URL + "?user=" + USER + "&magic=" + MAGIC + "&pw=" + password + "&user=" + user + "&password=" + password;
+        Log.i("test", "here");
         InputStream stream = null;
+        Log.i("test", "here");
+
         try {
             URL url = new URL(query);
 
