@@ -147,7 +147,6 @@ public abstract class ChessPiece {
     public void move(float dx, float dy) {
         x += dx;
         y += dy;
-
     }
 
     public abstract void is_valid_move();
