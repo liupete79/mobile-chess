@@ -107,11 +107,11 @@ public class Cloud {
     }
 
     public boolean newUser(String user, String password) {
-        // Create a get query
-        String query = NEW_USER_URL + "?user=" + USER + "&magic=" + MAGIC + "&pw=" + password + "&user=" + user + "&password=" + password;
-        Log.i("test", "here");
+        String query = NEW_USER_URL + "?user=" + user + "&password=" + password;
+        Log.i("test", user);
+        Log.i("test", password);
+        Log.i("NEW_USER_URL", query);
         InputStream stream = null;
-        Log.i("test", "here");
 
         try {
             URL url = new URL(query);
@@ -162,8 +162,10 @@ public class Cloud {
         }
 
     public boolean login(String user, String password) {
-        // Create a get query
-        String query = LOGIN_URL + "?user=" + USER + "&magic=" + MAGIC + "&pw=" + PASSWORD + "&user=" + user + "&password=" + password;
+        String query = LOGIN_URL + "?user=" + user + "&password=" + password;
+        Log.i("test", user);
+        Log.i("test", password);
+        Log.i("LOGIN_URL", query);
         InputStream stream = null;
         try {
             URL url = new URL(query);
@@ -192,6 +194,7 @@ public class Cloud {
                 }
                 // We are done
             } catch(XmlPullParserException ex) {
+                Log.i("XmlPullParserException", query);
                 return false;
             } catch(IOException ex) {
                 return false;
