@@ -23,22 +23,34 @@ public class MainActivity extends AppCompatActivity {
         EditText p2 = findViewById(R.id.password);
         final String username = p1.getText().toString();
         final String userpassword = p2.getText().toString();
+        final View v = view;
+
         new Thread(new Runnable() {
 
             @Override
-            public synchronized void run() {
+            public void run() {
                 Cloud cloud = new Cloud();
-                success = cloud.login(username, userpassword);
+                final boolean ok = cloud.login(username, userpassword);
+                if (!ok) {
+                    /*
+                     * If we fail to save, display a toast
+                     */
+                    v.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            Toast.makeText(v.getContext(), R.string.logFailed, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    Intent intent = new Intent(v.getContext(), MatchmakingActivity.class);
+                    startActivity(intent);
+                }
             }
         }).start();
 
-        if(success){
-            Intent intent = new Intent(this, MatchmakingActivity.class);
-            startActivity(intent);
-        }
-        else {
-            Toast.makeText(view.getContext(), R.string.logFailed, Toast.LENGTH_SHORT).show();
-        }
     }
     public void onCreateAccount(View view) {
         Intent intent = new Intent(this, CreateAccountActivity.class);

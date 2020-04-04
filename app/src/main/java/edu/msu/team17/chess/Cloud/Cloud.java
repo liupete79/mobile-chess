@@ -161,12 +161,15 @@ public class Cloud {
             return true;
         }
 
+
     public boolean login(String user, String password) {
+        // Lecture 11 & 12
         String query = LOGIN_URL + "?user=" + user + "&password=" + password;
         Log.i("test", user);
         Log.i("test", password);
         Log.i("LOGIN_URL", query);
         InputStream stream = null;
+
         try {
             URL url = new URL(query);
 
@@ -194,7 +197,6 @@ public class Cloud {
                 }
                 // We are done
             } catch(XmlPullParserException ex) {
-                Log.i("XmlPullParserException", query);
                 return false;
             } catch(IOException ex) {
                 return false;
