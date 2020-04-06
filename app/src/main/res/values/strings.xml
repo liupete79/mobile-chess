@@ -32,6 +32,8 @@
     <string name="passwordsNotMatch">Passwords did not match. Try again!</string>
     <string name="acctCreated">Account Created</string>
     <string name="logFailed">Username or Password is incorrect</string>
+    <string name="remember">Remember</string>
+
 
 
 
