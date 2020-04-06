@@ -137,6 +137,7 @@ public class Cloud {
                 String status = xmlR.getAttributeValue(null, "status");
                 Log.i("status", status);
                 if(status.equals("no")) {
+                    Log.i("Inside status return", "False");
                     return false;
                 }
                     // We are done
@@ -160,7 +161,7 @@ public class Cloud {
                 }
             }
             return true;
-        }
+    }
 
 
     public boolean login(String user, String password) {
