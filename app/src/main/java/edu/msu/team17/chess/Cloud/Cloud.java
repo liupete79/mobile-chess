@@ -39,8 +39,8 @@ public class Cloud {
 
     //PHP stuff
 
-    private static final String NEW_USER_URL = "http://webdev.cse.msu.edu/~yunromi/cse476/project2/new-user.php";
-    private static final String LOGIN_URL = "http://webdev.cse.msu.edu/~yunromi/cse476/project2/login.php";
+    private static final String NEW_USER_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/new-user.php";
+    private static final String LOGIN_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/login.php";
     private static final String UTF8 = "UTF-8";
 
     /**
@@ -135,6 +135,7 @@ public class Cloud {
                 xmlR.require(XmlPullParser.START_TAG, null, "chess");
 
                 String status = xmlR.getAttributeValue(null, "status");
+                Log.i("status", status);
                 if(status.equals("no")) {
                     return false;
                 }

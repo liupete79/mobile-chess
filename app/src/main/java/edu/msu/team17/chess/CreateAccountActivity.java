@@ -32,6 +32,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 public void run() {
                     Cloud cloud = new Cloud();
                     cloud.newUser(username, userpassword);
+                    // TO DO - Add toast if .newUser returns false - which means the username is already taken
                 }
             }).start();
             Toast.makeText(view.getContext(), R.string.acctCreated, Toast.LENGTH_SHORT).show();
