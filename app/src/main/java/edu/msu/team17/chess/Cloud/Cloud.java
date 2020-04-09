@@ -41,6 +41,7 @@ public class Cloud {
 
     private static final String NEW_USER_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/new-user.php";
     private static final String LOGIN_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/login.php";
+    private static final String MATCHMAKING_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/matchmaking.php";
     private static final String UTF8 = "UTF-8";
 
     /**
@@ -106,11 +107,17 @@ public class Cloud {
         return true;
     }
 
-    public boolean newUser(String user, String password) {
-        String query = NEW_USER_URL + "?user=" + user + "&password=" + password;
+    public boolean login(String user, String password, String action) {
+        String query = "";
+        if (action == "new user") {
+            query = NEW_USER_URL + "?user=" + user + "&password=" + password;
+        } else // log in
+        {
+            query = LOGIN_URL + "?user=" + user + "&password=" + password;
+        }
         Log.i("test", user);
         Log.i("test", password);
-        Log.i("NEW_USER_URL", query);
+        Log.i("LOGIN_URL", query);
         InputStream stream = null;
 
         try {
@@ -163,13 +170,10 @@ public class Cloud {
             return true;
     }
 
-
-    public boolean login(String user, String password) {
-        // Lecture 11 & 12
-        String query = LOGIN_URL + "?user=" + user + "&password=" + password;
+    public boolean find_opponent(String user) {
+        String query = MATCHMAKING_URL + "?user=" + user;
         Log.i("test", user);
-        Log.i("test", password);
-        Log.i("LOGIN_URL", query);
+        Log.i("MATCHMAKING_URL", query);
         InputStream stream = null;
 
         try {
@@ -192,8 +196,13 @@ public class Cloud {
 
                 xmlR.nextTag();      // Advance to first tag
                 xmlR.require(XmlPullParser.START_TAG, null, "chess");
-
+                String opponent = xmlR.getAttributeValue(null, "opponent");
+                if (opponent != null) {
+                    Log.i("opponent", opponent);
+                }
+                else { Log.i("opponent", "No opponent"); }
                 String status = xmlR.getAttributeValue(null, "status");
+                Log.i("status", status);
                 if(status.equals("no")) {
                     return false;
                 }
@@ -219,4 +228,6 @@ public class Cloud {
         }
         return true;
     }
+
+
 }

@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Cloud cloud = new Cloud();
-                final boolean ok = cloud.login(username, userpassword);
+                final boolean ok = cloud.login(username, userpassword, "login");
                 if (!ok) {
                     /*
                      * If we fail to save, display a toast

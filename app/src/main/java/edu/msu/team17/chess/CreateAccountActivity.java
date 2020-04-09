@@ -33,7 +33,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Cloud cloud = new Cloud();
-                    final boolean createAccount = cloud.newUser(username, userpassword);
+                    final boolean createAccount = cloud.login(username, userpassword, "new user");
                     if (createAccount) {
                         v.post(new Runnable() {
 
