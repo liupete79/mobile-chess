@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     Intent intent = new Intent(v.getContext(), MatchmakingActivity.class);
+                    intent.putExtra("username", username);
                     startActivity(intent);
                 }
             }

@@ -6,26 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MatchmakingActivity">
 
-    <EditText
-        android:id="@+id/textName1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="15"
-        android:hint="@string/player1"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/textName2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textName1"
-        android:autofillHints=""
-        android:ems="15"
-        android:hint="@string/player2"
-        android:inputType="textPersonName"
-        tools:targetApi="o" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
