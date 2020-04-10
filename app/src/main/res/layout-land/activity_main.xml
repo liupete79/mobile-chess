@@ -39,7 +39,7 @@
         android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/password"
+        android:layout_below="@id/rememberBox"
         android:layout_alignParentRight="false"
         android:layout_centerInParent="true"
         android:onClick="onStartChess"
@@ -63,5 +63,13 @@
         android:layout_centerInParent="false"
         android:onClick="onCreateAccount"
         android:text="@string/createAccount" />
+
+    <CheckBox
+        android:id="@+id/rememberBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_centerInParent="true"
+        android:text="@string/remember" />
 
 </RelativeLayout>

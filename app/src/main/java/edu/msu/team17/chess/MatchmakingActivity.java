@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.service.autofill.FieldClassification;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -21,15 +23,16 @@ import edu.msu.team17.chess.Cloud.Cloud;
 
 public class MatchmakingActivity extends AppCompatActivity {
 
-    boolean cancel = false;
-    String username;
-    View view;
+    private boolean cancel = false;
+    private String username;
+    private TextView txtView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name);
         username = getIntent().getStringExtra("username");
+        txtView = findViewById(R.id.textView);
         final Handler handler = new Handler();
         final int delay = 1000; //milliseconds
 
@@ -61,14 +64,18 @@ public class MatchmakingActivity extends AppCompatActivity {
                         }
                         else {
                             Log.i("find_opponent", "worked");
-                            ///Intent intent = new Intent(v.getContext(), MatchmakingActivity.class);
-                            ///startActivity(intent);
+                            MatchmakingActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    txtView.setText(R.string.oppFound);
+                                }
+                            });
                         }
                     }
                 }).start();
                 handler.postDelayed(this, delay);
             }
         }, delay);
+
     }
 
     public void onStartChess(View view) {
@@ -80,6 +87,7 @@ public class MatchmakingActivity extends AppCompatActivity {
         intent.putExtra("player2", player2);
         startActivity(intent);
     }
+
     public void onStartMain(View view) {
         cancel = true;
         Intent intent = new Intent(this, MainActivity.class);

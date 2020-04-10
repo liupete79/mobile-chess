@@ -34,6 +34,7 @@
     <string name="logFailed">Username or Password is incorrect</string>
     <string name="remember">Remember</string>
     <string name="accFailed">Failed to Create Account</string>
+    <string name="oppFound">Opponent Found! Press \"Play Chess\"</string>
 
 
 
