@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.service.autofill.FieldClassification;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ public class MatchmakingActivity extends AppCompatActivity {
     private boolean cancel = false;
     private String username;
     private TextView txtView;
+    private Button chessButton;
+    private String opponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class MatchmakingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_name);
         username = getIntent().getStringExtra("username");
         txtView = findViewById(R.id.textView);
+        chessButton = findViewById(R.id.buttonName);
+        chessButton.setClickable(false);
         final Handler handler = new Handler();
         final int delay = 1000; //milliseconds
 
@@ -61,12 +66,20 @@ public class MatchmakingActivity extends AppCompatActivity {
                             });
                              */
                             Log.i("find_opponent", "did not work");
+                            MatchmakingActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    chessButton.setClickable(false);
+                                }
+                            });
                         }
                         else {
+                            opponent = cloud.getOpponent();
                             Log.i("find_opponent", "worked");
                             MatchmakingActivity.this.runOnUiThread(new Runnable() {
                                 public void run() {
                                     txtView.setText(R.string.oppFound);
+                                    chessButton.setClickable(true);
+                                    chessButton.setEnabled(true);
                                 }
                             });
                         }
@@ -79,9 +92,22 @@ public class MatchmakingActivity extends AppCompatActivity {
     }
 
     public void onStartChess(View view) {
-        String player1 = username;
+        final String player1 = username;
         cancel = true;
-        String player2 = "need to fill";
+        final String player2 = opponent;
+        new Thread(new Runnable() {
+
+            @Override
+            public synchronized void run() {
+                Cloud cloud = new Cloud();
+                final boolean ok = cloud.new_game(player1, player2);
+                if (!ok) {
+                }
+                else {
+                }
+            }
+        }).start();
+
         Intent intent = new Intent(this, ChessActivity.class);
         intent.putExtra("player1", player1);
         intent.putExtra("player2", player2);

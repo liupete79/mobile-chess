@@ -21,6 +21,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:clickable="false"
+        android:enabled="false"
         android:onClick="onStartChess"
         android:text="@string/start_chess"
         tools:layout_editor_absoluteX="178dp"

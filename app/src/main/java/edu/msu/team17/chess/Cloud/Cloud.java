@@ -37,6 +37,8 @@ public class Cloud {
     private static final String USER = "yunromi"; //might delete later
     private static final String PASSWORD = "cse476pw"; //might delete later
 
+    private String opponent;
+
     //PHP stuff
 
     private static final String NEW_USER_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/new-user.php";
@@ -44,7 +46,9 @@ public class Cloud {
     private static final String MATCHMAKING_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/matchmaking.php";
     private static final String NEW_GAME_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/play-game.php";
     private static final String UTF8 = "UTF-8";
-
+    public String getOpponent(){
+        return opponent;
+    }
     /**
      * Skip the XML parser to the end tag for whatever
      * tag we are currently within.
@@ -200,6 +204,7 @@ public class Cloud {
                 String opponent = xmlR.getAttributeValue(null, "opponent");
                 if (opponent != null) {
                     Log.i("opponent", opponent);
+                    this.opponent = opponent;
                 }
                 else { Log.i("opponent", "No opponent"); }
                 String status = xmlR.getAttributeValue(null, "status");
