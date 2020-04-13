@@ -1,6 +1,12 @@
 package edu.msu.team17.chess.Cloud;
 
 import android.util.Log;
+
+import edu.msu.team17.chess.ChessView;
+import edu.msu.team17.chess.Cloud.Models.SaveResult;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +51,8 @@ public class Cloud {
     private static final String LOGIN_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/login.php";
     private static final String MATCHMAKING_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/matchmaking.php";
     private static final String NEW_GAME_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/play-game.php";
+    private static final String BASE_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/";
+    public static final String SAVE_PATH = "TEMP_NEEDS_TO_FILL.php";
     private static final String UTF8 = "UTF-8";
     public String getOpponent(){
         return opponent;
@@ -291,5 +299,60 @@ public class Cloud {
         }
         return true;
     }
+
+    public boolean saveToCloud(String name, String opponent, ChessView view) {
+        name = name.trim();
+        if(name.length() == 0) {
+            return false;
+        }
+
+        // Create an XML packet with the information about the current image
+        XmlSerializer xml = Xml.newSerializer();
+        StringWriter writer = new StringWriter();
+
+        try {
+            xml.setOutput(writer);
+
+            xml.startDocument("UTF-8", true);
+
+            xml.startTag(null, "chess status");
+
+            xml.attribute(null, "user", USER);
+            xml.attribute(null, "pw", PASSWORD);
+            xml.attribute(null, "magic", MAGIC);
+
+            view.saveXml(name, opponent, xml);
+
+
+            xml.endTag(null, "chess status");
+
+            xml.endDocument();
+
+        } catch (IOException e) {
+            // This won't occur when writing to a string
+            return false;
+        }
+
+        ChessService service = retrofit.create(ChessService.class);
+        final String xmlStr = writer.toString();
+        try {
+            SaveResult result = service.saveChess(xmlStr).execute().body();
+            if (result.getStatus() != null && result.getStatus().equals("yes")) {
+                return true;
+            }
+            Log.e("SaveToCloud", "Failed to save, message = '" + result.getMessage() + "'");
+            return false;
+        } catch (IOException e) {
+            Log.e("SaveToCloud", "Exception occurred while trying to save hat!", e);
+            return false;
+        }
+
+        // Don't forget to remove the "return true" from the bottom of this function.
+    }
+
+    private static Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(SimpleXmlConverterFactory.create())
+            .build();
 
 }

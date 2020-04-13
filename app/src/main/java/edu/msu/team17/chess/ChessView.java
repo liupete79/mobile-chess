@@ -7,6 +7,10 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import org.xmlpull.v1.XmlSerializer;
+
+import java.io.IOException;
+
 
 /**
  * Custom view class for Chess.
@@ -79,5 +83,22 @@ public class ChessView extends View {
     public boolean performClick() {
         super.performClick();
         return true;
+    }
+
+    public void saveXml(String name, String opponent, XmlSerializer xml) throws IOException {
+        for(ChessPiece piece :chess.pieces){
+            xml.startTag(null, "chessgame");
+
+            xml.attribute(null, "player1", name);
+            xml.attribute(null, "player2", opponent);
+            xml.attribute(null, "piece_id", Integer.toString(piece.getId()));
+            xml.attribute(null, "color", Integer.toString(piece.getPlayer()));
+            xml.attribute(null, "square_id", Integer.toString(piece.getSquare_id()));
+            xml.attribute(null, "x", Float.toString(piece.getX()));
+            xml.attribute(null, "y", Float.toString(piece.getY()));
+            xml.attribute(null, "type", Float.toString(piece.getId()));
+
+            xml.endTag(null,  "chessgame");
+        }
     }
 }
