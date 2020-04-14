@@ -51,6 +51,7 @@ public class Cloud {
     private static final String LOGIN_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/login.php";
     private static final String MATCHMAKING_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/matchmaking.php";
     private static final String NEW_GAME_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/play-game.php";
+    private static final String RESIGN_GAME_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/resign-game.php";
     private static final String BASE_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/";
     public static final String SAVE_PATH = "save-game.php";
     public static final String LOAD_PATH = "load-game.php";
@@ -102,6 +103,63 @@ public class Cloud {
         } catch (IOException ex) {
             return null;
         }
+    }
+
+    public boolean resign(String user) {
+        String query = "";
+        query = RESIGN_GAME_URL + "?user=" + user;
+        Log.i("test", user);
+        Log.i("RESIGN_GAME_URL", query);
+        InputStream stream = null;
+
+        try {
+            URL url = new URL(query);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return false;
+            }
+
+            stream = conn.getInputStream();
+
+            /**
+             * Create an XML parser for the result
+             */
+            try {
+                XmlPullParser xmlR = Xml.newPullParser();
+                xmlR.setInput(stream, UTF8);
+
+                xmlR.nextTag();      // Advance to first tag
+                xmlR.require(XmlPullParser.START_TAG, null, "chess");
+
+                String status = xmlR.getAttributeValue(null, "status");
+                Log.i("status", status);
+                if(status.equals("no")) {
+                    Log.i("Inside status return", "False");
+                    return false;
+                }
+                // We are done
+            } catch(XmlPullParserException ex) {
+                return false;
+            } catch(IOException ex) {
+                return false;
+            }
+
+        } catch (MalformedURLException e) {
+            return false;
+        } catch (IOException ex) {
+            return false;
+        } finally {
+            if(stream != null) {
+                try {
+                    stream.close();
+                } catch(IOException ex) {
+                    // Fail silently
+                }
+            }
+        }
+        return true;
     }
 
 
