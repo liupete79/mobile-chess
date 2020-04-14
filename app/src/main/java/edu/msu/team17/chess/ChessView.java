@@ -85,19 +85,39 @@ public class ChessView extends View {
         return true;
     }
 
-    public void saveXml(String name, String opponent, XmlSerializer xml) throws IOException {
+    public void saveXml(String player1, String player2, XmlSerializer xml) throws IOException {
         int number = 0;
         for(ChessPiece piece :chess.pieces){
             xml.startTag(null, "chessgame");
-
-            xml.attribute(null, "player1", name);
-            xml.attribute(null, "player2", opponent);
             xml.attribute(null, "piece_id", Integer.toString(number));
-            xml.attribute(null, "color", Integer.toString(piece.getPlayer()));
+            if (piece.getPlayer() == 1){
+                xml.attribute(null, "player", player1);
+            }
+            else{
+                xml.attribute(null, "player", player2);
+            }
             xml.attribute(null, "square_id", Integer.toString(piece.getSquare_id()));
             xml.attribute(null, "x", Float.toString(piece.getX()));
             xml.attribute(null, "y", Float.toString(piece.getY()));
-            xml.attribute(null, "type", Float.toString(piece.getId()));
+
+            if (piece instanceof ChessPieceBishop) {
+                xml.attribute(null, "type", "bishop");
+            }
+            else if (piece instanceof ChessPieceKing) {
+                xml.attribute(null, "type", "king");
+            }
+            else if (piece instanceof ChessPieceKnight) {
+                xml.attribute(null, "type", "knight");
+            }
+            else if (piece instanceof ChessPiecePawn) {
+                xml.attribute(null, "type", "pawn");
+            }
+            else if (piece instanceof ChessPieceQueen) {
+                xml.attribute(null, "type", "queen");
+            }
+            else {
+                xml.attribute(null, "type", "rook");
+            }
 
             xml.endTag(null,  "chessgame");
             number ++;

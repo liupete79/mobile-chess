@@ -284,9 +284,9 @@ public class Cloud {
         return true;
     }
 
-    public boolean saveToCloud(String name, String opponent, ChessView view) {
-        name = name.trim();
-        if(name.length() == 0) {
+    public boolean saveToCloud(String player1, String player2, ChessView view, String currPlayer) {
+        player1 = player1.trim();
+        if(player1.length() == 0) {
             return false;
         }
 
@@ -299,16 +299,16 @@ public class Cloud {
 
             xml.startDocument("UTF-8", true);
 
-            xml.startTag(null, "chess status");
+            xml.startTag(null, "chess");
 
-            xml.attribute(null, "user", USER);
-            xml.attribute(null, "pw", PASSWORD);
-            xml.attribute(null, "magic", MAGIC);
+            xml.attribute(null, "user1", player1);
+            xml.attribute(null, "user2", player2);
+            xml.attribute(null, "currPlayer", currPlayer);
 
-            view.saveXml(name, opponent, xml);
+            view.saveXml(player1, player2, xml);
 
 
-            xml.endTag(null, "chess status");
+            xml.endTag(null, "chess");
 
             xml.endDocument();
 

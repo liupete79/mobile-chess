@@ -116,17 +116,6 @@ public class ChessActivity extends AppCompatActivity {
 
     public void onTurnDone(View view) {
 
-        new Thread(() -> {
-            Cloud cloud = new Cloud();
-            if (currPlayer == player1) {
-                cloud.saveToCloud(currPlayer, player2, getChessView());
-            }
-            else {
-                cloud.saveToCloud(currPlayer, player1, getChessView());
-            }
-
-        }).start();
-
         if(getChessView().getHasMoved()== false){
             Toast.makeText(view.getContext(), R.string.please_move, Toast.LENGTH_SHORT).show();
             return;
@@ -137,6 +126,12 @@ public class ChessActivity extends AppCompatActivity {
         else {
             currPlayer = player1;
         }
+
+        new Thread(() -> {
+            Cloud cloud = new Cloud();
+            cloud.saveToCloud(player1, player2, getChessView(), currPlayer);
+
+        }).start();
         TextView currentPlayer = findViewById(R.id.currentPlayer);
         String finalText = currPlayer + getString(R.string.turn_title);
         currentPlayer.setText(finalText);
