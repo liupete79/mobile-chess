@@ -86,12 +86,13 @@ public class ChessView extends View {
     }
 
     public void saveXml(String name, String opponent, XmlSerializer xml) throws IOException {
+        int number = 0;
         for(ChessPiece piece :chess.pieces){
             xml.startTag(null, "chessgame");
 
             xml.attribute(null, "player1", name);
             xml.attribute(null, "player2", opponent);
-            xml.attribute(null, "piece_id", Integer.toString(piece.getId()));
+            xml.attribute(null, "piece_id", Integer.toString(number));
             xml.attribute(null, "color", Integer.toString(piece.getPlayer()));
             xml.attribute(null, "square_id", Integer.toString(piece.getSquare_id()));
             xml.attribute(null, "x", Float.toString(piece.getX()));
@@ -99,6 +100,7 @@ public class ChessView extends View {
             xml.attribute(null, "type", Float.toString(piece.getId()));
 
             xml.endTag(null,  "chessgame");
+            number ++;
         }
     }
 }
