@@ -53,6 +53,7 @@ public class Cloud {
     private static final String NEW_GAME_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/play-game.php";
     private static final String BASE_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/";
     public static final String SAVE_PATH = "save-game.php";
+    public static final String LOAD_PATH = "load-game.php";
     private static final String UTF8 = "UTF-8";
     public String getOpponent(){
         return opponent;
@@ -79,29 +80,29 @@ public class Cloud {
     }
 
 
-//    public InputStream openFromCloud(final String id) {
-//        // Create a get query
-//        String query = LOAD_URL + "?user=" + USER + "&magic=" + MAGIC + "&pw=" + PASSWORD + "&id=" + id;
-//
-//        try {
-//            URL url = new URL(query);
-//
-//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//            int responseCode = conn.getResponseCode();
-//            if(responseCode != HttpURLConnection.HTTP_OK) {
-//                return null;
-//            }
-//
-//            InputStream stream = conn.getInputStream();
-//            return stream;
-//
-//        } catch (MalformedURLException e) {
-//            // Should never happen
-//            return null;
-//        } catch (IOException ex) {
-//            return null;
-//        }
-//    }
+    public InputStream openFromCloud(String user) {
+        // Create a get query
+        String query = BASE_URL + LOAD_PATH + "?user=" + user;
+
+        try {
+            URL url = new URL(query);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return null;
+            }
+
+            InputStream stream = conn.getInputStream();
+            return stream;
+
+        } catch (MalformedURLException e) {
+            // Should never happen
+            return null;
+        } catch (IOException ex) {
+            return null;
+        }
+    }
 
 
     public boolean login(String user, String password, String action) {
