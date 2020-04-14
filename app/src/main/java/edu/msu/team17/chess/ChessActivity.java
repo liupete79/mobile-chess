@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import edu.msu.team17.chess.Cloud.Cloud;
+
 public class ChessActivity extends AppCompatActivity {
 
     private String player1;
@@ -113,6 +115,18 @@ public class ChessActivity extends AppCompatActivity {
     }
 
     public void onTurnDone(View view) {
+
+        new Thread(() -> {
+            Cloud cloud = new Cloud();
+            if (currPlayer == player1) {
+                cloud.saveToCloud(currPlayer, player2, getChessView());
+            }
+            else {
+                cloud.saveToCloud(currPlayer, player1, getChessView());
+            }
+
+        }).start();
+
         if(getChessView().getHasMoved()== false){
             Toast.makeText(view.getContext(), R.string.please_move, Toast.LENGTH_SHORT).show();
             return;
