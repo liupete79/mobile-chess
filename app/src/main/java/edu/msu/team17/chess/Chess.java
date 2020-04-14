@@ -303,13 +303,15 @@ public class Chess {
             if (piece.getSquare_id() != -1) {
                 piece.draw(canvas, boardSize, boardMarginX, boardMarginY, scaleFactor);
             }
+//            Log.i("Query", "INSERT INTO `project2_game`(`game_id`, `piece_id`, `square_id`, " +
+//                    "`player`, `x`, `y`, `type`) VALUES ([value-2]," + piece.getId() + ", " + piece.getSquare_id() + ", " +
+//                    "[value-5]," + piece.getX() + ", " + piece.getY() + ", " + "[value-8])");
         }
 
         canvas.save();
         canvas.translate(boardMarginX, boardMarginY);
         canvas.scale(scaleFactor, scaleFactor);
         canvas.restore();
-        
     }
 
     /**

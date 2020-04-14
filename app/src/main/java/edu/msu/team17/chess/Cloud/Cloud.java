@@ -52,7 +52,7 @@ public class Cloud {
     private static final String MATCHMAKING_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/matchmaking.php";
     private static final String NEW_GAME_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/play-game.php";
     private static final String BASE_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/";
-    public static final String SAVE_PATH = "TEMP_NEEDS_TO_FILL.php";
+    public static final String SAVE_PATH = "save-game.php";
     private static final String UTF8 = "UTF-8";
     public String getOpponent(){
         return opponent;
@@ -78,11 +78,7 @@ public class Cloud {
                 tag != XmlPullParser.END_DOCUMENT);
     }
 
-    /**
-     * Open a connection to a hatting in the cloud.
-     * @param id id for the hatting
-     * @return reference to an input stream or null if this fails
-     */
+
 //    public InputStream openFromCloud(final String id) {
 //        // Create a get query
 //        String query = LOAD_URL + "?user=" + USER + "&magic=" + MAGIC + "&pw=" + PASSWORD + "&id=" + id;
@@ -107,18 +103,6 @@ public class Cloud {
 //        }
 //    }
 
-    /**
-     * Save a game state to the cloud.
-     * This should be run in a thread.
-
-     * @return true if successful
-     */
-    public boolean saveToCloud() {
-        /*
-        TODO: Figure out how to save game state and send to cloud.
-         */
-        return true;
-    }
 
     public boolean login(String user, String password, String action) {
         String query = "";
@@ -335,6 +319,7 @@ public class Cloud {
 
         ChessService service = retrofit.create(ChessService.class);
         final String xmlStr = writer.toString();
+        Log.i("XML", xmlStr);
         try {
             SaveResult result = service.saveChess(xmlStr).execute().body();
             if (result.getStatus() != null && result.getStatus().equals("yes")) {
