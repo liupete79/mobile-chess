@@ -2,7 +2,9 @@ package edu.msu.team17.chess.Cloud;
 
 import android.util.Log;
 
+import edu.msu.team17.chess.ChessPiece;
 import edu.msu.team17.chess.ChessView;
+import edu.msu.team17.chess.Cloud.Models.LoadResult;
 import edu.msu.team17.chess.Cloud.Models.SaveResult;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -21,6 +23,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import android.util.Pair;
@@ -42,6 +45,12 @@ public class Cloud {
     private static final String MAGIC = "MAGIC";
     private static final String USER = "yunromi"; //might delete later
     private static final String PASSWORD = "cse476pw"; //might delete later
+    private static final String PIECE_ID = "piece_id";
+    private static final String SQUARE_ID = "square_id"; //might delete later
+    private static final String PLAYER = "player"; //might delete later
+    private static final String X = "x";
+    private static final String Y = "y"; //might delete later
+    private static final String TYPE = "type"; //might delete later
 
     private String opponent;
 
@@ -81,26 +90,36 @@ public class Cloud {
     }
 
 
-    public InputStream openFromCloud(String user) {
-        // Create a get query
-        String query = BASE_URL + LOAD_PATH + "?user=" + user;
+    /**
+     * Open a connection to a hatting in the cloud.
+     * @param id id for the hatting
+     * @return reference to an input stream or null if this fails
+     */
 
+    /** DOES NOT WORK, THIS IS BASE FRAMEWORK
+     * Current setup is to make an array list of pieces we then give to chess
+     * Could also make a new chess object if that is easier, not sure
+     */
+    public ArrayList<ChessPiece> openFromCloud(final String id) {
+        ChessService service = retrofit.create(ChessService.class);
         try {
-            URL url = new URL(query);
+            Response<LoadResult> response = service.loadChess(PIECE_ID, SQUARE_ID, PLAYER, X, Y, TYPE).execute();
 
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            int responseCode = conn.getResponseCode();
-            if(responseCode != HttpURLConnection.HTTP_OK) {
+            // check if request failed
+            if (!response.isSuccessful()) {
+                Log.e("OpenFromCloud", "Failed to load hat, response code is = " + response.code());
                 return null;
             }
 
-            InputStream stream = conn.getInputStream();
-            return stream;
+            LoadResult result = response.body();
+            if (result.getStatus().equals("yes")) {
+                return result.getPieces();
+            }
 
-        } catch (MalformedURLException e) {
-            // Should never happen
+            Log.e("OpenFromCloud", "Failed to load hat, message is = '" + result.getMessage() + "'");
             return null;
-        } catch (IOException ex) {
+        } catch (IOException e) {
+            Log.e("OpenFromCloud", "Exception occurred while loading hat!", e);
             return null;
         }
     }
