@@ -68,7 +68,6 @@ public class MatchmakingActivity extends AppCompatActivity {
                             Log.i("find_opponent", "did not work");
                             MatchmakingActivity.this.runOnUiThread(new Runnable() {
                                 public void run() {
-                                    chessButton.setClickable(false);
                                 }
                             });
                         }
@@ -98,7 +97,7 @@ public class MatchmakingActivity extends AppCompatActivity {
         new Thread(new Runnable() {
 
             @Override
-            public synchronized void run() {
+            public void run() {
                 Cloud cloud = new Cloud();
                 final boolean ok = cloud.new_game(player1, player2);
                 if (!ok) {
