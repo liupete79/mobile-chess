@@ -51,7 +51,7 @@ public class Cloud {
     private static final String LOGIN_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/login.php";
     private static final String MATCHMAKING_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/matchmaking.php";
     private static final String NEW_GAME_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/play-game.php";
-    private static final String RESIGN_GAME_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/resign-game.php";
+    private static final String GAME_OVER_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/game-over.php";
     private static final String BASE_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/";
     public static final String SAVE_PATH = "save-game.php";
     public static final String LOAD_PATH = "load-game.php";
@@ -105,11 +105,11 @@ public class Cloud {
         }
     }
 
-    public boolean resign(String user) {
+    public boolean gameOver(String user, String winner) {
         String query = "";
-        query = RESIGN_GAME_URL + "?user=" + user;
+        query = GAME_OVER_URL + "?user=" + user + "&winner=" + winner;
         Log.i("test", user);
-        Log.i("RESIGN_GAME_URL", query);
+        Log.i("GAME_OVER_URL", query);
         InputStream stream = null;
 
         try {

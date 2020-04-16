@@ -156,6 +156,11 @@ public class ChessActivity extends AppCompatActivity {
         else {
             winner = player1;
         }
+        new Thread(() -> {
+            Cloud cloud = new Cloud();
+            cloud.gameOver(player1, winner);
+
+        }).start();
         Intent intent = new Intent(this, EndActivity.class);
         intent.putExtra("winner", winner);
         startActivity(intent);
