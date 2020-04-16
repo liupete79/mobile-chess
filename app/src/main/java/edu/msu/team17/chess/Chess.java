@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import edu.msu.team17.chess.Cloud.Cloud;
+
 import static androidx.core.content.ContextCompat.startActivity;
 import static java.lang.Math.abs;
 
@@ -480,6 +482,18 @@ public class Chess {
                 for (ChessPiece piece : pieces) {
                     if (piece instanceof ChessPieceKing) {
                         if (piece.getSquare_id() == -1) {
+                            String winner;
+                            if (currPlayer == player1) {
+                                winner = player2;
+                            }
+                            else {
+                                winner = player1;
+                            }
+                            new Thread(() -> {
+                                Cloud cloud = new Cloud();
+                                cloud.gameOver(player1, winner);
+
+                            }).start();
                             Intent intent = new Intent(view.getContext(), EndActivity.class);
                             view.getContext().startActivity(intent);
                             break;
