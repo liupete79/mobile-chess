@@ -23,6 +23,8 @@ public class ChessView extends View {
     // Current player
     public String player;
 
+    public Chess getChess() {return chess;}
+
     public ChessView(Context context) {
         super(context);
         init(null, 0);

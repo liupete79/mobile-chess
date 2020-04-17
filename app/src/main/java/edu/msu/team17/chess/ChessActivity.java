@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import edu.msu.team17.chess.Cloud.Cloud;
 
@@ -59,6 +62,15 @@ public class ChessActivity extends AppCompatActivity {
             }
         }
         getChessView().setAllPlayers(currPlayer, player1, player2);
+    }
+
+    public void tempOpen(View view){
+        String gameId = "i dont know";
+        new Thread(() -> {
+            Cloud cloud = new Cloud();
+            ArrayList<ChessPiece> temp = cloud.openFromCloud(gameId);
+
+        }).start();
     }
 
     @Override
@@ -144,6 +156,7 @@ public class ChessActivity extends AppCompatActivity {
         }
         getChessView().onDone();
         getChessView().setAllPlayers(currPlayer, player1, player2);
+        getChessView().getChess().setTurn(false);
         Intent intent = new Intent(this, EndActivity.class);
         intent.putExtra("winner", currPlayer);
     }

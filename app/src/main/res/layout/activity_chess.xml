@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ChessActivity">
 
+    <Button
+        android:id="@+id/tempButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="tempOpen"
+        android:text="OpenCloud" />
+
     <view
         android:id="@+id/chessView"
         class="edu.msu.team17.chess.ChessView"

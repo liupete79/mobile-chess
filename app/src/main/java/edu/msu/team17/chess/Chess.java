@@ -82,6 +82,12 @@ public class Chess {
 
     private boolean kingCaptured = false;
 
+    private boolean yourTurn = true;
+
+    public boolean getTurn() {return yourTurn;}
+
+    public void setTurn(boolean set) {yourTurn = set;}
+
     public boolean hasMoveOccured() {
         for (int i = 0; i < pieces.size(); i++) {
             if(pieces.get(i).getHasMoved()== true){
