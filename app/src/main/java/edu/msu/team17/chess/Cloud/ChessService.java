@@ -21,12 +21,7 @@ public interface ChessService {
 
     @GET(LOAD_PATH)
     Call<LoadResult> loadChess(
-            @Query("piece_id") String piece_Id,
-            @Query("square_id") String square_id,
-            @Query("player") String player,
-            @Query("x") String x,
-            @Query("y") String y,
-            @Query("type") String type
+            @Query("user") String userId
     );
 
     @FormUrlEncoded

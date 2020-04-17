@@ -8,7 +8,7 @@ public class ChessPieceKnight extends ChessPiece {
     }
 
     @Override
-    public void is_valid_move() {
-
+    public String getType() {
+        return "Knight";
     }
 }

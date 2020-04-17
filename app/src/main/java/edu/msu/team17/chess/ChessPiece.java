@@ -149,7 +149,7 @@ public abstract class ChessPiece {
         y += dy;
     }
 
-    public abstract void is_valid_move();
+    public abstract String getType();
 
     public boolean getHasMoved() {
         return hasMoved;

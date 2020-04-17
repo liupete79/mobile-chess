@@ -1,7 +1,9 @@
 package edu.msu.team17.chess;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -10,6 +12,7 @@ import android.view.View;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 
 /**
@@ -22,6 +25,51 @@ public class ChessView extends View {
 
     // Current player
     public String player;
+
+    /**
+     * The bitmap to draw the hat
+     */
+    private Bitmap chessPieceBitmap = null;
+
+    /**
+     * Current program state
+     */
+    private static class Parameters implements Serializable {
+        /**
+         * Serialization ID value
+         */
+        private static final long serialVersionUID = -6692441979811271612L;
+
+        /**
+         * X location of hat relative to the image
+         */
+        public float chessX = 0;
+
+        /**
+         * Y location of hat relative to the image
+         */
+        public float chessY = 0;
+
+        /**
+         * Hat scale, also relative to the image
+         */
+        public int square_id = -1;
+
+        /**
+         * Hat rotation angle
+         */
+        public int player = 1;
+
+        /**
+         * Do we draw a feather?
+         */
+        public String type = "pawn";
+    }
+
+    /**
+     * The current parameters
+     */
+    private Parameters params = new Parameters();
 
     public Chess getChess() {return chess;}
 
@@ -124,5 +172,34 @@ public class ChessView extends View {
             xml.endTag(null,  "chessgame");
             number ++;
         }
+    }
+
+    public void loadPiece(ChessPiece piece) {
+        // Create a new set of parameters
+        final Parameters newParams = new Parameters();
+
+        // Load into it
+        newParams.chessX = piece.getX();
+        newParams.chessY = piece.getY();
+        newParams.player = piece.getPlayer();
+        newParams.square_id = piece.getSquare_id();
+        newParams.type = piece.getType();
+
+        post(new Runnable() {
+
+            @Override
+            public void run() {
+                params = newParams;
+
+                // Ensure the options are all set
+//                setColor(params.color);
+//                setImageUri(params.imageUri);
+//                setHat(params.hat);
+//                setFeather(params.feather);
+
+            }
+
+        });
+
     }
 }

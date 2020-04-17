@@ -68,7 +68,7 @@ public class ChessActivity extends AppCompatActivity {
         String gameId = "i dont know";
         new Thread(() -> {
             Cloud cloud = new Cloud();
-            ArrayList<ChessPiece> temp = cloud.openFromCloud(gameId);
+            ArrayList<ChessPiece> temp = cloud.openFromCloud(player1);
 
         }).start();
     }

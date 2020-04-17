@@ -45,12 +45,6 @@ public class Cloud {
     private static final String MAGIC = "MAGIC";
     private static final String USER = "yunromi"; //might delete later
     private static final String PASSWORD = "cse476pw"; //might delete later
-    private static final String PIECE_ID = "piece_id";
-    private static final String SQUARE_ID = "square_id"; //might delete later
-    private static final String PLAYER = "player"; //might delete later
-    private static final String X = "x";
-    private static final String Y = "y"; //might delete later
-    private static final String TYPE = "type"; //might delete later
 
     private String opponent;
 
@@ -100,10 +94,10 @@ public class Cloud {
      * Current setup is to make an array list of pieces we then give to chess
      * Could also make a new chess object if that is easier, not sure
      */
-    public ArrayList<ChessPiece> openFromCloud(final String id) {
+    public ArrayList<ChessPiece> openFromCloud(final String Player1) {
         ChessService service = retrofit.create(ChessService.class);
         try {
-            Response<LoadResult> response = service.loadChess(PIECE_ID, SQUARE_ID, PLAYER, X, Y, TYPE).execute();
+            Response<LoadResult> response = service.loadChess(Player1).execute();
 
             // check if request failed
             if (!response.isSuccessful()) {
@@ -112,6 +106,7 @@ public class Cloud {
             }
 
             LoadResult result = response.body();
+            Log.i("RESULT", String.valueOf(result));
             if (result.getStatus().equals("yes")) {
                 return result.getPieces();
             }
