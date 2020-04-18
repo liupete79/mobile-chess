@@ -4,18 +4,11 @@ import android.util.Log;
 
 import edu.msu.team17.chess.ChessPiece;
 import edu.msu.team17.chess.ChessView;
-import edu.msu.team17.chess.Cloud.Models.LoadResult;
 import edu.msu.team17.chess.Cloud.Models.SaveResult;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 import android.util.Xml;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -23,21 +16,12 @@ import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import android.util.Pair;
-import android.util.Xml;
-
-import org.xmlpull.v1.XmlSerializer;
-
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 
 
 @SuppressWarnings("deprecation")
@@ -94,30 +78,92 @@ public class Cloud {
      * Current setup is to make an array list of pieces we then give to chess
      * Could also make a new chess object if that is easier, not sure
      */
-    public ArrayList<ChessPiece> openFromCloud(final String Player1) {
-        ChessService service = retrofit.create(ChessService.class);
-        try {
-            Response<LoadResult> response = service.loadChess(Player1).execute();
+    public boolean openFromCloud(final String player1) {
+            String query = BASE_URL + LOAD_PATH + "?user=" + player1;
+            Log.i("test", player1);
+            Log.i("LOAD_URL", query);
+            InputStream stream = null;
 
-            // check if request failed
-            if (!response.isSuccessful()) {
-                Log.e("OpenFromCloud", "Failed to load hat, response code is = " + response.code());
-                return null;
+            try {
+                URL url = new URL(query);
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                int responseCode = conn.getResponseCode();
+                if(responseCode != HttpURLConnection.HTTP_OK) {
+                    return false;
+                }
+
+                stream = conn.getInputStream();
+
+                /**
+                 * Create an XML parser for the result
+                 */
+                try {
+                    XmlPullParser xmlR = Xml.newPullParser();
+                    xmlR.setInput(stream, UTF8);
+
+                    xmlR.nextTag();      // Advance to first tag
+                    xmlR.require(XmlPullParser.START_TAG, null, "chess");
+
+                    String status = xmlR.getAttributeValue(null, "status");
+                    Log.i("status", status);
+
+
+                    while (xmlR.next() != XmlPullParser.END_TAG) {
+                        if (xmlR.getEventType() != XmlPullParser.START_TAG) {
+                            continue;
+                        }
+                        String name = xmlR.getName();
+                        // Starts by looking for the entry tag
+                        if (name.equals("chessgame")) {
+                            xmlR.require(XmlPullParser.START_TAG, null, "chessgame");
+                            int square_id = Integer.parseInt(xmlR.getAttributeValue(null, "square_id"));
+                            int piece_id = Integer.parseInt(xmlR.getAttributeValue(null, "piece_id"));
+                            int player = Integer.parseInt(xmlR.getAttributeValue(null, "player"));
+                            float x = Float.parseFloat(xmlR.getAttributeValue(null, "x"));
+                            float y = Float.parseFloat(xmlR.getAttributeValue(null, "y"));
+                            String type = xmlR.getAttributeValue(null, "type");
+                            Log.i("square_id", String.valueOf(square_id));
+                            Log.i("piece_id", String.valueOf(piece_id));
+                            Log.i("player", String.valueOf(player));
+                            Log.i("x", String.valueOf(x));
+                            Log.i("y", String.valueOf(y));
+                            Log.i("type", type);
+                            xmlR.nextTag();      // Advance to first tag
+
+                        } else {
+                        }
+                    }
+
+
+                    if(status.equals("no")) {
+                        Log.i("Inside status return", "False");
+                        return false;
+                    }
+
+
+                    // We are done
+                } catch(XmlPullParserException ex) {
+                    return false;
+                } catch(IOException ex) {
+                    return false;
+                }
+
+            } catch (MalformedURLException e) {
+                return false;
+            } catch (IOException ex) {
+                return false;
+            } finally {
+                if(stream != null) {
+                    try {
+                        stream.close();
+                    } catch(IOException ex) {
+                        // Fail silently
+                    }
+                }
             }
-
-            LoadResult result = response.body();
-            Log.i("RESULT", String.valueOf(result));
-            if (result.getStatus().equals("yes")) {
-                return result.getPieces();
-            }
-
-            Log.e("OpenFromCloud", "Failed to load hat, message is = '" + result.getMessage() + "'");
-            return null;
-        } catch (IOException e) {
-            Log.e("OpenFromCloud", "Exception occurred while loading hat!", e);
-            return null;
+            return true;
         }
-    }
 
     public boolean gameOver(String user, String winner) {
         String query = "";
