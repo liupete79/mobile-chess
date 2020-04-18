@@ -68,9 +68,13 @@ public class ChessActivity extends AppCompatActivity {
         String gameId = "i dont know";
         new Thread(() -> {
             Cloud cloud = new Cloud();
-            boolean o = cloud.openFromCloud(player1);
-
+            //Gets the chess pieces from Chess then sets it using the setter function.
+            ArrayList<ChessPiece> newState = cloud.openFromCloud(player1, getChessView().getChess().getPieces());
+            if(newState != null){
+                getChessView().getChess().setPieces(newState);
+            }
         }).start();
+        getChessView().invalidate();
     }
 
     @Override

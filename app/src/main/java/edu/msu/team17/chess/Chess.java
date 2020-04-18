@@ -88,6 +88,14 @@ public class Chess {
 
     public void setTurn(boolean set) {yourTurn = set;}
 
+    public ArrayList<ChessPiece> getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(ArrayList<ChessPiece> newPieces){
+        this.pieces = newPieces;
+    }
+
     public boolean hasMoveOccured() {
         for (int i = 0; i < pieces.size(); i++) {
             if(pieces.get(i).getHasMoved()== true){
@@ -249,9 +257,6 @@ public class Chess {
 
         scaleFactor = (float)boardSize/(float)(6*chessComplete.getWidth());
 
-        int[][] positions = new int[32][];
-        int indx = 0;
-        int c = 0;
         for(int i = 0; i < 8; i++){
             int sTop = (i * squareSize) + boardMarginY;
             int sBot = (i * squareSize) + squareSize + boardMarginY;
@@ -267,20 +272,12 @@ public class Chess {
                 squareToAdd.setSquare(tempRect);
                 if (i % 2 == 0 && j % 2 == 0){
                     canvas.drawRect(tempRect, whiteSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
-                        squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 } else if (i % 2 == 0 && j % 2 == 1){
                     canvas.drawRect(tempRect, blackSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
-                        squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 } else if (i % 2 == 1 && j % 2 == 0){
                     canvas.drawRect(tempRect, blackSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
-                        squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 } else if (i % 2 == 1 && j % 2 == 1){
                     canvas.drawRect(tempRect, whiteSpace);
-                    if (i < 2 || i > 5) {positions[indx] = new int[]{sLeft, sTop};
-                        squareToAdd.setPiece(pieces.get(indx)); indx++;}
                 }
                 if(squares.size() < 64) {
                     squares.add(squareToAdd);

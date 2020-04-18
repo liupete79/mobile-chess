@@ -78,11 +78,12 @@ public class Cloud {
      * Current setup is to make an array list of pieces we then give to chess
      * Could also make a new chess object if that is easier, not sure
      */
-    public boolean openFromCloud(final String player1) {
+    public ArrayList<ChessPiece> openFromCloud(final String player1, ArrayList<ChessPiece> oldState) {
             String query = BASE_URL + LOAD_PATH + "?user=" + player1;
             Log.i("test", player1);
             Log.i("LOAD_URL", query);
             InputStream stream = null;
+            int index = 0;
 
             try {
                 URL url = new URL(query);
@@ -90,7 +91,7 @@ public class Cloud {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 int responseCode = conn.getResponseCode();
                 if(responseCode != HttpURLConnection.HTTP_OK) {
-                    return false;
+                    return null;
                 }
 
                 stream = conn.getInputStream();
@@ -123,6 +124,9 @@ public class Cloud {
                             float x = Float.parseFloat(xmlR.getAttributeValue(null, "x"));
                             float y = Float.parseFloat(xmlR.getAttributeValue(null, "y"));
                             String type = xmlR.getAttributeValue(null, "type");
+                            oldState.get(index).setSquare_id(square_id);
+                            oldState.get(index).setX(x);
+                            oldState.get(index).setY(y);
                             Log.i("square_id", String.valueOf(square_id));
                             Log.i("piece_id", String.valueOf(piece_id));
                             Log.i("player", String.valueOf(player));
@@ -130,7 +134,7 @@ public class Cloud {
                             Log.i("y", String.valueOf(y));
                             Log.i("type", type);
                             xmlR.nextTag();      // Advance to first tag
-
+                            index++;
                         } else {
                         }
                     }
@@ -138,21 +142,21 @@ public class Cloud {
 
                     if(status.equals("no")) {
                         Log.i("Inside status return", "False");
-                        return false;
+                        return null;
                     }
 
 
                     // We are done
                 } catch(XmlPullParserException ex) {
-                    return false;
+                    return null;
                 } catch(IOException ex) {
-                    return false;
+                    return null;
                 }
 
             } catch (MalformedURLException e) {
-                return false;
+                return null;
             } catch (IOException ex) {
-                return false;
+                return null;
             } finally {
                 if(stream != null) {
                     try {
@@ -162,8 +166,8 @@ public class Cloud {
                     }
                 }
             }
-            return true;
-        }
+            return oldState;
+    }
 
     public boolean gameOver(String user, String winner) {
         String query = "";
