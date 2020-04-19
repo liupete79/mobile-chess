@@ -5,6 +5,7 @@ import android.util.Log;
 import edu.msu.team17.chess.ChessPiece;
 import edu.msu.team17.chess.ChessView;
 import edu.msu.team17.chess.Cloud.Models.SaveResult;
+import edu.msu.team17.chess.R;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
@@ -84,7 +85,8 @@ public class Cloud {
             Log.i("LOAD_URL", query);
             InputStream stream = null;
             int index = 0;
-
+            int [] ids = new int[oldState.size()];
+            int i = 0;
             try {
                 URL url = new URL(query);
 
@@ -127,6 +129,59 @@ public class Cloud {
                             oldState.get(index).setSquare_id(square_id);
                             oldState.get(index).setX(x);
                             oldState.get(index).setY(y);
+                            oldState.get(index).setPlayer(player);
+                            if(player == 1){
+                                if(type.equals("pawn")){
+                                    oldState.get(index).setId(R.drawable.chess_pdt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                                if(type.equals("bishop")){
+                                    oldState.get(index).setId(R.drawable.chess_bdt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                                if(type.equals("rook")){
+                                    oldState.get(index).setId(R.drawable.chess_rdt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                                if(type.equals("king")){
+                                    oldState.get(index).setId(R.drawable.chess_kdt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                                if(type.equals("queen")){
+                                    oldState.get(index).setId(R.drawable.chess_qdt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                                if(type.equals("knight")){
+                                    oldState.get(index).setId(R.drawable.chess_ndt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                            }
+                            if(player == 2){
+                                if(type.equals("pawn")){
+                                    oldState.get(index).setId(R.drawable.chess_plt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                                if(type.equals("bishop")){
+                                    oldState.get(index).setId(R.drawable.chess_blt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                                if(type.equals("rook")){
+                                    oldState.get(index).setId(R.drawable.chess_rlt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                                if(type.equals("king")){
+                                    oldState.get(index).setId(R.drawable.chess_klt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                                if(type.equals("queen")){
+                                    oldState.get(index).setId(R.drawable.chess_qlt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                                if(type.equals("knight")){
+                                    oldState.get(index).setId(R.drawable.chess_nlt45);
+                                    ids[i] = oldState.get(index).getId();
+                                }
+                            }
                             Log.i("square_id", String.valueOf(square_id));
                             Log.i("piece_id", String.valueOf(piece_id));
                             Log.i("player", String.valueOf(player));
@@ -166,6 +221,24 @@ public class Cloud {
                     }
                 }
             }
+
+        for(i=0; i<ids.length-1; i++) {
+
+            // Find the corresponding piece
+            // We don't have to test if the piece is at i already,
+            // since the loop below will fall out without it moving anything
+            for (int j = i + 1; j < ids.length; j++) {
+                if (ids[i] == oldState.get(j).getId()) {
+                    // We found it
+                    // Yah...
+                    // Swap the pieces
+                    ChessPiece t = oldState.get(i);
+                    oldState.set(i, oldState.get(j));
+                    oldState.set(j, t);
+                }
+            }
+        }
+
             return oldState;
     }
 

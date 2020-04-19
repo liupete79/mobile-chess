@@ -50,6 +50,13 @@ public abstract class ChessPiece {
         this.player = player;
         this.square_id = square_id;
     }
+    public void setPlayer(int player){
+        this.player = player;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * Draw the chess piece

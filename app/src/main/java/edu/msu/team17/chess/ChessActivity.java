@@ -64,6 +64,8 @@ public class ChessActivity extends AppCompatActivity {
         getChessView().setAllPlayers(currPlayer, player1, player2);
     }
 
+    public boolean dumb = false;
+
     public void tempOpen(View view){
         String gameId = "i dont know";
         new Thread(() -> {
@@ -72,9 +74,18 @@ public class ChessActivity extends AppCompatActivity {
             ArrayList<ChessPiece> newState = cloud.openFromCloud(player1, getChessView().getChess().getPieces());
             if(newState != null){
                 getChessView().getChess().setPieces(newState);
+                dumb = true;
+            }
+            else{
+                dumb = true;
             }
         }).start();
-        getChessView().invalidate();
+        while(true){
+            if(dumb){
+                getChessView().invalidate();
+                break;
+            }
+        }
     }
 
     @Override
