@@ -454,6 +454,8 @@ public class Cloud {
 
                 String status = xmlR.getAttributeValue(null, "status");
                 Log.i("status", status);
+                String player1 = xmlR.getAttributeValue(null, "player1");
+                String player2 = xmlR.getAttributeValue(null, "player2");
                 if(status.equals("no")) {
                     return false;
                 }
