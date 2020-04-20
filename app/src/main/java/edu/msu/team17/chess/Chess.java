@@ -128,6 +128,10 @@ public class Chess {
     public void setCurrPlayer(String currPlayer) {
         this.currPlayer = currPlayer;
     }
+    public Context getContex() {return chessContext;}
+
+    private Context chessContext;
+
 
     private class Square{
         private int coordX, coordY;
@@ -193,6 +197,7 @@ public class Chess {
         blackSpace.setColor(0xff458c45);
         outline.setColor(0xff000000);
         chessView = view;
+        chessContext = context;
 
         // Load the solved chess image
         chessComplete =
