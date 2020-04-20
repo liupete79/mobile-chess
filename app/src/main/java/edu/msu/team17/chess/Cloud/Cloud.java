@@ -1,8 +1,15 @@
 package edu.msu.team17.chess.Cloud;
 
+import android.content.Context;
 import android.util.Log;
 
 import edu.msu.team17.chess.ChessPiece;
+import edu.msu.team17.chess.ChessPieceBishop;
+import edu.msu.team17.chess.ChessPieceKing;
+import edu.msu.team17.chess.ChessPieceKnight;
+import edu.msu.team17.chess.ChessPiecePawn;
+import edu.msu.team17.chess.ChessPieceQueen;
+import edu.msu.team17.chess.ChessPieceRook;
 import edu.msu.team17.chess.ChessView;
 import edu.msu.team17.chess.Cloud.Models.SaveResult;
 import edu.msu.team17.chess.R;
@@ -17,6 +24,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.io.InputStream;
@@ -27,6 +35,7 @@ import java.net.URL;
 
 @SuppressWarnings("deprecation")
 public class Cloud {
+    private Context chessContext;
     private static final String MAGIC = "MAGIC";
     private static final String USER = "yunromi"; //might delete later
     private static final String PASSWORD = "cse476pw"; //might delete later
@@ -46,6 +55,10 @@ public class Cloud {
     private static final String UTF8 = "UTF-8";
     public String getOpponent(){
         return opponent;
+    }
+
+    public void setContext(Context context){
+        chessContext = context;
     }
     /**
      * Skip the XML parser to the end tag for whatever
@@ -87,6 +100,7 @@ public class Cloud {
             int index = 0;
             int [] ids = new int[oldState.size()];
             int i = 0;
+            ArrayList<ChessPiece> pieces = new ArrayList<ChessPiece>();
             try {
                 URL url = new URL(query);
 
@@ -134,52 +148,76 @@ public class Cloud {
                                 if(type.equals("pawn")){
                                     oldState.get(index).setId(R.drawable.chess_pdt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPiecePawn(chessContext, R.drawable.chess_pdt45, x, y, player, square_id));
+
                                 }
                                 if(type.equals("bishop")){
                                     oldState.get(index).setId(R.drawable.chess_bdt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPieceBishop(chessContext, R.drawable.chess_bdt45, x, y, player, square_id));
+
                                 }
                                 if(type.equals("rook")){
                                     oldState.get(index).setId(R.drawable.chess_rdt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPieceRook(chessContext, R.drawable.chess_rdt45, x, y, player, square_id));
+
                                 }
                                 if(type.equals("king")){
                                     oldState.get(index).setId(R.drawable.chess_kdt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPieceKing(chessContext, R.drawable.chess_kdt45, x, y, player, square_id));
+
                                 }
                                 if(type.equals("queen")){
                                     oldState.get(index).setId(R.drawable.chess_qdt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPieceQueen(chessContext, R.drawable.chess_qdt45, x, y, player, square_id));
+
                                 }
                                 if(type.equals("knight")){
                                     oldState.get(index).setId(R.drawable.chess_ndt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPieceKnight(chessContext, R.drawable.chess_ndt45, x, y, player, square_id));
+
                                 }
                             }
                             if(player == 2){
                                 if(type.equals("pawn")){
                                     oldState.get(index).setId(R.drawable.chess_plt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPiecePawn(chessContext, R.drawable.chess_plt45, x, y, player, square_id));
+
                                 }
                                 if(type.equals("bishop")){
                                     oldState.get(index).setId(R.drawable.chess_blt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPieceBishop(chessContext, R.drawable.chess_blt45, x, y, player, square_id));
+
                                 }
                                 if(type.equals("rook")){
                                     oldState.get(index).setId(R.drawable.chess_rlt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPieceRook(chessContext, R.drawable.chess_rlt45, x, y, player, square_id));
+
                                 }
                                 if(type.equals("king")){
                                     oldState.get(index).setId(R.drawable.chess_klt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPieceKing(chessContext, R.drawable.chess_klt45, x, y, player, square_id));
+
                                 }
                                 if(type.equals("queen")){
                                     oldState.get(index).setId(R.drawable.chess_qlt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPieceQueen(chessContext, R.drawable.chess_qlt45, x, y, player, square_id));
+
                                 }
                                 if(type.equals("knight")){
                                     oldState.get(index).setId(R.drawable.chess_nlt45);
                                     ids[i] = oldState.get(index).getId();
+                                    pieces.add(new ChessPieceKnight(chessContext, R.drawable.chess_nlt45, x, y, player, square_id));
+
                                 }
                             }
                             Log.i("square_id", String.valueOf(square_id));
@@ -239,7 +277,7 @@ public class Cloud {
             }
         }
 
-            return oldState;
+            return pieces;
     }
 
     public boolean gameOver(String user, String winner) {
