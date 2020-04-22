@@ -29,6 +29,8 @@ public class MatchmakingActivity extends AppCompatActivity {
     private TextView txtView;
     private Button chessButton;
     private String opponent;
+    public boolean toMatchmake = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,22 +56,9 @@ public class MatchmakingActivity extends AppCompatActivity {
                         Cloud cloud = new Cloud();
                         final boolean ok = cloud.find_opponent(username);
                         if (!ok) {
-                            /*
-                             * If we fail to save, display a toast
-                             v.post(new Runnable() {
-
-                                @Override
-                                public void run() {
-
-                                    Toast.makeText(v.getContext(), R.string.logFailed, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                             */
                             Log.i("find_opponent", "did not work");
-                            MatchmakingActivity.this.runOnUiThread(new Runnable() {
-                                public void run() {
-                                }
-                            });
+                            toMatchmake = false;
+
                         }
                         else {
                             opponent = cloud.getOpponent();
@@ -94,19 +83,19 @@ public class MatchmakingActivity extends AppCompatActivity {
         final String player1 = username;
         cancel = true;
         final String player2 = opponent;
-        new Thread(new Runnable() {
+        if(toMatchmake) {
+            new Thread(new Runnable() {
 
-            @Override
-            public void run() {
-                Cloud cloud = new Cloud();
-                final boolean ok = cloud.new_game(player1, player2);
-                if (!ok) {
+                @Override
+                public void run() {
+                    Cloud cloud = new Cloud();
+                    final boolean ok = cloud.new_game(player1, player2);
+                    if (!ok) {
+                    } else {
+                    }
                 }
-                else {
-                }
-            }
-        }).start();
-
+            }).start();
+        }
         Intent intent = new Intent(this, ChessActivity.class);
         intent.putExtra("player1", player1);
         intent.putExtra("player2", player2);
