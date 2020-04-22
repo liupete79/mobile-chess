@@ -97,8 +97,13 @@ public class MatchmakingActivity extends AppCompatActivity {
             }).start();
         }
         Intent intent = new Intent(this, ChessActivity.class);
-        intent.putExtra("player1", player1);
-        intent.putExtra("player2", player2);
+        if (toMatchmake) {
+            intent.putExtra("player1", player1);
+            intent.putExtra("player2", player2);
+        } else if (!toMatchmake){
+            intent.putExtra("player1", player2);
+            intent.putExtra("player2", player1);
+        }
         startActivity(intent);
     }
 
