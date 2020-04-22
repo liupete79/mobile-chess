@@ -30,6 +30,7 @@ public class MatchmakingActivity extends AppCompatActivity {
     private Button chessButton;
     private String opponent;
     public boolean toMatchmake = true;
+    public boolean isMade = false;
 
 
     @Override
@@ -68,6 +69,9 @@ public class MatchmakingActivity extends AppCompatActivity {
                                     txtView.setText(R.string.oppFound);
                                     chessButton.setClickable(true);
                                     chessButton.setEnabled(true);
+                                    if(toMatchmake){
+                                        onStartNow();
+                                    }
                                 }
                             });
                         }
@@ -78,8 +82,7 @@ public class MatchmakingActivity extends AppCompatActivity {
         }, delay);
 
     }
-
-    public void onStartChess(View view) {
+    public void onStartNow(){
         final String player1 = username;
         cancel = true;
         final String player2 = opponent;
@@ -90,12 +93,18 @@ public class MatchmakingActivity extends AppCompatActivity {
                 public void run() {
                     Cloud cloud = new Cloud();
                     final boolean ok = cloud.new_game(player1, player2);
+                    isMade = true;
                     if (!ok) {
                     } else {
                     }
                 }
             }).start();
         }
+    }
+    public void onStartChess(View view) {
+        final String player1 = username;
+        cancel = true;
+        final String player2 = opponent;
         Intent intent = new Intent(this, ChessActivity.class);
         if (toMatchmake) {
             intent.putExtra("player1", player1);
