@@ -595,6 +595,9 @@ public class Cloud {
 
                 String status = xmlR.getAttributeValue(null, "status");
                 String gameStatus = xmlR.getAttributeValue(null, "game_status");
+                String winner = xmlR.getAttributeValue(null, "winner");
+                String player1 = xmlR.getAttributeValue(null, "player1");
+                String player2 = xmlR.getAttributeValue(null, "player2");
                 Log.i("status", status);
                 if(status.equals("no")) {
                     Log.i("Inside status return", "False");
