@@ -102,9 +102,10 @@ public class ChessActivity extends AppCompatActivity {
                 }
                 if(getChessView().getChess().getDragging() == null){
                     if(hasMoved == false) {
-                        if(yourTurn == false) {
-                            tempLoad();
-                        }
+                            load();
+                            checkGame();
+
+
                     }
                 }
                 if(yourTurn){
@@ -132,7 +133,22 @@ public class ChessActivity extends AppCompatActivity {
 
     public boolean dumb = false;
 
-    public void tempLoad(){
+    public void checkGame(){
+        String gameId = "i dont know";
+        new Thread(() -> {
+            Cloud cloud = new Cloud();
+            cloud.getGameStatus(player1);
+            if(cloud.gameDone){
+                cancel = true;
+                Intent intent = new Intent(this, EndActivity.class);
+                intent.putExtra("winner", cloud.winner);
+                startActivity(intent);
+            }
+
+        }).start();
+
+    }
+    public void load(){
         String gameId = "i dont know";
         new Thread(() -> {
             Cloud cloud = new Cloud();

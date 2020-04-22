@@ -566,6 +566,9 @@ public class Cloud {
         // Don't forget to remove the "return true" from the bottom of this function.
     }
 
+    public boolean gameDone = false;
+    public String winner;
+
     public boolean getGameStatus(String user) {
         String query = GAME_STATUS_URL + "?user=" + user;
         Log.i("user", user);
@@ -598,6 +601,10 @@ public class Cloud {
                 String winner = xmlR.getAttributeValue(null, "winner");
                 String player1 = xmlR.getAttributeValue(null, "player1");
                 String player2 = xmlR.getAttributeValue(null, "player2");
+                if(gameStatus.equals("done")){
+                    gameDone = true;
+                    this.winner = winner;
+                }
                 Log.i("status", status);
                 if(status.equals("no")) {
                     Log.i("Inside status return", "False");
