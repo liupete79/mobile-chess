@@ -220,12 +220,6 @@ public class Cloud {
 
                                 }
                             }
-                            Log.i("square_id", String.valueOf(square_id));
-                            Log.i("piece_id", String.valueOf(piece_id));
-                            Log.i("player", String.valueOf(player));
-                            Log.i("x", String.valueOf(x));
-                            Log.i("y", String.valueOf(y));
-                            Log.i("type", type);
                             xmlR.nextTag();      // Advance to first tag
                             index++;
                         } else {

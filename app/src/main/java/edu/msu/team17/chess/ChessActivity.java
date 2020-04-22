@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import edu.msu.team17.chess.Cloud.Cloud;
@@ -25,9 +26,14 @@ public class ChessActivity extends AppCompatActivity {
     private String player1;
     private String player2;
     private String currPlayer;
+    private String user;
     private final static String PLAYER1 = "ChessActivity.player1";
     private final static String PLAYER2 = "ChessActivity.player2";
+    private final static String USER = "ChessActivity.user";
     private final static String CURRENTPLAYER = "ChessActivity.currPlayer";
+    private boolean yourTurn;
+    private boolean hasMoved = false;
+    private boolean cancel = false;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -42,6 +48,7 @@ public class ChessActivity extends AppCompatActivity {
             player1 = bundle.getString(PLAYER1);
             player2 = bundle.getString(PLAYER2);
             currPlayer = bundle.getString(CURRENTPLAYER);
+            user = bundle.getString(USER);
         }
         else {
             Bundle extras = getIntent().getExtras();
@@ -55,6 +62,7 @@ public class ChessActivity extends AppCompatActivity {
                     player2 = "Player 2";
                 }
                 currPlayer = player1;
+                user = extras.getString("user");
                 TextView currentPlayer = findViewById(R.id.currentPlayer);
                 String finalText = player1 + getString(R.string.turn_title);
                 currentPlayer.setText(finalText);
@@ -62,9 +70,89 @@ public class ChessActivity extends AppCompatActivity {
             }
         }
         getChessView().setAllPlayers(currPlayer, player1, player2);
+        if(user.equals(currPlayer)){
+            getChessView().getChess().setYourTurn(true);
+        }
+        else{
+            getChessView().getChess().setYourTurn(false);
+        }
+
+        final Handler handler = new Handler();
+
+        final int delay = 1000; //milliseconds
+
+        handler.postDelayed(new Runnable(){
+            public void run(){
+
+                Log.i("turn", "check");
+                ArrayList<ChessPiece> pieces = getChessView().getChess().getPieces();
+                for (int i = 0; i < pieces.size(); i++) {
+
+                    boolean test = pieces.get(i).getHasMoved();
+                    if(test == true){
+                        hasMoved = true;
+                        break;
+                    }
+                    else{
+                        hasMoved = false;
+                    }
+                }
+                if(cancel){
+                    return;
+                }
+                if(getChessView().getChess().getDragging() == null){
+                    if(hasMoved == false) {
+                        if(yourTurn == false) {
+                            tempLoad();
+                        }
+                    }
+                }
+                if(yourTurn){
+
+                }
+                handler.postDelayed(this, delay);
+            }
+        }, delay);
+    }
+
+    public boolean comparePieces(ArrayList<ChessPiece> first, ArrayList<ChessPiece> second){
+        Integer total1 = 0;
+        Integer total2 = 0;
+        for(ChessPiece piece :first){
+                total1 += piece.getSquare_id();
+        }
+        for(ChessPiece piece2 :second){
+                total2 += piece2.getSquare_id();
+        }
+        if(total1.intValue() != total2.intValue()){
+            return true;
+        }
+        return false;
     }
 
     public boolean dumb = false;
+
+    public void tempLoad(){
+        String gameId = "i dont know";
+        new Thread(() -> {
+            Cloud cloud = new Cloud();
+            cloud.setContext(getChessView().getChess().getContex());
+            //Gets the chess pieces from Chess then sets it using the setter function.
+            ArrayList<ChessPiece> newState = cloud.openFromCloud(player1, getChessView().getChess().getPieces());
+            if(newState != null) {
+                    getChessView().getChess().setPieces(newState);
+                    ChessActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            getChessView().invalidate();
+                        }
+                    });
+                }
+
+
+            else{
+            }
+        }).start();
+    }
 
     public void tempOpen(View view){
         String gameId = "i dont know";
@@ -77,6 +165,7 @@ public class ChessActivity extends AppCompatActivity {
                 getChessView().getChess().setPieces(newState);
                 ChessActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
+                        yourTurn = true;
                         getChessView().invalidate();
                     }
                 });
@@ -141,6 +230,27 @@ public class ChessActivity extends AppCompatActivity {
         }
     }
 
+    public void onTurnDoneKinda() {
+
+        if (currPlayer == player1) {
+            currPlayer = player2;
+        }
+        else {
+            currPlayer = player1;
+        }
+        TextView currentPlayer = findViewById(R.id.currentPlayer);
+        String finalText = currPlayer + getString(R.string.turn_title);
+        currentPlayer.setText(finalText);
+        TextView currColor = findViewById(R.id.currColor);
+        if (currPlayer == player1) {
+            currColor.setText(getString(R.string.black));
+        }
+        else {
+            currColor.setText(getString(R.string.white));
+        }
+        getChessView().getChess().setTurn(true);
+    }
+
     public void onTurnDone(View view) {
 
         if(getChessView().getHasMoved()== false){
@@ -157,6 +267,7 @@ public class ChessActivity extends AppCompatActivity {
         new Thread(() -> {
             Cloud cloud = new Cloud();
             cloud.saveToCloud(player1, player2, getChessView(), currPlayer);
+            yourTurn = false;
 
         }).start();
         TextView currentPlayer = findViewById(R.id.currentPlayer);
@@ -189,6 +300,7 @@ public class ChessActivity extends AppCompatActivity {
             cloud.gameOver(player1, winner);
 
         }).start();
+        cancel = true;
         Intent intent = new Intent(this, EndActivity.class);
         intent.putExtra("winner", winner);
         startActivity(intent);

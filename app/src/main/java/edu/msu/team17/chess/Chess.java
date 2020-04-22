@@ -26,6 +26,10 @@ public class Chess {
     // Collection of chess pieces
     public ArrayList<ChessPiece> pieces = new ArrayList<ChessPiece>();
 
+    private boolean isYourTurn;
+
+    public void setYourTurn(boolean temp){isYourTurn = temp; }
+    public boolean getYourTurn(){return isYourTurn;}
     // Collection of squares
     public ArrayList<Square> squares = new ArrayList<>();
 
@@ -36,6 +40,8 @@ public class Chess {
     private int boardSize;
     //Size of square in pixels;
     private int squareSize;
+
+    private boolean moved = false;
 
     //Paint for creating the squares of the chess board
     private Paint whiteSpace;
@@ -61,6 +67,8 @@ public class Chess {
      * we are not dragging, the variable is null.
      */
     private ChessPiece dragging = null;
+
+    public ChessPiece getDragging(){ return dragging;}
 
     // Most recent relative X touch when dragging
     private float lastRelX;
@@ -406,6 +414,10 @@ public class Chess {
         switch (event.getActionMasked()) {
 
             case MotionEvent.ACTION_DOWN:
+               /** if(isYourTurn == false){
+                    Toast.makeText(view.getContext(), R.string.notYourTurn, Toast.LENGTH_SHORT).show();
+                    return false;
+                }*/
                 return onTouched(relX, relY);
 
             case MotionEvent.ACTION_UP:
@@ -451,7 +463,6 @@ public class Chess {
      * @return true if the touch is handled
      */
     private boolean onTouched(float x, float y) {
-
         // Check each piece to see if it has been hit
         // We do this in reverse order so we find the pieces in front
         for(int p=pieces.size()-1; p>=0;  p--) {
@@ -531,9 +542,10 @@ public class Chess {
                 }
             }
             dragging = null;
+            moved = true;
             return true;
         }
-
+        dragging = null;
         return false;
     }
 
@@ -1186,6 +1198,7 @@ public class Chess {
 
             pieces.get(i).setHasMoved(false);
         }
+        isYourTurn = false;
     }
 
 }

@@ -109,9 +109,11 @@ public class MatchmakingActivity extends AppCompatActivity {
         if (toMatchmake) {
             intent.putExtra("player1", player1);
             intent.putExtra("player2", player2);
+            intent.putExtra("user", player1);
         } else if (!toMatchmake){
             intent.putExtra("player1", player2);
             intent.putExtra("player2", player1);
+            intent.putExtra("user", player1);
         }
         startActivity(intent);
     }
