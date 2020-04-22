@@ -49,6 +49,7 @@ public class Cloud {
     private static final String MATCHMAKING_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/matchmaking.php";
     private static final String NEW_GAME_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/play-game.php";
     private static final String GAME_OVER_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/game-over.php";
+    private static final String GAME_STATUS_URL = "http://webdev.cse.msu.edu/~yunromi/cse476/project2/get-game-status.php";
     private static final String BASE_URL = "https://webdev.cse.msu.edu/~yunromi/cse476/project2/";
     public static final String SAVE_PATH = "save-game.php";
     public static final String LOAD_PATH = "load-game.php";
@@ -563,6 +564,63 @@ public class Cloud {
         }
 
         // Don't forget to remove the "return true" from the bottom of this function.
+    }
+
+    public boolean getGameStatus(String user) {
+        String query = GAME_STATUS_URL + "?user=" + user;
+        Log.i("user", user);
+        Log.i("GAME_STATUS_URL", query);
+        InputStream stream = null;
+
+        try {
+            URL url = new URL(query);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return false;
+            }
+
+            stream = conn.getInputStream();
+
+            /**
+             * Create an XML parser for the result
+             */
+            try {
+                XmlPullParser xmlR = Xml.newPullParser();
+                xmlR.setInput(stream, UTF8);
+
+                xmlR.nextTag();      // Advance to first tag
+                xmlR.require(XmlPullParser.START_TAG, null, "chess");
+
+                String status = xmlR.getAttributeValue(null, "status");
+                String gameStatus = xmlR.getAttributeValue(null, "game_status");
+                Log.i("status", status);
+                if(status.equals("no")) {
+                    Log.i("Inside status return", "False");
+                    return false;
+                }
+                // We are done
+            } catch(XmlPullParserException ex) {
+                return false;
+            } catch(IOException ex) {
+                return false;
+            }
+
+        } catch (MalformedURLException e) {
+            return false;
+        } catch (IOException ex) {
+            return false;
+        } finally {
+            if(stream != null) {
+                try {
+                    stream.close();
+                } catch(IOException ex) {
+                    // Fail silently
+                }
+            }
+        }
+        return true;
     }
 
     private static Retrofit retrofit = new Retrofit.Builder()
