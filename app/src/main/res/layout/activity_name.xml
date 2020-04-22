@@ -30,15 +30,4 @@
         tools:layout_editor_absoluteX="178dp"
         tools:layout_editor_absoluteY="452dp" />
 
-    <Button
-        android:id="@+id/buttonCancel"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:maxLength="50"
-        android:onClick="onStartMain"
-        android:text="@string/cancelText" />
-
 </RelativeLayout>
