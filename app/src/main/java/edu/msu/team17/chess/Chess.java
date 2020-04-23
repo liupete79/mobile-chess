@@ -137,6 +137,11 @@ public class Chess {
         this.currPlayer = currPlayer;
     }
     public Context getContex() {return chessContext;}
+    private String user;
+
+    public void setUser(String user) {
+        this.user = user;
+    }
 
     private Context chessContext;
 
@@ -414,10 +419,10 @@ public class Chess {
         switch (event.getActionMasked()) {
 
             case MotionEvent.ACTION_DOWN:
-               /** if(isYourTurn == false){
+                if(currPlayer.equals(user)==false) {
                     Toast.makeText(view.getContext(), R.string.notYourTurn, Toast.LENGTH_SHORT).show();
                     return false;
-                }*/
+                }
                 return onTouched(relX, relY);
 
             case MotionEvent.ACTION_UP:

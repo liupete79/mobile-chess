@@ -36,7 +36,7 @@ public class ChessActivity extends AppCompatActivity {
     private boolean hasMoved = false;
     private boolean cancel = false;
 
-    private static final long DISCONNECT_TIMER = 30000;
+    private static final long DISCONNECT_TIMER = 240000;
     //5 Minutes, 60 * 5 * 1000 = 300 000
     //30 Seconds, 30 * 1000 = 30 000
 
@@ -74,12 +74,15 @@ public class ChessActivity extends AppCompatActivity {
 
             }
         }
+        getChessView().getChess().setUser(user);
         getChessView().setAllPlayers(currPlayer, player1, player2);
         if(user.equals(currPlayer)){
             getChessView().getChess().setYourTurn(true);
+            yourTurn = true;
         }
         else{
             getChessView().getChess().setYourTurn(false);
+            yourTurn = false;
         }
 
         final Handler handler = new Handler();
@@ -106,11 +109,9 @@ public class ChessActivity extends AppCompatActivity {
                     return;
                 }
                 if(getChessView().getChess().getDragging() == null){
-                    if(hasMoved == false) {
-                            load();
+                    if(yourTurn == false) {
                             checkGame();
-
-
+                            load();
                     }
                 }
                 if(yourTurn){
@@ -190,8 +191,41 @@ public class ChessActivity extends AppCompatActivity {
                 intent.putExtra("winner", cloud.winner);
                 startActivity(intent);
             }
+            String current = cloud.getCurrPlayer();
+            if(yourTurn == false){
+                if(current.equals(user)){
+                    ChessActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            newTurn();
+                        }
+                    });
+                }
+            }
 
         }).start();
+
+    }
+
+    public void newTurn(){
+        yourTurn = true;
+        if (currPlayer == player1) {
+            currPlayer = player2;
+        }
+        else {
+            currPlayer = player1;
+        }
+        TextView currentPlayer = findViewById(R.id.currentPlayer);
+        String finalText = currPlayer + getString(R.string.turn_title);
+        currentPlayer.setText(finalText);
+        TextView currColor = findViewById(R.id.currColor);
+        if (currPlayer == player1) {
+            currColor.setText(getString(R.string.black));
+        }
+        else {
+            currColor.setText(getString(R.string.white));
+        }
+        getChessView().setAllPlayers(currPlayer, player1, player2);
+        getChessView().getChess().setTurn(true);
 
     }
     public void load(){

@@ -396,6 +396,10 @@ public class Cloud {
             return true;
     }
 
+    private String currPlayer;
+    public String getCurrPlayer() {return currPlayer;}
+    public void setCurrPlayer(String player){currPlayer = player;}
+
     public boolean find_opponent(String user) {
         String query = MATCHMAKING_URL + "?user=" + user;
         Log.i("test", user);
@@ -601,6 +605,10 @@ public class Cloud {
                 String winner = xmlR.getAttributeValue(null, "winner");
                 String player1 = xmlR.getAttributeValue(null, "player1");
                 String player2 = xmlR.getAttributeValue(null, "player2");
+                String currPlayer = xmlR.getAttributeValue(null, "currPlayer");
+                if(currPlayer != null){
+                    this.currPlayer = currPlayer;
+                }
                 if(gameStatus.equals("done")){
                     gameDone = true;
                     this.winner = winner;
