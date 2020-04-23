@@ -255,6 +255,7 @@ public class Cloud {
                 }
             }
 
+
         for(i=0; i<ids.length-1; i++) {
 
             // Find the corresponding piece

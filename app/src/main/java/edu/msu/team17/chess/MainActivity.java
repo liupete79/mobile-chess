@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             p1.setText(loginPrefs.getString("username", ""));
             p2.setText(loginPrefs.getString("userpassword", ""));
             rememberMe.setChecked(true);
+            loginPrefsEditor.apply();
         }
     }
 

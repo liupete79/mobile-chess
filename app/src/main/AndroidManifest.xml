@@ -15,9 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".Cloud.ChessService"
-            android:enabled="true"
-            android:exported="true"></service>
+            android:name="$Cloud.ChessService"
+            ></service>
 
         <activity android:name=".MatchmakingActivity" />
         <activity android:name=".EndActivity" />

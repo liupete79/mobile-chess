@@ -27,7 +27,7 @@
     <string name="passwordConf">Confirm Password</string>
     <string name="newUser">New User?</string>
     <string name="newUserLand">New User?\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020</string>
-    <string name="matching">Finding Opponent...</string>
+    <string name="matching">Finding Opponent…</string>
     <string name="newAcct">New Account</string>
     <string name="passwordsNotMatch">Passwords did not match. Try again!</string>
     <string name="acctCreated">Account Created</string>
@@ -75,4 +75,5 @@
     <string name="resign">Resign</string>
     <string name="player_s_turn">Player 1\'s turn!</string>
     <string name="currColor">(Black)</string>
+    <string name="bishop_image">This is a bishop.</string>
 </resources>

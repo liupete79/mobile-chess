@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <EditText
@@ -7,9 +8,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:editable="false"
+        android:inputType="none"
         android:text="@string/createAccount"
-        android:textSize="36sp" />
+        android:textSize="36sp"
+        android:autofillHints=""
+        tools:ignore="LabelFor"
+        tools:targetApi="o" />
 
     <EditText
         android:id="@+id/username"
@@ -19,7 +23,9 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/username"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:autofillHints=""
+        tools:targetApi="o" />
 
     <EditText
         android:id="@+id/password"
@@ -29,7 +35,9 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:autofillHints=""
+        tools:targetApi="o" />
 
     <EditText
         android:id="@+id/passwordConfirm"
@@ -39,7 +47,9 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/passwordConf"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:autofillHints=""
+        tools:targetApi="o" />
 
     <Button
         android:id="@+id/createAccount"
@@ -58,5 +68,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="false"
         android:onClick="onCancel"
-        android:text="@string/cancelText" />
+        android:text="@string/cancelText"
+        tools:ignore="RtlHardcoded" />
 </RelativeLayout>
