@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,6 +35,10 @@ public class ChessActivity extends AppCompatActivity {
     private boolean yourTurn;
     private boolean hasMoved = false;
     private boolean cancel = false;
+
+    private static final long DISCONNECT_TIMER = 30000;
+    //5 Minutes, 60 * 5 * 1000 = 300 000
+    //30 Seconds, 30 * 1000 = 30 000
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -114,6 +119,47 @@ public class ChessActivity extends AppCompatActivity {
                 handler.postDelayed(this, delay);
             }
         }, delay);
+    }
+
+    private Handler disconnectHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            return true;
+        }
+    });
+
+    private Runnable disconnectCallback = new Runnable() {
+        @Override
+        public void run() {
+            // Perform any required operation on disconnect
+            onResign(getChessView());
+        }
+    };
+
+    public void resetDisconnectTimer(){
+        disconnectHandler.removeCallbacks(disconnectCallback);
+        disconnectHandler.postDelayed(disconnectCallback, DISCONNECT_TIMER);
+    }
+
+    public void stopDisconnectTimer(){
+        disconnectHandler.removeCallbacks(disconnectCallback);
+    }
+
+    @Override
+    public void onUserInteraction(){
+        resetDisconnectTimer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        resetDisconnectTimer();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopDisconnectTimer();
     }
 
     public boolean comparePieces(ArrayList<ChessPiece> first, ArrayList<ChessPiece> second){
