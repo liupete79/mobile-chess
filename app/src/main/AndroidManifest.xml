@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <service
             android:name=".Cloud.ChessService"
-        ></service>
+            tools:ignore="InnerclassSeparator"></service>
 
         <activity android:name=".MatchmakingActivity" />
         <activity android:name=".EndActivity" />
